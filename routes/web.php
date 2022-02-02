@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\HRDController;
+use App\Http\Controllers\SatpamController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +17,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('welcome');
+}); */
+Route::get('/',[LoginController::class,'index'])->name('login');
+Route::post('/',[LoginController::class,'store']);
+Route::middleware('auth')->group(function(){
+    Route::get('/logout',[LoginController::class,'logout'])->name('logout');
+    Route::middleware('is.admin')->group(function(){
+        Route::prefix('admin')->group(function(){
+            Route::get('/',[AdminController::class,'index']);
+        });
+    });
+    Route::middleware('is.hrd')->group(function(){
+        Route::prefix('hrd')->group(function(){
+            Route::get('/',[HRDController::class,'index']);
+        });
+    });
+    Route::middleware('is.satpam')->group(function(){
+        Route::prefix('satpam')->group(function(){
+            Route::get('/',[SatpamController::class,'index']);
+        });
+    });
 });
