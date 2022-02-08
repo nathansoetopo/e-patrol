@@ -122,7 +122,7 @@ class ShiftController extends Controller
         foreach($request->user_id as $userID)
         {
             $check=User::find($userID);
-            if(!$check->hasRole('hrd'))
+            if(!$check || !$check->hasRole('hrd'))
             {
                 return ResponseFormatter::error(null, 'User bukan termasuk HRD', 403);
             }
@@ -154,7 +154,7 @@ class ShiftController extends Controller
         foreach($request->user_id as $userID)
         {
             $check=User::find($userID);
-            if(!$check->hasRole('satpam'))
+            if(!$check || !$check->hasRole('satpam'))
             {
                 return ResponseFormatter::error(null, 'User bukan termasuk HRD', 403);
             }
@@ -186,7 +186,7 @@ class ShiftController extends Controller
         foreach($request->user_id as $userID)
         {
             $check=User::find($userID);
-            if(!$check->hasRole('hrd'))
+            if(!$check || !$check->hasRole('hrd'))
             {
                 return ResponseFormatter::error(null, 'User bukan termasuk HRD', 403);
             }
@@ -218,7 +218,7 @@ class ShiftController extends Controller
         foreach($request->user_id as $userID)
         {
             $check=User::find($userID);
-            if(!$check->hasRole('satpam'))
+            if(!$check || !$check->hasRole('satpam'))
             {
                 return ResponseFormatter::error(null, 'User bukan termasuk HRD', 403);
             }
