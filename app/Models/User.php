@@ -38,4 +38,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function shifts()
+    {
+        return $this->belongsToMany(Shift::class,'shift_users','shift_id','user_id');
+    }
 }

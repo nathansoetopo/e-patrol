@@ -66,5 +66,8 @@ class Kernel extends HttpKernel
         'is.admin' => \App\Http\Middleware\IsAdminMiddleware::class,
         'is.hrd' => \App\Http\Middleware\IsHRDMiddleware::class,
         'is.satpam' => \App\Http\Middleware\IsSatpamMiddleware::class,
+        'is.admin.api' => \App\Http\Middleware\IsAdminAPIMiddleware::class,
+        'is.hrd.api' => \App\Http\Middleware\IsHRDAPIMiddleware::class,
+        'is.satpam.api' => \App\Http\Middleware\IsSatpamAPIMiddleware::class,
     ];
 }
