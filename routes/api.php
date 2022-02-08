@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\SatpamController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,14 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::middleware('is.admin.api')->group(function(){
         Route::prefix('admin')->group(function(){
             Route::get('/',[AdminController::class,'index']);
+            Route::get('/accounts',[AdminController::class,'showAllAccounts']);
+            Route::get('/{roleName}/accounts',[AdminController::class,'showRoleAccounts']);
+            Route::post('/register/hrd',[RegisterController::class,'registerHRD']);
+            Route::post('/update/{userID}/hrd',[RegisterController::class,'updateHRD']);
+            Route::get('/delete/{userID}/hrd',[RegisterController::class,'destroyHRD']);
+            Route::post('/register/satpam',[RegisterController::class,'registerSatpam']);
+            Route::post('/update/{userID}/satpam',[RegisterController::class,'updateSatpam']); 
+            Route::get('/delete/{userID}/satpam',[RegisterController::class,'destroySatpam']); 
             Route::get('/shift',[ShiftController::class,'index']);
             Route::get('/show/{shiftID}/shift',[ShiftController::class,'show']);
             Route::post('/create/shift',[ShiftController::class,'store']);
