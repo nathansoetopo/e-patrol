@@ -47,11 +47,17 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::middleware('is.hrd.api')->group(function(){
         Route::prefix('hrd')->group(function(){
             Route::get('/',[HRDController::class,'index']);
+            Route::post('/{shiftID}/presensi',[HRDController::class,'storePresensi']);
+            Route::get('delete/{shiftID}/presensi',[HRDController::class,'deletePresensi']);
+            Route::get('get/{shiftID}/presensi',[HRDController::class,'showPresensiOnShift']);
+            Route::post('/barcode',[HRDController::class,'storeBarcode']);
         });
     });
     Route::middleware('is.satpam.api')->group(function(){
         Route::prefix('satpam')->group(function(){
             Route::get('/',[SatpamController::class,'index']);
+            Route::post('/{presensiID}/{shiftID}/presensi',[SatpamController::class,'uploadPresensi']);
+            Route::post('/{latitude}/{longitude}/scan',[SatpamController::class,'scanBarcode']);
         });
     });
 });

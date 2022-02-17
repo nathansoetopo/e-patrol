@@ -14,6 +14,11 @@ class Shift extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class,'shift_users','user_id','shift_id');
+        return $this->belongsToMany(User::class,'shift_users','shift_id','user_id');
+    }
+
+    public function presensi()
+    {
+        return $this->hasMany(Presensi::class,'shift_id');
     }
 }

@@ -76,7 +76,7 @@ class LoginController extends Controller
                 Auth::attempt(['email' => $request->email, 'password' => $request->password]);
                 $token=$user->createToken('authToken')->plainTextToken;
                 $data=[
-                    'user' => $user,
+                    'user' => $user->load('roles'),
                     'Token Type' => 'Bearer Token',
                     'Token' => $token,
                 ];
