@@ -41,6 +41,16 @@ class User extends Authenticatable
 
     public function shifts()
     {
-        return $this->belongsToMany(Shift::class,'shift_users','shift_id','user_id');
+        return $this->belongsToMany(Shift::class,'shift_users','user_id','shift_id');
+    }
+
+    public function presensi()
+    {
+        return $this->belongsToMany(Presensi::class,'presensi_user','user_id','presensi_id')->withPivot('attachment','status')->withTimestamps();
+    }
+
+    public function barcodes()
+    {
+        return $this->belongsToMany(Barcode::class,'barcode_users','user_id','barcode_id')->withPivot('range','attachment','status')->withTimestamps();
     }
 }

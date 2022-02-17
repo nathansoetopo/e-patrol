@@ -35,7 +35,10 @@ class ShiftSeeder extends Seeder
                 'end_time' => '23:59:00',
             ],
         ])->each(function($shifts){
-            \App\Models\Shift::create($shifts);
+            $shift=\App\Models\Shift::create($shifts);
+            $shift->users()->attach(1, ['created_at' => now(), 'updated_at' => now()]);
+            $shift->users()->attach(2, ['created_at' => now(), 'updated_at' => now()]);
+            $shift->users()->attach(3, ['created_at' => now(), 'updated_at' => now()]);
         });
     }
 }
