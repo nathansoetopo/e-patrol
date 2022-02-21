@@ -13,8 +13,8 @@
     integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <!-- CSS Libraries -->
   <!-- Template CSS -->
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="{{ asset('assets/css/style.css')}}">
+  <link rel="stylesheet" href="{{ asset('assets/css/components.css')}}">
 </head>
 
 <body>
@@ -33,7 +33,7 @@
           <li>
             <a href="#" class="nav-link nav-link-lg nav-link-user">
             <div class="d-sm-none d-lg-inline-block text-white">Hi, Ujang Maman</div>
-            <img alt="image" style="border-style: solid;" src="../assets/img/avatar/avatar-1.png" class="ml-2 border border-white rounded-circle mr-1"></a>
+            <img alt="image" style="border-style: solid;" src="{{ asset('assets/img/avatar/avatar-1.png')}}" class="ml-2 border border-white rounded-circle mr-1"></a>
           </li>
           <li>
             <a href="#" class="nav-link notification-toggle nav-link-lg beep text-white"><i class="far fa-bell fa-lg"></i></a>
@@ -44,7 +44,7 @@
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
             <a href="index.html">RUSYIDA MITRA PERKASA</a>
-            <img src="../images/logo.jpg" class="block text pl-5 pr-5" style="height: 5em" />
+            <img src="{{ asset('images/logo.jpg')}}" class="block text pl-5 pr-5" style="height: 5em" />
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
             <a href="index.html">RMS</a>
@@ -413,18 +413,18 @@
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-  <script src="../assets/js/stisla.js"></script>
+  <script src="{{ asset('assets/js/stisla.js')}}"></script>
 
   <!-- JS Libraies -->
   <script src="../node_modules/jquery-ui-dist/jquery-ui.min.js"></script>
 
   <!-- Template JS File -->
-  <script src="../assets/js/scripts.js"></script>
-  <script src="../assets/js/custom.js"></script>
+  <script src="{{ asset('assets/js/scripts.js')}}"></script>
+  <script src="{{ asset('assets/js/custom.js')}}"></script>
   <!-- Fontawesome JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
   <!-- Page Specific JS File -->
-  <script src="../assets/js/page/components-table.js"></script>
+  <script src="{{ asset('assets/js/page/components-table.js')}}"></script>
 </body>
 
 </html>

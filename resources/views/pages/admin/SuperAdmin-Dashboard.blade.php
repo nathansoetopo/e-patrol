@@ -13,8 +13,8 @@
   <link rel="stylesheet" href="../node_modules/fullcalendar/dist/fullcalendar.min.css">
 
   <!-- Template CSS -->
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
 </head>
 
 <body>
@@ -39,7 +39,7 @@
     <li>
       <a href="#" class="nav-link nav-link-lg nav-link-user">
       <div class="d-sm-none d-lg-inline-block text-white">Hi, Ujang Maman</div>
-      <img alt="image" style="border-style: solid;" src="../assets/img/avatar/avatar-1.png" class="ml-2 border border-dark rounded-circle mr-1"></a>
+      <img alt="image" style="border-style: solid;" src="{{ asset('assets/img/avatar/avatar-1.png') }}" class="ml-2 border border-dark rounded-circle mr-1"></a>
     </li>
     <li>
       <a href="#" class="nav-link notification-toggle nav-link-lg beep text-dark"><i class="far fa-bell fa-lg"></i></a>
@@ -50,7 +50,7 @@
   <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
       <a href="index.html">RUSYIDA MITRA PERKASA</a>
-      <img src="../images/logo.jpeg" class="block text pl-5 pr-5" style="height: 5em" />
+      <img src="{{ asset('images/logo.jpeg') }}" class="block text pl-5 pr-5" style="height: 5em" />
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
       <a href="index.html">RMS</a>
@@ -222,17 +222,17 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-  <script src="../assets/js/stisla.js"></script>
+  <script src="{{ asset('assets/js/stisla.js') }}"></script>
 
   <!-- JS Libraies -->
   <script src="../node_modules/fullcalendar/dist/fullcalendar.min.js"></script>
 
   <!-- Template JS File -->
-  <script src="../assets/js/scripts.js"></script>
-  <script src="../assets/js/custom.js"></script>
+  <script src="{{ asset('assets/js/scripts.js') }}"></script>
+  <script src="{{ asset('assets/js/custom.js') }}"></script>
 
   <!-- Page Specific JS File -->
-	<script src="../assets/js/page/modules-calendar.js"></script>
+	<script src="{{ asset('assets/js/page/modules-calendar.js') }}"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
 </body>

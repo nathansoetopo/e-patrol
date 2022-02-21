@@ -17,8 +17,8 @@
   <link rel="stylesheet" href="../node_modules/summernote/dist/summernote-bs4.css">
 
   <!-- Template CSS -->
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
   <!--Kurang
   1. Responsive button ubah foto (Aman Gan)
   2. Menggunakan form awesome dan string ubah gambar (Sedikit beda dari UI)
@@ -83,7 +83,7 @@
           <li>
             <a href="#" class="nav-link nav-link-lg nav-link-user">
               <div class="d-sm-none d-lg-inline-block text-dark">Hi, Ujang Maman</div>
-              <img alt="image" style="border-style: solid;" src="../assets/img/avatar/avatar-1.png"
+              <img alt="image" style="border-style: solid;" src="{{ asset('assets/img/avatar/avatar-1.png') }}"
                 class="ml-2 border border-dark rounded-circle mr-1">
             </a>
           </li>
@@ -97,7 +97,7 @@
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
             <a href="index.html">RUSYIDA MITRA PERKASA</a>
-            <img src="../images/logo.jpg" class="block text pl-5 pr-5" style="height: 5em" />
+            <img src="{{ asset('images/logo.jpg') }}" class="block text pl-5 pr-5" style="height: 5em" />
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
             <a href="index.html">RMS</a>
@@ -138,7 +138,7 @@
                   <div class="profile-widget-header">
                     <div class="row">
                       <div class="human col-md-5 col-sm-4">
-                        <img alt="image" id="pp" src="../assets/img/avatar/avatar-1.png"
+                        <img alt="image" id="pp" src="{{ asset('assets/img/avatar/avatar-1.png')}}"
                           class="rounded-circle profile-widget-picture mb-10"
                           style="width: 150px; min-width: 150px; max-width: 150px;min-height: 150px; max-height: 150px;">
                         <input type="file" id="image">
@@ -267,14 +267,14 @@
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-  <script src="../assets/js/stisla.js"></script>
+  <script src="{{ asset('assets/js/stisla.js') }}"></script>
 
   <!-- JS Libraies -->
   <script src="../node_modules/summernote/dist/summernote-bs4.js"></script>
 
   <!-- Template JS File -->
-  <script src="../assets/js/scripts.js"></script>
-  <script src="../assets/js/custom.js"></script>
+  <script src="{{ asset('assets/js/scripts.js') }}"></script>
+  <script src="{{ asset('assets/js/custom.js') }}"></script>
   <!-- Fontawesome JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
   <!-- Page Specific JS File -->
