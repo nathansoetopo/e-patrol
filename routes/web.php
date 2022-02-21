@@ -20,8 +20,8 @@ use Illuminate\Support\Facades\Route;
 /* Route::get('/', function () {
     return view('welcome');
 }); */
-Route::get('/',[LoginController::class,'index'])->name('login');
-Route::post('/',[LoginController::class,'store']);
+Route::get('/',[LoginController::class,'login'])->name('login');
+// Route::post('/',[LoginController::class,'store']);
 Route::middleware('auth')->group(function(){
     Route::get('/logout',[LoginController::class,'logout'])->name('logout');
     Route::middleware('is.admin')->group(function(){

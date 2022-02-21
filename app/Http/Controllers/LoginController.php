@@ -61,21 +61,19 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $validator=Validator::make($request->all(),[
-            'email'=>'required|email',
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
             'password' => 'min:8|required',
         ]);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return ResponseFormatter::error($validator, $validator->messages(), 400);
         }
-        $user=User::where('email',$request->email)->first();
-        if($user)
-        {
-            if(Hash::check($request->password, $user->password))
-            {
+        $user = User::where('email', $request->email)->first();
+        if ($user) {
+            if (Hash::check($request->password, $user->password)) {
                 Auth::attempt(['email' => $request->email, 'password' => $request->password]);
-                $token=$user->createToken('authToken')->plainTextToken;
-                $data=[
+                $token = $user->createToken('authToken')->plainTextToken;
+                $data = [
                     'user' => $user->load('roles'),
                     'Token Type' => 'Bearer Token',
                     'Token' => $token,
