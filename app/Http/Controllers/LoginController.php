@@ -10,56 +10,50 @@ use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Validator;
 use App\Helpers\ResponseFormatter;
+use App\Http\Controllers\Controller;
 
 class LoginController extends Controller
 {
-    /* public function index()
+    public function login()
     {
-        return view('auth.login');
+        return view('pages.auth.login');
     }
 
     public function store(Request $request)
     {
-        $validator=Validator::make($request->all(),[
-            'email'=>'required|email',
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
             'password' => 'min:8|required',
         ]);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return redirect('login')->withInput()->withErrors($validator);
         }
-        $user=User::where('email',$request->email)->first();
-        if($user)
-        {
-            if(Hash::check($request->password, $user->password))
-            {
-                if($user->hasRole('admin'))
-                {
+        $user = User::where('email', $request->email)->first();
+        if ($user) {
+            if (Hash::check($request->password, $user->password)) {
+                if ($user->hasRole('admin')) {
                     Auth::login($user);
                     return redirect('/admin');
-                }
-                elseif($user->hasRole('hrd'))
-                {
+                } elseif ($user->hasRole('hrd')) {
                     Auth::login($user);
                     return redirect('/hrd');
-                }
-                elseif($user->hasRole('satpam'))
-                {
+                } elseif ($user->hasRole('satpam')) {
                     Auth::login($user);
                     return redirect('/satpam');
                 }
             }
-            return redirect('/')->with('status','Password anda salah');
+            return redirect('/')->with('status', 'Password anda salah');
         }
-        return redirect('/')->with('status','Email anda salah');
+        return redirect('/')->with('status', 'Email anda salah');
     }
 
     public function logout()
     {
         Auth::logout(request()->user());
         return redirect('/');
-    } */
+    }
 
-    public function login(Request $request)
+    /*public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
@@ -93,5 +87,5 @@ class LoginController extends Controller
             $token,
             'Token Revoked'
         );
-    }
+    }*/
 }
