@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\HRD;
 
 use Carbon\Carbon;
 use App\Models\User;
@@ -9,6 +9,7 @@ use App\Models\Barcode;
 use App\Models\Presensi;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseFormatter;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class HRDController extends Controller

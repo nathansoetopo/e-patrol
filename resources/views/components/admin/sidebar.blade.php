@@ -12,12 +12,12 @@
       <ul class="sidebar-menu">
         <li class="menu-header">&nbsp;</li>
         <li class="menu-header">&nbsp;</li>
-        <li><a class="nav-link" href="HR-dashboard.html"><i class="fas fa-columns"></i> <span class="ml-3">Dashboard</span></a></li>
-        <li><a class="nav-link" href="/pages/admin/"><i class="fas fa-user"></i> <span class="ml-3">Profile</span></a></li>
-        <li><a class="nav-link" href="HR-datashift.html"><i class="fas fa-recycle"></i> <span class="ml-3">Data Shift</span></a></li>
-        <li><a class="nav-link" href=""><i class="fas fa-user-shield"></i> <span class="ml-3">Data Satpam</span></a></li>
-        <li><a class="nav-link" href="HR-Datalokasi.html"><i class="fas fa-map-marked-alt"></i> <span class="ml-3">Data Lokasi</span></a></li>
-        <li><a class="nav-link" href="logout"><i class="fas fa-sign-out-alt"></i> <span class="ml-3">Keluar</span></a></li>
+        <li><a class="nav-link" href="/admin"><i class="fas fa-columns"></i> <span class="ml-3">Dashboard</span></a></li>
+        <li><a class="nav-link" href="/admin/profile"><i class="fas fa-user"></i> <span class="ml-3">Profile</span></a></li>
+        <li><a class="nav-link" href="/admin/data-shift"><i class="fas fa-recycle"></i> <span class="ml-3">Data Shift</span></a></li>
+        <li><a class="nav-link" href="/admin/data-satpam"><i class="fas fa-user-shield"></i> <span class="ml-3">Data Satpam</span></a></li>
+        <li><a class="nav-link" href="/admin/data-lokasi"><i class="fas fa-map-marked-alt"></i> <span class="ml-3">Data Lokasi</span></a></li>
+        <li><a class="nav-link" href="/admin/logout"><i class="fas fa-sign-out-alt"></i> <span class="ml-3">Keluar</span></a></li>
       </ul>
     </aside>
   </div>

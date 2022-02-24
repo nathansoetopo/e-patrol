@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
 use App\Models\Shift;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseFormatter;
-use App\Models\User;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller

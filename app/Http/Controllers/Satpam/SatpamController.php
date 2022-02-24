@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Satpam;
 
 use Carbon\Carbon;
 use App\Models\Shift;
@@ -8,11 +8,21 @@ use App\Models\Barcode;
 use App\Models\Presensi;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseFormatter;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 // use Illuminate\Validation\Validator;
 
 class SatpamController extends Controller
 {
+    public function dataSatpamHRD()
+    {
+        return view('pages.hrd.HR-DataSatpam');
+    }
+
+    public function dataSatpamAdmin()
+    {
+        return view('pages.admin.SuperAdmin-DataSatpam');
+    }
 
     public function isUserMemberOfTheShift($user, $shiftID)
     {
@@ -26,6 +36,10 @@ class SatpamController extends Controller
         // return ResponseFormatter::success(request()->user(),'Ini adalah akun satpam');
     }
 
+
+    public function indexPresensi(){
+        // return view('pages.satpam.')
+    }
     public function uploadPresensi($presensiID, $shiftID)
     {
         $user = request()->user();
@@ -91,6 +105,9 @@ class SatpamController extends Controller
         }
     }
 
+    public function indexScanBarcode(){
+        return view('pages.satpam.Satpam-scan');
+    }
     public function scanBarcode($latitude, $longitude)
     {
         $user = request()->user();

@@ -11,10 +11,19 @@
 
   <!-- CSS Libraries -->
   <link rel="stylesheet" href="../node_modules/fullcalendar/dist/fullcalendar.min.css">
+  <link rel="stylesheet" href="../node_modules/bootstrap-daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="../node_modules/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
+  <link rel="stylesheet" href="../node_modules/select2/dist/css/select2.min.css">
+  <link rel="stylesheet" href="../node_modules/selectric/public/selectric.css">
+  <link rel="stylesheet" href="../node_modules/bootstrap-timepicker/css/bootstrap-timepicker.min.css">
+  <link rel="stylesheet" href="../node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
 
   <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/css/components.css')}}">
+
+    
+
 </head>
 
 <body>
@@ -47,6 +56,18 @@
 
   <!-- JS Libraies -->
   <script src="../node_modules/fullcalendar/dist/fullcalendar.min.js"></script>
+   <script src="../node_modules/prismjs/prism.js"></script>
+   <script src="../node_modules/cleave.js/dist/cleave.min.js"></script>
+   <script src="../node_modules/cleave.js/dist/addons/cleave-phone.us.js"></script>
+   <script src="../node_modules/jquery-pwstrength/jquery.pwstrength.min.js"></script>
+   <script src="../node_modules/bootstrap-daterangepicker/daterangepicker.js"></script>
+   <script src="../node_modules/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+   <script src="../node_modules/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+   <script src="../node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+   <script src="../node_modules/select2/dist/js/select2.full.min.js"></script>
+   <script src="../node_modules/selectric/public/jquery.selectric.min.js"></script>
+
+
 
   <!-- Template JS File -->
   <script src="{{ asset('assets/js/scripts.j')}}s"></script>
@@ -54,6 +75,8 @@
 
   <!-- Page Specific JS File -->
 	<script src="{{ asset('assets/js/page/modu')}}les-calendar.js"></script>
+  <script src="{{ asset('assets/js/page/bootstrap-modal.js')}}"></script>
+  <script src="{{ asset('assets/js/page/forms-advanced-forms.js')}}"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
 </body>

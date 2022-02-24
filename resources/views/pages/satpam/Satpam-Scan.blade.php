@@ -1,3 +1,13 @@
+{{-- @extends('components.satpam.template') --}}
+
+{{-- @section('title','Scan Barcode') --}}
+
+{{-- @section('main-content') --}}
+    
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -20,7 +20,12 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/components.css">
-    <!--Style-->
+    <!--Style--> --}}
+
+    @extends('components.satpam.template')
+
+    @section('title','Profile')
+
     <style>
         #image{
             display: none;
@@ -44,72 +49,9 @@
             background-color: #E5E5E5;
         }
     </style>
-</head>
 
-<body>
-    <div id="app">
-        <div class="main-wrapper">
-            <div class="navbar-bg" style="background-color: #737D74"></div>
-            <nav id="topNavbar" style="background-color: #737D74" class="navbar navbar-expand-lg main-navbar">
-                <form class="form-inline mr-auto">
-                    <ul class="navbar-nav mr-3">
-                        <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg text-dark"><i
-                                    class="fas fa-bars"></i></a>
-                        </li>
-                    </ul>
-                </form>
-                <!--NAVBAR-->
-                <ul class="navbar-nav navbar-right">
-                    <li>
-                        <a href="#" class="nav-link nav-link-lg nav-link-user">
-                            <div class="d-sm-none d-lg-inline-block text-dark">Hi, Ujang Maman</div>
-                            <img alt="image" style="border-style: solid;" src="../assets/img/avatar/avatar-1.png"
-                                class="ml-2 border border-dark rounded-circle mr-1">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link notification-toggle nav-link-lg beep text-dark"><i
-                                class="far fa-bell fa-lg"></i></a>
-                    </li>
-                </ul>
-            </nav>
-            <div class="main-sidebar">
-                <aside id="sidebar-wrapper">
-                    <div class="sidebar-brand">
-                        <a href="index.html">RUSYIDA MITRA PERKASA</a>
-                        <img src="../images/logo.jpg" class="block text pl-5 pr-5" style="height: 5em" />
-                    </div>
-                    <div class="sidebar-brand sidebar-brand-sm">
-                        <a href="index.html">RMS</a>
-                    </div>
+        @section('main-content')
 
-                    <!--SIDEBAR-->
-                    <ul class="sidebar-menu">
-                        <li class="menu-header">&nbsp;</li>
-                        <li class="menu-header">&nbsp;</li>
-                        <li><a class="nav-link" href="blank.html"><i class="fas fa-columns"></i> <span
-                                    class="ml-3">Dashboard</span></a></li>
-                        <li><a class="nav-link" href="blank.html"><i class="fas fa-user"></i> <span
-                                    class="ml-3">Profile</span></a>
-                        </li>
-                        <li><a class="nav-link" href="blank.html"><i class="fas fa-recycle"></i> <span class="ml-3">Data
-                                    Shift</span></a></li>
-                        <li><a class="nav-link" href="blank.html"><i class="fas fa-user-shield"></i> <span
-                                    class="ml-3">Scan
-                                    Barcode</span></a>
-                        </li>
-                        <li><a class="nav-link" href="blank.html"><i class="fas fa-map-marked-alt"></i> <span
-                                    class="ml-3">Presensi
-                                    Piket</span></a>
-                        </li>
-                        <li><a class="nav-link" href="blank.html"><i class="fas fa-map-marked-alt"></i> <span
-                                    class="ml-3">Statistik</span></a>
-                        </li>
-                        <li><a class="nav-link" href="blank.html"><i class="fas fa-sign-out-alt"></i> <span
-                                    class="ml-3">Keluar</span></a></li>
-                    </ul>
-                </aside>
-            </div>
             <!-- Main Content -->
             <div class="main-content">
                 <section class="section">
@@ -193,18 +135,7 @@
                     </div>
                 </section>
             </div>
-            <footer class="main-footer">
-                <div class="footer-left">
-                    Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad
-                        Nauval
-                        Azhar</a>
-                </div>
-                <div class="footer-right">
-                    2.3.0
-                </div>
-            </footer>
-        </div>
-    </div>
+           
     <!--Script Qr Code Scanner and Generator-->
     <!-- General JS Scripts -->
     <script>
@@ -233,25 +164,4 @@
           }
         })
       </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="../assets/js/stisla.js"></script>
-
-    <!-- JS Libraies -->
-    <script src="../node_modules/jquery-ui-dist/jquery-ui.min.js"></script>
-    <!-- Template JS File -->
-    <script src="../assets/js/scripts.js"></script>
-    <script src="../assets/js/custom.js"></script>
-    <!-- Fontawesome JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
-    <!-- Page Specific JS File -->
-    <script src="../assets/js/page/components-table.js"></script>
-</body>
-
-</html>
+    
