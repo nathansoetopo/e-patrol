@@ -21,10 +21,15 @@
                         <div>&nbsp;</div>
                         <div>&nbsp;</div>
                         <div>&nbsp;</div>
-                        <img src="{{ asset('images/scanner2.png') }}" style="border-radius: 10px; width: 100%; height: 150%; background-color: white;" />
+                        <!--Diperbaiki Micel-->
+                        <button id='detectDevice' type="button" class="btn btn" onclick='test()'>
+                          <img src="{{ asset('images/scanner2.png') }}" style="border-radius: 10px; width: 100%; height: 150%; background-color: white;" />
+                          Scan Barcode
+                        </button>
+                        <!--<img src="{{ asset('images/scanner2.png') }}" style="border-radius: 10px; width: 100%; height: 150%; background-color: white;" />
                         <div>
                           <p class="row justify-content-center"><b>Scan QRcode</b></p>
-                        </div>
+                        </div>-->
                         <!-- <div class="avatar-item mb-0">
                           <img alt="image" src="../assets/img/avatar/avatar-5.png" class="img-fluid" data-toggle="tooltip" title="Alfa Zulkarnain">
                           <div class="avatar-badge" title="Editor" data-toggle="tooltip"><i class="fas fa-wrench"></i></div>
@@ -91,6 +96,18 @@
           </div>
         </section>
         </div>
-       
-  
+        <script src="{{ asset('js/detect.min.js') }}"></script>
+       <script>
+         function test()
+          {
+            const ua = detect.parse(navigator.userAgent)
+            if(ua.os.family === "iOS"){
+              window.location = 'https://javascript.plainenglish.io/how-to-detect-a-mobile-device-with-javascript-1c26e0002b31';
+            }else{
+              //console.log(ua.os.family);
+              window.location = '{{ url('satpam/scan')}}';
+            }
+            
+          }
+       </script>
  @endsection

@@ -117,11 +117,9 @@
               </div>
             </div>
           </div>
-        </div>
-            </div>
-          </div>
         </section>
-
+        </div>
+           
         <!--Modal Form Tambah-->
         <form class="modal-part" id="modal-tambah-part">
           <div class="form-group">
@@ -251,5 +249,5 @@
             </div>
           </div>
         </div>
-      
+        @endsection 
 

@@ -17,7 +17,7 @@
           <li><a class="nav-link" href="/satpam/scan"><i class="fas fa-qrcode"></i> <span class="ml-3">Scan Barcode</span></a></li>
           <li><a class="nav-link" href=""><i class="fas fa-book-open"></i> <span class="ml-3">Presensi Piket</span></a></li>
           <li><a class="nav-link" href=""><i class="fas fa-chart-line"></i> <span class="ml-3">Statistik</span></a></li>
-          <li><a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt"></i> <span class="ml-3">Keluar</span></a></li>
+          <li><a class="nav-link" href="/satpam/logout"><i class="fas fa-sign-out-alt"></i> <span class="ml-3">Keluar</span></a></li>
         </ul>
     </aside>
   </div>

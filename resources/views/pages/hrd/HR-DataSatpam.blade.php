@@ -123,7 +123,7 @@
           </div>
         </section>
       </div>
-      
+      @endsection
   <!--Modal Tambah Data-->
   <div class="modal fade" tabindex="-1" role="dialog" id="addData">
     <div class="modal-dialog" role="document">
@@ -331,4 +331,4 @@
       </div>
     </div>
   </div>
-  @endsection
+  
