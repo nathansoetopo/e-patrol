@@ -82,7 +82,7 @@ class HRDController extends Controller
             foreach ($users as $u) {
                 $presensi->users()->attach($u->id);
             }
-            return ResponseFormatter::success($presensi, 'Data presensi baru untuk besok berhasil ditambahkan');
+            // return ResponseFormatter::success($presensi, 'Data presensi baru untuk besok berhasil ditambahkan');
             return response()->withInput()->withToastSuccess($presensi, 'Data Presensi baru untuk besok berhasil ditambahkan');
         } elseif ($diff <= 0) {
             $presensi = Presensi::create([

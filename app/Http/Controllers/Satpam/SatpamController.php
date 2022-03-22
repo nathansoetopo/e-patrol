@@ -24,6 +24,13 @@ class SatpamController extends Controller
         return view('pages.admin.SuperAdmin-DataSatpam');
     }
 
+
+    public function storeSatpam(Request $request)
+    {
+
+        // $satpam = 
+    }
+
     public function isUserMemberOfTheShift($user, $shiftID)
     {
 
@@ -37,7 +44,8 @@ class SatpamController extends Controller
     }
 
 
-    public function indexPresensi(){
+    public function indexPresensi()
+    {
         // return view('pages.satpam.')
     }
     public function uploadPresensi($presensiID, $shiftID)
@@ -105,7 +113,8 @@ class SatpamController extends Controller
         }
     }
 
-    public function indexScanBarcode(){
+    public function indexScanBarcode()
+    {
         return view('pages.satpam.Satpam-scan');
     }
     public function scanBarcode($latitude, $longitude)

@@ -35,6 +35,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/data-satpam', [SatpamController::class, 'dataSatpamHRD']);
             Route::get('/data-lokasi', [DataLokasiController::class, 'dataLokasiHRD']);
             Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+
+            // Route::post('add-shift',[DataShiftController::class])
         });
     });
     Route::middleware('is.satpam')->group(function () {
