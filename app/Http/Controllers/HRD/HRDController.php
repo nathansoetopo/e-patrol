@@ -121,6 +121,8 @@ class HRDController extends Controller
             return back()->withInput()->withToastError(null, 'User tidak punya kewenangan ', 403);
         }
         Presensi::destroy($shiftID);
+
+        $satpam = User::role('satpam')->get();
         // return ResponseFormatter::success(null, 'Data presensi berhasil dihapus');
         return response()->withInput()->withToastSuccess(null, 'Data Presensi berhasil dihapus');
     }

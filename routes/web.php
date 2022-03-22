@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware('is.admin')->group(function () {
         Route::prefix('admin')->group(function () {
             Route::get('/', [AdminController::class, 'index']);
+            Route::post('/',[AdminController::class,'storePresensi']);
             Route::get('/profile', [ProfileController::class, 'adminProfile']);
             Route::get('/data-shift', [DataShiftController::class, 'showShiftAdmin']);
             Route::get('/data-satpam', [SatpamController::class, 'dataSatpamAdmin']);
