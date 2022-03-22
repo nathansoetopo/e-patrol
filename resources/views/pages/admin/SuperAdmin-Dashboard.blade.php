@@ -97,27 +97,22 @@
                   <h4 style="color: black;">Buka Presensi</h4>
                 </div>
                 <div class="card-body">
-                  <div class="form-group">
-                    <label>Hari</label>
-                    <select class="form-control">
-                      <option>Option 1</option>
-                      <option>Option 2</option>
-                      <option>Option 3</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Shift <code></code></label>
-                    <select class="form-control form-control-lg">
-                      <option>Option 1</option>
-                      <option>Option 2</option>
-                      <option>Option 3</option>
-                    </select>
-                  </div>
-                  <div class="text-center pt-1 pb-1">
-                    <a href="#" class="btn btn-light btn-lg btn-round">
-                      Buka Presensi
-                    </a>
-                  </div>
+                  <form action="{{ url('/admin/') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                      <label>Shift <code></code></label>
+                      <select class="form-control form-control-lg" name="shiftID">
+                        @foreach ($shifts as $shift)
+                          <option value="{{ $shift->id }}">{{ $shift->name }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <div class="text-center pt-1 pb-1">
+                      <button type="submit" class="btn btn-light btn-lg btn-round">
+                        Buka Presensi
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
 
