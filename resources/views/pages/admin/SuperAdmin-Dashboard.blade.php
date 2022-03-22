@@ -35,16 +35,20 @@
                       </tr>
                     </thead>
                     <tbody>
+                      <?php $no = 1; ?>
+                      @foreach ($users as $item)
                       <tr>
-                        <th scope="row">1</th>
-                        <td>Michael Adzan Isnaindra</td>
-                        <td>3315621005030005</td>
+                        <th scope="row">{{ $no }}</th>
+                        <td></td>
+                        <td></td>
                         <td>082538493848</td>
                         <td>
                           <span class="badge badge-success">Aktif</span>
                         </td>
+                        <?php $no++; ?>
                       </tr>
-                      <tr>
+                      @endforeach
+                      {{-- <tr>
                         <th scope="row">2</th>
                         <td>Nathan Ari Soetopo</td>
                         <td>3315621005030005</td>
@@ -61,7 +65,7 @@
                         <td>
                           <span class="badge badge-success">Aktif</span>
                         </td>
-                      </tr>
+                      </tr> --}}
                     </tbody>
                   </table>
                   </div>

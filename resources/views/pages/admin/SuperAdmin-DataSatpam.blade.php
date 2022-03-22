@@ -174,6 +174,7 @@
       </div>
     </div>
   </div>
+  
   <!--Modal Edit Data-->
   <div class="modal fade" tabindex="-1" role="dialog" id="editData">
     <div class="modal-dialog" role="document">

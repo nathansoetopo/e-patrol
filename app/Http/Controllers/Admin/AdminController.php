@@ -16,7 +16,8 @@ class AdminController extends Controller
     public function index()
     {
         $shifts = Shift::all();
-        return view('pages.admin.SuperAdmin-Dashboard', compact('shifts'));
+        $users = User::all();
+        return view('pages.admin.SuperAdmin-Dashboard', compact('shifts', 'users'));
         //return ResponseFormatter::success(request()->user(),'Ini adalah akun admin');
     }
 

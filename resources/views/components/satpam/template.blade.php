@@ -11,12 +11,12 @@
 
 
     <!-- CSS Libraries -->
-    <link rel="stylesheet" href="../node_modules/bootstrap-daterangepicker/daterangepicker.css">
-    <link rel="stylesheet" href="../node_modules/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
-    <link rel="stylesheet" href="../node_modules/select2/dist/css/select2.min.css">
-    <link rel="stylesheet" href="../node_modules/selectric/public/selectric.css">
-    <link rel="stylesheet" href="../node_modules/bootstrap-timepicker/css/bootstrap-timepicker.min.css">
-    <link rel="stylesheet" href="../node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
+    <link rel="stylesheet" href="{{ asset('node_modules/bootstrap-daterangepicker/daterangepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('node_modules/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('node_modules/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('node_modules/selectric/public/selectric.css') }}">
+    <link rel="stylesheet" href="{{ asset('node_modules/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
@@ -124,13 +124,13 @@
 
 
   <!-- JS Libraies -->
-  <script src="../node_modules/simpleweather/jquery.simpleWeather.min.js"></script>
-  <script src="../node_modules/chart.js/dist/Chart.min.js"></script>
-  <script src="../node_modules/jqvmap/dist/jquery.vmap.min.js"></script>
-  <script src="../node_modules/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-  <script src="../node_modules/summernote/dist/summernote-bs4.js"></script>
-  <script src="../node_modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
-  <script src="../node_modules/jquery-ui-dist/jquery-ui.min.js"></script>
+  <script src="{{ asset('node_modules/simpleweather/jquery.simpleWeather.min.js') }}"></script>
+  <script src="{{ asset('node_modules/chart.js/dist/Chart.min.js') }}"></script>
+  <script src="{{ asset('node_modules/jqvmap/dist/jquery.vmap.min.js') }}"></script>
+  <script src="{{ asset('node_modules/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
+  <script src="{{ asset('node_modules/summernote/dist/summernote-bs4.js') }}"></script>
+  <script src="{{ asset('node_modules/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
+  <script src="{{ asset('node_modules/jquery-ui-dist/jquery-ui.min.js') }}"></script>
 
   <!-- Template JS File -->
   <script src="{{ asset('assets/js/scripts.js') }}"></script>
