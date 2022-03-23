@@ -20,7 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware('is.admin')->group(function () {
         Route::prefix('admin')->group(function () {
             Route::get('/', [AdminController::class, 'index']);
-            Route::post('/',[AdminController::class,'storePresensi']);
+            Route::post('/', [AdminController::class, 'storePresensi']);
             Route::get('/profile', [ProfileController::class, 'adminProfile']);
             Route::get('/data-shift', [DataShiftController::class, 'showShiftAdmin']);
             Route::get('/data-satpam', [SatpamController::class, 'dataSatpamAdmin']);
@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware('is.hrd')->group(function () {
         Route::prefix('hrd')->group(function () {
             Route::get('/', [HRDController::class, 'index']);
+            Route::post('/', [HRDController::class, 'storePresensi']);
             Route::get('/profile', [ProfileController::class, 'hrdProfile']);
             Route::get('/data-shift', [DataShiftController::class, 'showShiftHRD']);
             Route::get('/data-satpam', [SatpamController::class, 'dataSatpamHRD']);

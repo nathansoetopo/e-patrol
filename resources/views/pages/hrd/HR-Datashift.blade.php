@@ -21,9 +21,11 @@
                   <div class="col-lg-8">
 
                   </div>
-                  <div class="">
-                    <button id="modal-5" style=" width: max-content; height: 3em;" class="btn btn-light">Tambah Shift   <i class="fa fa-plus"></i></button>
-                    </div>
+                  <div style="border-radius: 30px; position: absolute; object-position: center; left: 84%;">
+                    <button style="padding-top: 2%; padding-bottom: 2%;" data-toggle="modal"
+                        data-target="#addData" class="btn btn-light" type="button">Tambah Shift <i
+                            class="fas fa-plus"></i></button>
+                </div>
 
                 </div>
                 <div class="card-body">
@@ -45,7 +47,7 @@
                         <td>Senin</td>
                         <td>12.00</td>
                         <td>
-                          <a href="#" id="modal-7" data-toggle="modal" data-target="#nonAktifData"
+                          <a href="#" id="modal-7" data-toggle="modal" data-target="#editData"
                           class="btn btn-transparent text-center text-dark">
                           <i class="fas fa-edit fa-2x"></i>
                         </a>
@@ -53,38 +55,10 @@
                           class="btn btn-transparent text-center text-dark" data-toggle="tooltip" title="Hapus" data-confirm="Anda yakin nonaktifkan data ini?" data-confirm-yes="alert('Data Terhapus')">
                           <i class="fas fa-power-off fa-2x"></i>
                         </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Nathan Ari Soetopo</td>
-                        <td>Senin</td>
-                        <td>15.00</td>
-                        <td>
-                          <a href="#" id="modal-7" data-toggle="modal" data-target="#nonAktifData"
-                          class="btn btn-transparent text-center text-dark">
-                          <i class="fas fa-edit fa-2x"></i>
-                        </a>
                         <a href="#" data-toggle="modal" data-target="#nonAktifData"
-                          class="btn btn-transparent text-center text-dark" data-toggle="tooltip" title="Hapus" data-confirm="Anda yakin nonaktifkan data ini?" data-confirm-yes="alert('Data Terhapus')">
-                          <i class="fas fa-power-off fa-2x"></i>
-                        </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>Ilham Ahmad Setiaji</td>
-                        <td>Senin</td>
-                        <td>18.00</td>
-                        <td>
-                          <a href="#" id="modal-7" data-toggle="modal" data-target="#nonAktifData"
-                          class="btn btn-transparent text-center text-dark">
-                          <i class="fas fa-edit fa-2x"></i>
-                        </a>
-                        <a href="#" data-toggle="modal" data-target="#nonAktifData"
-                          class="btn btn-transparent text-center text-dark" data-toggle="tooltip" title="Hapus" data-confirm="Anda yakin nonaktifkan data ini?" data-confirm-yes="alert('Data Terhapus')">
-                          <i class="fas fa-power-off fa-2x"></i>
-                        </a>
+                        class="btn btn-transparent text-center text-dark" data-toggle="tooltip" title="Hapus" data-confirm="Anda yakin menghapus data ini?" data-confirm-yes="alert('Data Terhapus')">
+                        <i class="fas fa-trash-alt fa-2x"></i>
+                      </a>
                         </td>
                       </tr>
                     </tbody>
@@ -119,116 +93,168 @@
           </div>
         </section>
         </div>
-           
-        <!--Modal Form Tambah-->
-        <form class="modal-part" id="modal-tambah-part">
-          <div class="form-group">
-            <label>Nama Shift</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <i class="fas fa-pencil-alt"></i>
-                </div>
-              </div>
-              <input type="text" class="form-control" placeholder="Nama" name="nama">
-            </div>
-          </div>
-          <div class="form-group">
-          <label>Hari</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i class="fas fa-calendar"></i>
-              </div>
-            </div>
-            <input type="date" class="form-control">
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Mulai</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i class="fas fa-clock"></i>
-              </div>
-            </div>
-            <input type="text" class="form-control timepicker">
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Selesai</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i class="fas fa-clock"></i>
-              </div>
-            </div>
-            <input type="text" class="form-control timepicker">
-          </div>
-        </div>
-      </div>
-      <div class="form-group mb-0">
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" name="remember" class="custom-control-input" id="remember-me">
-          <label class="custom-control-label" for="remember-me">Data yang dimasukan sudah benar?</label>
-        </div>
-      </div>
-        </form>
 
-        <!--Modal Form Edit-->
-        <form class="modal-part" id="modal-edit-part">
-          <div class="form-group">
-            <label>Nama Shift</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <i class="fas fa-pencil-alt"></i>
-                </div>
-              </div>
-              <input type="text" class="form-control" placeholder="Nama" name="nama">
-            </div>
+<!--Modal Tambah Data-->
+<div class="modal fade" tabindex="-1" role="dialog" id="addData">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Tambah Shift</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
           </div>
-          <div class="form-group">
-          <label>Hari</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i class="fas fa-calendar"></i>
+          <form method="post">
+              <div class="modal-body">
+                  <div class="mb-3">
+                      <div class="form-group">
+                          <label>Nama Shift</label>
+                          <div class="input-group">
+                              <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                      <i class="fas fa-pencil-alt"></i>
+                                  </div>
+                              </div>
+                              <input type="text" class="form-control" placeholder="Nama" name="nama">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="mb-3">
+                      <div class="form-group">
+                          <label>Hari</label>
+                          <div class="input-group">
+                              <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                      <i class="fas fa-calendar"></i>
+                                  </div>
+                              </div>
+                              <input type="date" class="form-control">
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="mb-3">
+                      <div class="form-group">
+                          <label>Mulai</label>
+                          <div class="input-group">
+                              <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                      <i class="fas fa-clock"></i>
+                                  </div>
+                              </div>
+                              <input type="time" class="form-control timepicker">
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="mb-3">
+                      <div class="form-group">
+                          <label>Selesai</label>
+                          <div class="input-group">
+                              <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                      <i class="fas fa-clock"></i>
+                                  </div>
+                              </div>
+                              <input type="time" class="form-control timepicker">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="mb-3 form-check">
+                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                      <label class="form-check-label" for="exampleCheck1">Data yang dimasukkan sudah benar?</label>
+                  </div>
               </div>
-            </div>
-            <input type="date" class="form-control">
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Mulai</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i class="fas fa-clock"></i>
+              <div class="modal-footer bg-whitesmoke br">
+                  <button type="submit"
+                      style="transform: translateX(-80%); width: 174px; border-radius: 30px; background-color: #4285F4;"
+                      class="btn text-white">Tambah Shift</button>
               </div>
-            </div>
-            <input type="text" class="form-control timepicker">
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Selesai</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i class="fas fa-clock"></i>
-              </div>
-            </div>
-            <input type="text" class="form-control timepicker">
-          </div>
-        </div>
+          </form>
       </div>
-      <div class="form-group mb-0">
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" name="remember" class="custom-control-input" id="remember-me">
-          <label class="custom-control-label" for="remember-me">Data yang dimasukan sudah benar?</label>
-        </div>
+  </div>
+</div>
+
+        <!--Modal Edit Data-->
+<div class="modal fade" tabindex="-1" role="dialog" id="editData">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Tambah Shift</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <form method="post">
+              <div class="modal-body">
+                  <div class="mb-3">
+                      <div class="form-group">
+                          <label>Nama Shift</label>
+                          <div class="input-group">
+                              <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                      <i class="fas fa-pencil-alt"></i>
+                                  </div>
+                              </div>
+                              <input type="text" class="form-control" placeholder="Nama" name="nama">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="mb-3">
+                      <div class="form-group">
+                          <label>Hari</label>
+                          <div class="input-group">
+                              <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                      <i class="fas fa-calendar"></i>
+                                  </div>
+                              </div>
+                              <input type="date" class="form-control">
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="mb-3">
+                      <div class="form-group">
+                          <label>Mulai</label>
+                          <div class="input-group">
+                              <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                      <i class="fas fa-clock"></i>
+                                  </div>
+                              </div>
+                              <input type="time" class="form-control timepicker">
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="mb-3">
+                      <div class="form-group">
+                          <label>Selesai</label>
+                          <div class="input-group">
+                              <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                      <i class="fas fa-clock"></i>
+                                  </div>
+                              </div>
+                              <input type="time" class="form-control timepicker">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="mb-3 form-check">
+                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                      <label class="form-check-label" for="exampleCheck1">Data yang dimasukkan sudah benar?</label>
+                  </div>
+              </div>
+              <div class="modal-footer bg-whitesmoke br">
+                  <button type="submit"
+                      style="transform: translateX(-80%); width: 174px; border-radius: 30px; background-color: #4285F4;"
+                      class="btn text-white">Tambah Shift</button>
+              </div>
+          </form>
       </div>
-        </form>
+  </div>
+</div>
 
         <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
           <div class="modal-dialog" role="document">

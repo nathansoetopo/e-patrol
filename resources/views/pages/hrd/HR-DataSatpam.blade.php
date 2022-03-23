@@ -60,13 +60,13 @@
                                   class="btn btn-transparent text-center text-dark">
                                   <i class="far fa-edit fa-2x"></i>
                                 </a>
-                                <a href="#" data-toggle="modal" data-target="#deleteData"
-                                  class="btn btn-transparent text-center text-dark">
-                                  <i class="far fa-trash-alt fa-2x"></i>
-                                </a>
                                 <a href="#" data-toggle="modal" data-target="#nonAktifData"
                                   class="btn btn-transparent text-center text-dark">
                                   <i class="fas fa-power-off fa-2x"></i>
+                                </a>
+                                <a href="#" data-toggle="modal" data-target="#deleteData"
+                                  class="btn btn-transparent text-center text-dark">
+                                  <i class="far fa-trash-alt fa-2x"></i>
                                 </a>
                               </center>
                             </td>
@@ -87,10 +87,10 @@
                                   <i class="far fa-edit fa-2x"></i>
                                 </a>
                                 <a href="#" class="btn btn-transparent text-center text-dark">
-                                  <i class="far fa-trash-alt fa-2x"></i>
+                                  <i class="fas fa-power-off fa-2x"></i>
                                 </a>
                                 <a href="#" class="btn btn-transparent text-center text-dark">
-                                  <i class="fas fa-power-off fa-2x"></i>
+                                  <i class="far fa-trash-alt fa-2x"></i>
                                 </a>
                               </center>
                             </td>
@@ -224,6 +224,7 @@
       </div>
     </div>
   </div>
+  
   <!--Modal Delete Data-->
   <div class="modal fade" tabindex="-1" role="dialog" id="deleteData">
     <div class="modal-dialog" role="document">

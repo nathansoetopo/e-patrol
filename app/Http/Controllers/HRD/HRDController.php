@@ -48,14 +48,10 @@ class HRDController extends Controller
         return response()->withInput()->withToastSuccess($presensi->load('roles'), 'Data Presensi berhasil didapatkan');
     }
 
-    public function storePresensi($shiftID)
+    public function storePresensi()
     {
         $user = request()->user();
-        $shift = Shift::find($shiftID);
-        if (!$this->isUserMemberOfTheShift($user, $shift->id)) {
-            // return ResponseFormatter::error(null, 'User bukan anggota di shift ini', 403);
-            return back()->withInput()->withToastError(null, 'User bukan anggota di shift ini', 403);
-        }
+        $shift = Shift::find(request()->shiftID);
         if (!$user->hasRole('hrd')) {
             // return ResponseFormatter::error(null, 'User tidak punya kewenangan', 403);
             return back()->withInput()->withToastError(null, 'User tidak punya kewenangan', 403);
@@ -69,24 +65,24 @@ class HRDController extends Controller
         $diff = $time2->diffInMinutes($time1, false);
         if ($diff > 0) {
             $presensi = Presensi::create([
-                'shift_id' => $shiftID,
+                'shift_id' => request()->shiftID,
                 'name' => 'Presensi Tanggal ' . Carbon::tomorrow()->format('Y-m-d'),
                 'start_time' => $dateNow . ' ' . $shift->start_time,
                 'end_time' => $dateNow . ' ' . $shift->end_time,
             ]);
             if (Presensi::where('start_time', $presensi->start_time)->where('end_time', $presensi->end_time)->count() > 1) {
                 $presensi->delete();
-                // return ResponseFormatter::error(null, 'Data presensi sudah ada', 403);
+                // return ResponseFormatter::error(null, 'Data presensi sudah', 403);
                 return back()->withInput()->withToastError(null, 'Data presensi sudah ada', 403);
             }
             foreach ($users as $u) {
                 $presensi->users()->attach($u->id);
             }
             // return ResponseFormatter::success($presensi, 'Data presensi baru untuk besok berhasil ditambahkan');
-            return response()->withInput()->withToastSuccess($presensi, 'Data Presensi baru untuk besok berhasil ditambahkan');
+            return redirect()->back()->withInput()->withToastSuccess($presensi, 'Data Presensi baru untuk besok berhasil ditambahkan');
         } elseif ($diff <= 0) {
             $presensi = Presensi::create([
-                'shift_id' => $shiftID,
+                'shift_id' => request()->shiftID,
                 'name' => 'Presensi Tanggal ' . Carbon::now()->format('Y-m-d'),
                 'start_time' => $dateNow . ' ' . $shift->start_time,
                 'end_time' => $dateNow . ' ' . $shift->end_time,
@@ -100,7 +96,7 @@ class HRDController extends Controller
                 $presensi->users()->attach($u->id);
             }
             // return ResponseFormatter::success($presensi, 'Data presensi baru berhasil ditambahkan');
-            return response()->withInput()->withToastSuccess($presensi, 'Data Presensi baru berhasil ditambahkan');
+            return redirect()->back()->withInput()->withToastSuccess($presensi, 'Data Presensi baru berhasil ditambahkan');
         }
     }
 

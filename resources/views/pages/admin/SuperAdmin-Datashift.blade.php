@@ -59,6 +59,10 @@
                                                 data-confirm-yes="alert('Data Terhapus')">
                                                 <i class="fas fa-power-off fa-2x"></i>
                                             </a>
+                                            <a href="#" data-toggle="modal" data-target="#nonAktifData"
+                                            class="btn btn-transparent text-center text-dark" data-toggle="tooltip" title="Hapus" data-confirm="Anda yakin menghapus data ini?" data-confirm-yes="alert('Data Terhapus')">
+                                            <i class="fas fa-trash-alt fa-2x"></i>
+                                          </a>
                                         </td>
                                     </tr>
                                     <tr>

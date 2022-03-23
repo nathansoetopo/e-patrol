@@ -22,7 +22,7 @@
                         <div>&nbsp;</div>
                         <div>&nbsp;</div>
                         <!--Diperbaiki Micel-->
-                        <button id='detectDevice' type="button" class="btn btn" onclick='test()'>
+                        <button id='detectDevice' type="button" class="btn btn" onclick='scan()'>
                           <img src="{{ asset('images/scanner2.png') }}" style="border-radius: 10px; width: 100%; height: 150%; background-color: white;" />
                           Scan Barcode
                         </button>
@@ -41,10 +41,11 @@
                         <div>&nbsp;</div>
                         <div>&nbsp;</div>
                         <div>&nbsp;</div>
-                        <img src="{{ asset('/images/note2.png') }}" style="border-radius: 10px; width: 100%; height: 150%; background-color: white;" />
-                        <div>
-                          <p class="row justify-content-center"><b>Presensi</b></p>
-                        </div>
+                        <button id='detectDevice' type="button" class="btn btn" onclick='presensi()'>
+                          <img src="{{ asset('images/note2.png') }}" style="border-radius: 10px; width: 100%; height: 150%; background-color: white;" />
+                          Presensi
+                        </button>
+                        
                         <!-- <div class="avatar-item mb-0">
                           <img alt="image" src="../assets/img/avatar/avatar-5.png" class="img-fluid" data-toggle="tooltip" title="Alfa Zulkarnain">
                           <div class="avatar-badge" title="Editor" data-toggle="tooltip"><i class="fas fa-wrench"></i></div>
@@ -98,7 +99,7 @@
         </div>
         <script src="{{ asset('js/detect.min.js') }}"></script>
        <script>
-         function test()
+         function scan()
           {
             const ua = detect.parse(navigator.userAgent)
             if(ua.os.family === "iOS"){
@@ -107,6 +108,13 @@
               //console.log(ua.os.family);
               window.location = '{{ url('satpam/scan')}}';
             }
+            
+          }
+         function presensi()
+          {
+          
+              window.location = '{{ url('satpam')}}';
+            
             
           }
        </script>
