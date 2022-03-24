@@ -14,11 +14,13 @@ use Illuminate\Support\Facades\Validator;
 
 class SatpamController extends Controller
 {
+    //data satpam HRD
     public function dataSatpamHRD()
     {
         return view('pages.hrd.HR-DataSatpam');
     }
 
+    //data satpam Admin
     public function dataSatpamAdmin()
     {
         return view('pages.admin.SuperAdmin-DataSatpam');
@@ -40,6 +42,12 @@ class SatpamController extends Controller
     public function index()
     {
         return view('pages.satpam.Satpam-Dashboard');
+        // return ResponseFormatter::success(request()->user(),'Ini adalah akun satpam');
+    }
+
+    public function reportSatpam()
+    {
+        return view('pages.satpam.Satpam-Laporan');
         // return ResponseFormatter::success(request()->user(),'Ini adalah akun satpam');
     }
 

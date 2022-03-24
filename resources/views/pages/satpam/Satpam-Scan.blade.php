@@ -1,20 +1,10 @@
-{{-- @extends('components.satpam.template') --}}
+@extends('components.satpam.template')
 
-{{-- @section('title','Scan Barcode') --}}
+@section('title','Scan Barcode')
 
-{{-- @section('main-content') --}}
+
     
 
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Components &rsaquo; Table &mdash; Stisla</title>
   <!-- General CSS Files -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -56,68 +46,8 @@
     }
   </script>-->
   <!--Copy Scrip Di Dashboard-->
-</head>
 
-<body>
-  <div id="app">
-    <div class="main-wrapper">
-      <div class="navbar-bg" style="background-color: #737D74"></div>
-      <nav id="topNavbar" style="background-color: #737D74" class="navbar navbar-expand-lg main-navbar">
-        <form class="form-inline mr-auto">
-          <ul class="navbar-nav mr-3">
-            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg text-dark"><i class="fas fa-bars"></i></a>
-            </li>
-          </ul>
-        </form>
-        <!--NAVBAR-->
-        <ul class="navbar-nav navbar-right">
-          <li>
-            <a href="#" class="nav-link nav-link-lg nav-link-user">
-              <div class="d-sm-none d-lg-inline-block text-dark">Hi, Ujang Maman</div>
-              <img alt="image" style="border-style: solid;" src="../assets/img/avatar/avatar-1.png"
-                class="ml-2 border border-dark rounded-circle mr-1">
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link notification-toggle nav-link-lg beep text-dark"><i
-                class="far fa-bell fa-lg"></i></a>
-          </li>
-        </ul>
-      </nav>
-      <div class="main-sidebar">
-        <aside id="sidebar-wrapper">
-          <div class="sidebar-brand">
-            <a href="index.html">RUSYIDA MITRA PERKASA</a>
-            <img src="../images/logo.jpg" class="block text pl-5 pr-5" style="height: 5em" />
-          </div>
-          <div class="sidebar-brand sidebar-brand-sm">
-            <a href="index.html">RMS</a>
-          </div>
-
-          <!--SIDEBAR-->
-          <ul class="sidebar-menu">
-            <li class="menu-header">&nbsp;</li>
-            <li class="menu-header">&nbsp;</li>
-            <li><a class="nav-link" href="blank.html"><i class="fas fa-columns"></i> <span
-                  class="ml-3">Dashboard</span></a></li>
-            <li><a class="nav-link" href="blank.html"><i class="fas fa-user"></i> <span class="ml-3">Profile</span></a>
-            </li>
-            <li><a class="nav-link" href="blank.html"><i class="fas fa-recycle"></i> <span class="ml-3">Data
-                  Shift</span></a></li>
-            <li><a class="nav-link" href="blank.html"><i class="fas fa-user-shield"></i> <span class="ml-3">Scan
-                  Barcode</span></a>
-            </li>
-            <li><a class="nav-link" href="blank.html"><i class="fas fa-map-marked-alt"></i> <span class="ml-3">Presensi
-                  Piket</span></a>
-            </li>
-            <li><a class="nav-link" href="blank.html"><i class="fas fa-map-marked-alt"></i> <span
-                  class="ml-3">Statistik</span></a>
-            </li>
-            <li><a class="nav-link" href="blank.html"><i class="fas fa-sign-out-alt"></i> <span
-                  class="ml-3">Keluar</span></a></li>
-          </ul>
-        </aside>
-      </div>
+  @section('main-content')
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
@@ -157,15 +87,7 @@
           </div>
         </section>
       </div>
-      <footer class="main-footer">
-        <div class="footer-left">
-          Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval
-            Azhar</a>
-        </div>
-        <div class="footer-right">
-          2.3.0
-        </div>
-      </footer>
+      
     </div>
   </div>
   <!--Script Qr Code Scanner and Generator-->

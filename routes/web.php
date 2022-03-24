@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [SatpamController::class, 'index']);
             Route::get('/profile', [ProfileController::class, 'satpamProfile']);
             Route::get('/scan', [SatpamController::class, 'indexScanBarcode']);
+            Route::get('/laporan', [SatpamController::class, 'reportSatpam']);
             Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
         });
     });
