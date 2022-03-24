@@ -1,6 +1,6 @@
 @extends('components.satpam.template')
 
-@section('title', 'Dashboard Satpam')
+@section('title', 'Laporan Satpam')
     
 
 <style>
