@@ -124,6 +124,28 @@
 <!-- Main Content -->
 <div class="main-content">
     <section class="section">
+        @if ($errors->any())
+        @foreach ($errors->all() as $error)
+        <div class="alert alert-warning alert-dismissible show fade">
+            <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                    <span>&times;</span>
+                </button>
+                {{ $error }}
+            </div>
+        </div>
+        @endforeach
+        @endif
+        @if (session('status'))
+        <div class="alert alert-info alert-dismissible show fade">
+            <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                    <span>&times;</span>
+                </button>
+                {{ session('status') }}
+            </div>
+        </div>
+        @endif
         <div class="section-header">
             <h1>PT. Rusyida Mitra Perkasa</h1>
         </div>
@@ -142,7 +164,7 @@
                         </div>
                         <div style="border-radius: 30px; position: absolute; object-position: center; left: 84%;">
                             <button style="padding-top: 2%; padding-bottom: 2%;" data-toggle="modal"
-                                data-target="#addEditData" class="btn btn-light" type="button">Tambah Titik <i
+                                data-target="#addData" class="btn btn-light" type="button">Tambah Titik <i
                                     class="fas fa-plus"></i></button>
                         </div>
 
@@ -153,48 +175,46 @@
                                 <thead class="thead-dark">
                                     <tr>
                                         <th scope="col">No</th>
-                                        <th scope="col">Nama Lokasi</th>
-                                        <th scope="col">Koordinat Latitude</th>
-                                        <th scope="col">Koordinat Longitude</th>
-                                        <th scope="col">Generate</th>
-                                        <th scope="col"></th>
+                                        <th scope="col">Nama</th>
+                                        <th scope="col">Latitude</th>
+                                        <th scope="col">Longitude</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($barcodes as $key => $b)
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td>Titik A1</td>
-                                        <td>latitude</td>
-                                        <td>longitude</td>
+                                        <th scope="row">{{ $key+1 }}</th>
+                                        <td>{{ $b->name }}</td>
+                                        <td>{{ $b->latitude }}</td>
+                                        <td>{{ $b->longitude }}</td>
                                         <td>
-                                            <button data-toggle="modal" data-target="#generate" style="center"
-                                                class="btn btn-light content-center">Generate</button>
-                                            <button data-toggle="modal" data-target="#qrDetail" style="center"
-                                                class="btn btn-light content-center">Detail</button>
-                                            
+                                            @if ($b->status == 'ACTIVE')
+                                            <span class="badge badge-success">Aktif</span>
+                                            @else
+                                            <span class="badge badge-danger">Nonaktif</span>
+                                            @endif
                                         </td>
                                         <td>
-                                          <a href="#" data-toggle="modal" data-target="#addEditData"
-                                          class="btn btn-transparent text-center text-dark">
-                                          <i class="far fa-edit fa-2x"></i>
-                                        </a>
-                                            <a href="#" data-toggle="modal" data-target="#nonAktifData"
-                                                class="btn btn-transparent text-center text-dark" data-toggle="tooltip"
-                                                title="Hapus" data-confirm="Anda yakin nonaktifkan data ini?"
-                                                data-confirm-yes="alert('Data Non Aktif')">
+                                            <a href="#" id="modal-7" data-toggle="modal"
+                                                data-target="#barcodeLocation{{ $b->id }}"
+                                                class="btn btn-transparent text-center text-dark">
+                                                <i class="fas fa-qrcode fa-2x"></i>
+                                            </a>
+                                            <a href="#" id="modal-7" data-toggle="modal"
+                                                data-target="#updateDataStatus{{ $b->id }}"
+                                                class="btn btn-transparent text-center text-dark">
                                                 <i class="fas fa-power-off fa-2x"></i>
-                                              </a>
-                                              <a href="#" data-toggle="modal" data-target="#nonAktifData"
-                                                  class="btn btn-transparent text-center text-dark" data-toggle="tooltip"
-                                                  title="Hapus" data-confirm="Anda yakin menghapus data ini?"
-                                                  data-confirm-yes="alert('Data Terhapus')">
-                                                  <i class="fas fa-trash-alt fa-2x"></i>
-                                              </a>
-                                            <!-- <button class="btn btn-danger btn-action mr-1" data-toggle="tooltip" title="Hapus" data-confirm="Anda yakin menghapus data ini?" data-confirm-yes="alert('Data Terhapus')"><i class="fas fa-trash"></i></button>
-                          <button class="btn btn-primary btn-action " id="modal-7" title="Edit"><i class="fas fa-power-off"></i></button> -->
+                                            </a>
+                                            <a href="#" id="modal-7" data-toggle="modal"
+                                                data-target="#deleteData{{ $b->id }}"
+                                                class="btn btn-transparent text-center text-dark">
+                                                <i class="fas fa-trash-alt fa-2x"></i>
+                                            </a>
                                         </td>
                                     </tr>
-                                 
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -202,21 +222,27 @@
                             <div class="buttons">
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination">
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Previous">
+                                        <li
+                                            class="{{ ($barcodes->currentPage() == 1) ? 'page-item disabled' : 'page-item' }}">
+                                            <a class="page-link" href="{{ $barcodes->url($barcodes->currentPage()-1) }}"
+                                                aria-label="Previous">
                                                 <span aria-hidden="true">&laquo;</span>
                                                 <span class="sr-only">Previous</span>
                                             </a>
                                         </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                                <span class="sr-only">Next</span>
-                                            </a>
-                                        </li>
+                                        @for ($i = 1; $i <= $barcodes->lastPage(); $i++)
+                                            <li
+                                                class="{{ ($barcodes->currentPage() == $i) ? 'page-item active' : 'page-item' }}">
+                                                <a class="page-link" href="{{ $barcodes->url($i) }}">{{ $i }}</a></li>
+                                            @endfor
+                                            <li
+                                                class="{{ ($barcodes->currentPage() == $barcodes->lastPage()) ? 'page-item disabled' : 'page-item' }}">
+                                                <a class="page-link" href="{{ $barcodes->url($barcodes->currentPage()+1) }}"
+                                                    aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
+                                            </li>
                                     </ul>
                                 </nav>
                             </div>
@@ -230,140 +256,28 @@
 </div>
 </section>
 
-<!--Modal Tambah Data-->
-<div class="modal fade" tabindex="-1" role="dialog" id="addEditData">
+@include('pages.admin.modal.create-location')
+@include('pages.admin.modal.update-lokasi-status')
+@include('pages.admin.modal.delete-location')
+@include('pages.admin.modal.barcode-location')
+
+<!--Modal QR Code-->
+<div class="modal fade" tabindex="-1" role="dialog" id="qrDetail">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Tambah Titik Lokasi</h5>
+                <h5 class="modal-title">Qr Codes</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="post">
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <div class="form-group">
-                            <label>Nama Titik</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </div>
-                                </div>
-                                <input type="text" class="form-control" placeholder="Nama" name="nama">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="form-group">
-                            <label for="">
-                                <h5><b>Google Maps</b></h5>
-                            </label>
-                            <input type="text" id="lat" name="landing_page_latitude"
-                                placeholder="Masukkan Koordinat Latitude" class="form-control" autofocus
-                                data-parsley-required="true">
-                            {{-- value="{{{ $data->latitude ?? old('latitude') }}}" --}}
-                            <input type="text" id="lng" name="landing_page_longitude"
-                                placeholder="Masukkan Koordinat Longitude" class="form-control" autofocus
-                                data-parsley-required="true">
-                            {{-- value="{{{ $data->longitude ?? old('longitude') }}}" --}}
-                        </div>
-                        <div id="map" style="height:400px; width: 450px;" class="my-3"></div>
-                    </div>
+            <div class="modal-body">
 
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Data yang dimasukkan sudah benar?</label>
-                    </div>
-                </div>
-                <div class="modal-footer bg-whitesmoke br">
-                    <button type="submit"
-                        style="transform: translateX(-80%); width: 174px; border-radius: 30px; background-color: #4285F4;"
-                        class="btn text-white">Simpan Lokasi</button>
-                </div>
-            </form>
+                <h1>Menampilkan QR Codes</h1>
+
+            </div>
         </div>
     </div>
-</div>
-
-
-<!--Modal Edit Data-->
-{{-- Menggunakan 2 modul dengan fungsi map yang sama ada bug tidak tampil mapnya --}}
-<!-- 
-<div class="modal fade" tabindex="-1" role="dialog" id="editData">
-  <div class="modal-dialog" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title">Tambah Titik Lokasi</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-          <form method="post">
-              <div class="modal-body">
-                  <div class="mb-3">
-                      <div class="form-group">
-                          <label>Nama Titik</label>
-                          <div class="input-group">
-                              <div class="input-group-prepend">
-                                  <div class="input-group-text">
-                                      <i class="fas fa-pencil-alt"></i>
-                                  </div>
-                              </div>
-                              <input type="text" class="form-control" placeholder="Nama" name="nama">
-                          </div>
-                      </div>
-                  </div>
-                  <div class="mb-3">
-                      <div class="form-group">
-                          <label for="">
-                              <h5><b>Google Maps</b></h5>
-                          </label>
-                          <input type="text" id="lat" name="landing_page_latitude"
-                              placeholder="Masukkan Koordinat Latitude" class="form-control" autofocus
-                              data-parsley-required="true">
-                          {{-- value="{{{ $data->latitude ?? old('latitude') }}}" --}}
-                          <input type="text" id="lng" name="landing_page_longitude"
-                              placeholder="Masukkan Koordinat Longitude" class="form-control" autofocus
-                              data-parsley-required="true">
-                          {{-- value="{{{ $data->longitude ?? old('longitude') }}}" --}}
-                      </div>
-                      <div id="map" style="height:400px; width: 450px;" class="my-3"></div>
-                  </div>
-
-                  <div class="mb-3 form-check">
-                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                      <label class="form-check-label" for="exampleCheck1">Data yang dimasukkan sudah benar?</label>
-                  </div>
-              </div>
-              <div class="modal-footer bg-whitesmoke br">
-                  <button type="submit"
-                      style="transform: translateX(-80%); width: 174px; border-radius: 30px; background-color: #4285F4;"
-                      class="btn text-white">Tambah Lokasi</button>
-              </div>
-          </form>
-      </div>
-  </div>
-</div> -->
-
-<!--Modal QR Code-->
-<div class="modal fade" tabindex="-1" role="dialog" id="qrDetail">
-  <div class="modal-dialog" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title">Qr Codes</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-          <div class="modal-body">
-          
-            <h1>Menampilkan QR Codes</h1>
-          
-          </div>
-      </div>
-  </div>
 </div>
 
 <!--Modal Generate Code-->

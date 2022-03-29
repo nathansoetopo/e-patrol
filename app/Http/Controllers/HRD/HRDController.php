@@ -27,6 +27,12 @@ class HRDController extends Controller
         // return ResponseFormatter::success(request()->user(),'Ini adalah akun HRD');
     }
 
+    public function dataHRDAdmin()
+    {
+        $hrd = User::role('hrd')->paginate(5);
+        return view('pages.admin.SuperAdmin-DataHRD',compact('hrd'));
+    }
+
     public function showPresensiOnShift($shiftID)
     {
         $user = request()->user();
@@ -121,30 +127,5 @@ class HRDController extends Controller
         $satpam = User::role('satpam')->get();
         // return ResponseFormatter::success(null, 'Data presensi berhasil dihapus');
         return response()->withInput()->withToastSuccess(null, 'Data Presensi berhasil dihapus');
-    }
-
-    public function storeBarcode()
-    {
-        $user = request()->user();
-        if (!$user->hasRole('hrd')) {
-            // return ResponseFormatter::error(null, 'User tidak punya kewenangan', 403);
-            return back()->withInput()->withToastError(null, 'User tidak punya kewenangan ', 403);
-        }
-        $validate = Validator::make(request()->all(), [
-            'latitude' => 'required|numeric|between:-90,90',
-            'longitude' => 'required|numeric|between:-180,180',
-        ]);
-        if ($validate->fails()) {
-            // return ResponseFormatter::error($validate, $validate->messages(), 417);
-            return back()->withInput()->withToastError($validate,  $validate->messages(), 417);
-        }
-        $code = env('APP_URL') . '/api/satpam/' . request()->latitude . '/' . request()->longitude . '/scan';
-        $barcode = Barcode::create([
-            'barcode' => $code,
-            'latitude' => request()->latitude,
-            'longitude' => request()->longitude,
-        ]);
-        // return ResponseFormatter::success($barcode, 'Data barcode baru berhasil ditambahkan');
-        return response()->withInput()->withToastSuccess($barcode, 'Data barcode baru berhasil ditambahkan');
     }
 }

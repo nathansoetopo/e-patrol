@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Satpam;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Shift;
 use App\Models\Barcode;
 use App\Models\Presensi;
@@ -23,7 +24,8 @@ class SatpamController extends Controller
     //data satpam Admin
     public function dataSatpamAdmin()
     {
-        return view('pages.admin.SuperAdmin-DataSatpam');
+        $satpam = User::role('satpam')->paginate(5);
+        return view('pages.admin.SuperAdmin-DataSatpam', compact('satpam'));
     }
 
 

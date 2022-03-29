@@ -15,7 +15,7 @@ class CreateBarcodesTable extends Migration
     {
         Schema::create('barcodes', function (Blueprint $table) {
             $table->id();
-            $table->string('barcode');
+            $table->string('name');
             $table->string('latitude');
             $table->string('longitude');
             $table->enum('status',['ACTIVE','INACTIVE'])->default('ACTIVE');
