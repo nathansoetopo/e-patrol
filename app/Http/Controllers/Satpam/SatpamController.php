@@ -18,7 +18,13 @@ class SatpamController extends Controller
     //data satpam HRD
     public function dataSatpamHRD()
     {
-        return view('pages.hrd.HR-DataSatpam');
+        $user = request()->user();
+        if (!$user->hasRole('hrd')) {
+            // return ResponseFormatter::error(null, 'User tidak punya kewenangan', 403);
+            return back()->withInput()->withToastError(null, 'User tidak punya kewenangan', 403);
+        }
+        $satpam = User::role('satpam')->paginate(5);
+        return view('pages.hrd.HR-DataSatpam', compact('satpam'));
     }
 
     //data satpam Admin

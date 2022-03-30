@@ -23,7 +23,15 @@ class HRDController extends Controller
 
     public function index()
     {
-        return view('pages.hrd.HR-Dashboard');
+        $user = request()->user();
+        if (!$user->hasRole('hrd')) {
+            // return ResponseFormatter::error(null, 'User tidak punya kewenangan', 403);
+            return back()->withInput()->withToastError(null, 'User tidak punya kewenangan', 403);
+        }
+        $shifts = $user->shifts()->get();
+        $users=User::role('satpam')->paginate(5);
+        $presensi=Presensi::paginate(5);
+        return view('pages.hrd.HR-Dashboard',compact('shifts','users','presensi'));
         // return ResponseFormatter::success(request()->user(),'Ini adalah akun HRD');
     }
 

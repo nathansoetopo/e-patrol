@@ -16,6 +16,13 @@ class PresensiController extends Controller
         return view('pages.admin.SuperAdmin-Datapresensi', compact('presensi','shifts'));
     }
 
+    public function indexHRD()
+    {
+        $presensi=Presensi::paginate(5);
+        $shifts=Shift::all();
+        return view('pages.hrd.HR-Datapresensi', compact('presensi','shifts'));
+    }
+
     public function storePresensi()
     {
         $user = request()->user();
@@ -116,9 +123,19 @@ class PresensiController extends Controller
         }
         $satpam = $presensi->users()->paginate(5);
         // return $satpam;
-        return view('pages.admin.SuperAdmin-DataPresensiUsers',[
-            'satpam' => $satpam,
-            'presensi' => $presensi,
-        ]);
+        if($user->hasRole('admin'))
+        {
+            return view('pages.admin.SuperAdmin-DataPresensiUsers',[
+                'satpam' => $satpam,
+                'presensi' => $presensi,
+            ]);
+        }
+        elseif($user->hasRole('hrd'))
+        {
+            return view('pages.hrd.HR-DataPresensiUsers',[
+                'satpam' => $satpam,
+                'presensi' => $presensi,
+            ]);
+        }
     }
 }

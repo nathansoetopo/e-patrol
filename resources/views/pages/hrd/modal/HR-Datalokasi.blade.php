@@ -256,10 +256,10 @@
 </div>
 </section>
 
-@include('pages.hrd.modal.create-location')
-@include('pages.hrd.modal.update-lokasi-status')
-@include('pages.hrd.modal.delete-location')
-@include('pages.hrd.modal.barcode-location')
+@include('pages.admin.modal.create-location')
+@include('pages.admin.modal.update-lokasi-status')
+@include('pages.admin.modal.delete-location')
+@include('pages.admin.modal.barcode-location')
 
 <!--Modal QR Code-->
 <div class="modal fade" tabindex="-1" role="dialog" id="qrDetail">

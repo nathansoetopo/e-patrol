@@ -17,7 +17,8 @@ class DataLokasiController extends Controller
 
     public function dataLokasiHRD()
     {
-        return view('pages.hrd.HR-DataLokasi');
+        $barcodes = Barcode::paginate(5);
+        return view('pages.hrd.HR-DataLokasi',compact('barcodes'));
     }
 
     public function storeBarcode()

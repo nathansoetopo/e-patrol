@@ -66,8 +66,26 @@ Route::middleware('auth')->group(function () {
             Route::post('/', [HRDController::class, 'storePresensi']);
             Route::get('/profile', [ProfileController::class, 'hrdProfile']);
             Route::get('/data-shift', [DataShiftController::class, 'showShiftHRD']);
+            Route::get('/data-shift/{shiftID}/update-status', [ShiftController::class, 'updateShiftStatus']);
+            Route::get('/data-shift/{shiftID}/data-satpam', [DataShiftController::class, 'showSatpam']);
+            Route::post('/data-shift/{shiftID}/assign-satpam', [ShiftController::class, 'assignSatpamToShift']);
+            Route::get('/data-shift/{shiftID}/{satpamID}/resign-satpam', [ShiftController::class, 'resignSatpamFromShift']);
+            Route::get('/data-presensi', [PresensiController::class, 'indexHRD']);
+            Route::post('/data-presensi', [PresensiController::class, 'storePresensi']);
+            Route::get('/data-presensi/{presensiID}/update-status', [PresensiController::class, 'updatePresensiStatus']);
+            Route::get('/data-presensi/{presensiID}/delete-data', [PresensiController::class, 'deletePresensi']);
+            Route::get('/data-presensi/{presensiID}/data-users', [PresensiController::class, 'showUsersByPresensi']);
             Route::get('/data-satpam', [SatpamController::class, 'dataSatpamHRD']);
+            Route::post('/data-satpam', [RegisterController::class, 'registerSatpam']);
+            Route::post('/data-satpam/{shiftID}/update-data', [RegisterController::class, 'updateSatpam']);
+            Route::get('/data-satpam/{shiftID}/update-status', [RegisterController::class, 'updateSatpamStatus']);
+            Route::get('/data-satpam/{shiftID}/delete-data', [RegisterController::class, 'destroySatpam']);
             Route::get('/data-lokasi', [DataLokasiController::class, 'dataLokasiHRD']);
+            Route::post('/data-lokasi', [DataLokasiController::class, 'storeBarcode']);
+            Route::post('/data-lokasi/{lokasiID}/update-data', [DataLokasiController::class, 'updateBarcode']);
+            Route::get('/data-lokasi/{lokasiID}/update-status', [DataLokasiController::class, 'updateBarcodeStatus']);
+            Route::get('/data-lokasi/{lokasiID}/delete-data', [DataLokasiController::class, 'deleteBarcode']);
+            Route::get('/data-lokasi/{lokasiID}/download-barcode', [DataLokasiController::class, 'downloadBarcode']);
             Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 

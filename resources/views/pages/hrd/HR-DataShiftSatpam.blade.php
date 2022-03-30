@@ -1,6 +1,6 @@
 @extends('components.hrd.template')
 
-@section('title','Data Satpam')
+@section('title','Data Shift Satpam')
     
 @section('main-content')
 
@@ -30,7 +30,7 @@
           </div>
           @endif
           <div class="section-header">
-            <h1>Data Satpam</h1>
+            <h1>Data Satpam Shift</h1>
           </div>
           <div class="section-body">
             <div class="row">
@@ -49,7 +49,7 @@
                     </form>
                     <div style="border-radius: 30px; position: absolute; object-position: center; left: 84%;">
                       <button style="padding-top: 2%; padding-bottom: 2%;" data-toggle="modal" data-target="#addData"
-                        class="btn btn-light" type="button">Tambah Data <i class="fas fa-plus"></i></button>
+                        class="btn btn-light" type="button">Assign Satpam <i class="fas fa-plus"></i></button>
                     </div>
                   </div>
                   <div class="card-body p-4">
@@ -84,14 +84,6 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="#" id="modal-7" data-toggle="modal" data-target="#updateData{{ $s->id }}"
-                                        class="btn btn-transparent text-center text-dark">
-                                        <i class="fas fa-edit fa-2x"></i>
-                                    </a>
-                                    <a href="#" id="modal-7" data-toggle="modal" data-target="#updateDataStatus{{ $s->id }}"
-                                        class="btn btn-transparent text-center text-dark">
-                                        <i class="fas fa-power-off fa-2x"></i>
-                                    </a>
                                     <a href="#" id="modal-7" data-toggle="modal" data-target="#deleteData{{ $s->id }}"
                                         class="btn btn-transparent text-center text-dark">
                                     <i class="fas fa-trash-alt fa-2x"></i>
@@ -138,9 +130,6 @@
           </div>
         </section>
       </div>
-
-  @include('pages.hrd.modal.create-satpam')
-  @include('pages.hrd.modal.update-satpam')
-  @include('pages.hrd.modal.update-satpam-status')
-  @include('pages.hrd.modal.delete-satpam')
+  @include('pages.hrd.modal.assign-satpam-shift')
+  @include('pages.hrd.modal.resign-satpam-shift')
   @endsection
