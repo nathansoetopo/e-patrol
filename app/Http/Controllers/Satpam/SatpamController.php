@@ -75,6 +75,10 @@ class SatpamController extends Controller
             // return ResponseFormatter::error(null, 'Data presensi tidak ditemukan', 404);
             return back()->withInput()->withToastError(null, 'Data presensi tidak ditemukan', 404);
         }
+        if($presensi->users()->where('user_id',request())->where('attachment','!=',NULL)->exists())
+        {
+            return redirect()->back()->with('status', 'Anda sudah melakukan presensi');
+        }
         $now = Carbon::now();
         $start_time = Carbon::parse($presensi->start_time);
         $end_time = Carbon::parse($presensi->end_time);
