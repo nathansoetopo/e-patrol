@@ -97,7 +97,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [SatpamController::class, 'index']);
             Route::get('/profile', [ProfileController::class, 'satpamProfile']);
             Route::get('/scan', [SatpamController::class, 'indexScanBarcode']);
-            Route::get('/laporan', [SatpamController::class, 'reportSatpam']);
+            Route::get('/laporan', [SatpamController::class, 'showPresensi']);
+            Route::get('/laporan/{presensiID}/detail', [SatpamController::class, 'reportSatpam']);
+            Route::post('/laporan/{presensiID}/upload', [SatpamController::class, 'uploadPresensi']);
             Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
         });
     });

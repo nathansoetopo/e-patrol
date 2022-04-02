@@ -18,7 +18,13 @@ class PresensiController extends Controller
 
     public function indexHRD()
     {
-        $presensi=Presensi::paginate(5);
+        $user = request()->user();
+        $presensi=$user->shifts()->with('presensi')->paginate(5);
+        /* $data = array();
+        foreach($presensi as $p)
+        {
+            array_push($data, $p);
+        } */
         $shifts=Shift::all();
         return view('pages.hrd.HR-Datapresensi', compact('presensi','shifts'));
     }

@@ -30,7 +30,7 @@ class HRDController extends Controller
         }
         $shifts = $user->shifts()->get();
         $users=User::role('satpam')->paginate(5);
-        $presensi=Presensi::paginate(5);
+        $presensi=$user->shifts()->with('presensi')->paginate(5);
         return view('pages.hrd.HR-Dashboard',compact('shifts','users','presensi'));
         // return ResponseFormatter::success(request()->user(),'Ini adalah akun HRD');
     }

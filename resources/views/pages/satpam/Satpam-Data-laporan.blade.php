@@ -1,4 +1,4 @@
-@extends('components.hrd.template')
+@extends('components.satpam.template')
 
 @section('title','Data Presensi')
 
@@ -45,11 +45,11 @@
                         <div class="col-lg-8">
 
                         </div>
-                        <div style="border-radius: 30px; position: absolute; object-position: center; left: 84%;">
+                        {{-- <div style="border-radius: 30px; position: absolute; object-position: center; left: 84%;">
                             <button style="padding-top: 2%; padding-bottom: 2%;" data-toggle="modal"
                                 data-target="#addData" class="btn btn-light" type="button">Tambah Presensi <i
                                     class="fas fa-plus"></i></button>
-                        </div>
+                        </div> --}}
 
                     </div>
                     <div class="card-body">
@@ -66,36 +66,28 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($presensi as $key => $item)
-                                    @foreach ($item->presensi as $p)
+                                    @foreach ($presensi as $key => $p)
                                     <tr>
                                         <th scope="row">{{ $key+1 }}</th>
                                         <td>{{ $p->name }}</td>
                                         <td>{{ $p->start_time }}</td>
                                         <td>{{ $p->end_time }}</td>
                                         <td>
-                                            @if ($p->status == 'ACTIVE')
-                                            <span class="badge badge-success">Aktif</span>
-                                            @else
-                                            <span class="badge badge-danger">Nonaktif</span>
+                                            @if ($p->pivot->status == 'ON TIME')
+                                            <span class="badge badge-success">On Time</span>
+                                            @elseif($p->pivot->status == 'LATE')
+                                            <span class="badge badge-warning">Late</span>
+                                            @elseif($p->pivot->status == 'SKIP')
+                                            <span class="badge badge-danger">Skip</span>
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ url('/hrd/data-presensi/'.$p->id.'/data-users') }}" id="modal-7"
+                                            <a href="{{ url('/satpam/laporan/'.$p->id.'/detail') }}" id="modal-7"
                                                 class="btn btn-transparent text-center text-dark">
-                                                <i class="fas fa-user fa-2x"></i>
-                                            </a>
-                                            <a href="#" id="modal-7" data-toggle="modal" data-target="#updateDataStatus{{ $p->id }}"
-                                                class="btn btn-transparent text-center text-dark">
-                                                <i class="fas fa-power-off fa-2x"></i>
-                                            </a>
-                                            <a href="#" id="modal-7" data-toggle="modal" data-target="#deleteData{{ $p->id }}"
-                                                class="btn btn-transparent text-center text-dark">
-                                            <i class="fas fa-trash-alt fa-2x"></i>
+                                                <i class="fas fa-upload fa-2x"></i>
                                             </a>
                                         </td>
                                     </tr>
-                                    @endforeach
                                     @endforeach
                                 </tbody>
                             </table>
@@ -138,7 +130,4 @@
 </div>
 </div>
 </section>
-@include('pages.hrd.modal.create-presensi')
-@include('pages.hrd.modal.update-presensi-status')
-@include('pages.hrd.modal.delete-presensi')
 @endsection

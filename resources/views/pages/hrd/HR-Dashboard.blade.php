@@ -146,7 +146,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($presensi as $key => $u)
+                                        @foreach ($presensi as $key => $p)
+                                        @foreach ($p->presensi as $u)
                                         <tr>
                                             <th scope="row">{{ $key+1 }}</th>
                                             <td>{{ $u->name }}</td>
@@ -160,6 +161,7 @@
                                                 @endif
                                             </td>
                                         </tr>
+                                        @endforeach
                                         @endforeach
                                     </tbody>
                                 </table>

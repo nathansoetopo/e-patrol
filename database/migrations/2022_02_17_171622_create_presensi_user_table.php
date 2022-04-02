@@ -17,6 +17,8 @@ class CreatePresensiUserTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('presensi_id')->constrained('presensi')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('laporan')->nullable();
+            $table->string('detail')->nullable();
             $table->string('attachment')->nullable();
             $table->enum('status',['SKIP','ON TIME','LATE'])->default('SKIP');
             $table->timestamps();

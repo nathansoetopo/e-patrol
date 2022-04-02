@@ -53,9 +53,22 @@ class SatpamController extends Controller
         // return ResponseFormatter::success(request()->user(),'Ini adalah akun satpam');
     }
 
-    public function reportSatpam()
+    public function showPresensi()
     {
-        return view('pages.satpam.Satpam-Laporan');
+        $user = request()->user();
+        if (!$user->hasRole('satpam')) {
+            // return ResponseFormatter::error(null, 'User tidak punya kewenangan', 403);
+            return redirect()->back()->with('status', 'User tidak punya kewenangan');
+        }
+        $presensi=$user->presensi()->paginate(5);
+        return view('pages.satpam.Satpam-Data-laporan', compact('presensi'));
+    }
+
+    public function reportSatpam($presensiID)
+    {
+        $user = request()->user();
+
+        return view('pages.satpam.Satpam-Laporan-upload', compact('presensiID'));
         // return ResponseFormatter::success(request()->user(),'Ini adalah akun satpam');
     }
 
@@ -64,26 +77,22 @@ class SatpamController extends Controller
     {
         // return view('pages.satpam.')
     }
-    public function uploadPresensi($presensiID, $shiftID)
+    public function uploadPresensi($presensiID)
     {
         $user = request()->user();
-        $shift = Shift::find($shiftID);
-        if (!$this->isUserMemberOfTheShift($user, $shift->id)) {
-            // return ResponseFormatter::error(null, 'User bukan anggota di shift ini', 403);
-            return back()->withInput()->withToastError(null, 'User bukan anggota di shift ini', 403);
-        }
         if (!$user->hasRole('satpam')) {
             // return ResponseFormatter::error(null, 'User tidak punya kewenangan', 403);
-            return back()->withInput()->withToastError(null, 'User tidak punya kewenangan', 403);
+            return redirect('satpam/laporan/')->with('status', 'Anda tidak punya kewenangan');
         }
         $presensi = Presensi::find($presensiID);
         if (!$presensi) {
             // return ResponseFormatter::error(null, 'Data presensi tidak ditemukan', 404);
-            return back()->withInput()->withToastError(null, 'Data presensi tidak ditemukan', 404);
+            return redirect('satpam/laporan/')->with('status', 'Presensi tidak ditemukan');
         }
+        $shift = $presensi->shifts()->first();
         if($presensi->users()->where('user_id',request())->where('attachment','!=',NULL)->exists())
         {
-            return redirect()->back()->with('status', 'Anda sudah melakukan presensi');
+            return redirect('satpam/laporan/')->with('status', 'Anda sudah melakukan presensi');
         }
         $now = Carbon::now();
         $start_time = Carbon::parse($presensi->start_time);
@@ -92,44 +101,52 @@ class SatpamController extends Controller
         $diffEnd = $end_time->diffInMinutes($now, false);
         if ($diffStart < 0) {
             // return ResponseFormatter::error(null, 'Waktu presensi belum dimulai', 403);
-            return back()->withInput()->withToastError(null, 'waktu presensi belum dimulai', 403);
+            return redirect('satpam/laporan/')->with('status', 'Waktu presensi belum dimulai');
         }
         if ($diffEnd < 0) {
             $validate = Validator::make(request()->all(), [
+                'laporan' => 'required',
+                'detail' => 'required',
                 'attachment' => 'required|max:10240|mimes:jpg,png,jpeg',
             ]);
             if ($validate->fails()) {
                 // return ResponseFormatter::error($validate, $validate->messages(), 417);
-                return back()->withInput()->withToastError($validate, $validate->messages(), 417);
+                return redirect('satpam/laporan/')->withInput()->withError($validate);
             }
             if (request()->hasFile('attachment')) {
                 $name = time() . "_" . request()->attachment->getClientOriginalName();
                 request()->attachment->move(public_path('Data/' . $shift->name . '/' . $presensi->name), $name);
             }
             $presensi->users()->updateExistingPivot($user->id, array(
+                'laporan' => request()->laporan,
+                'detail' => request()->detail,
                 'attachment' => $name,
                 'status' => 'ON TIME',
             ));
             // return ResponseFormatter::success($presensi, 'Anda presensi tepat waktu');
-            return response()->withInput()->withToastSuccess($presensi, 'Anda presensi tepat waktu');
+            return redirect('satpam/laporan/')->with('status', 'Anda presensi tepat waktu');
         } elseif ($diffEnd > 0) {
             $validate = Validator::make(request()->all(), [
+                'laporan' => 'required',
+                'detail' => 'required',
                 'attachment' => 'required|max:10240|mimes:jpg,png,jpeg',
             ]);
             if ($validate->fails()) {
                 // return ResponseFormatter::error($validate, $validate->messages(), 417);
-                return back()->withInput()->withToastError($validate, $validate->messages(), 417);
+                return redirect('satpam/laporan/')->withInput()->withError($validate);
             }
             if (request()->hasFile('attachment')) {
                 $name = time() . "_" . request()->attachment->getClientOriginalName();
                 request()->attachment->move(public_path('data/' . $user->name . '/' . $presensi->name), $name);
             }
             $presensi->users()->updateExistingPivot($user->id, array(
+                'laporan' => request()->laporan,
+                'detail' => request()->detail,
                 'attachment' => $name,
                 'status' => 'LATE',
             ));
             // return ResponseFormatter::success($presensi, 'Anda presensi terlambat');
-            return response()->withInput()->withToastSuccess($presensi, 'Anda presensi terlambat');
+            return redirect('satpam/laporan/')->with('status', 'Anda presensi terlambat');
         }
     }
 

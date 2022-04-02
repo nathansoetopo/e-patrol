@@ -1,5 +1,6 @@
 <!--Modal Tambah Data-->
-@foreach ($presensi as $shift)
+@foreach ($presensi as $p)
+@foreach ($p->presensi as $shift)
 <div class="modal fade" tabindex="-1" role="dialog" id="deleteData{{ $shift->id }}">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -20,4 +21,5 @@
         </div>
     </div>
 </div>
+@endforeach
 @endforeach
