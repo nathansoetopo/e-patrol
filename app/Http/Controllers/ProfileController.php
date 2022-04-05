@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -28,10 +30,30 @@ class ProfileController extends Controller
 
     public function hrdProfile()
     {
-        return view('pages.hrd.HR-Profile');
+        $id = Auth::user()->id;
+        $data = User::find($id);
+        return view('pages.hrd.HR-Profile', compact('data'));
     }
 
     public function satpamProfile(){
-        return view('pages.satpam.Satpam-profile');
+        $id = Auth::user()->id;
+        $data = User::find($id);
+        return view('pages.satpam.Satpam-profile', compact('data'));
+    }
+
+    public function StoreProfileSatpam(Request $request){
+        $user = Auth::user()->id;
+        $find = User::find($user);
+        $find->update($request->except(['image']));
+        //Tambahin Validator
+        return redirect('satpam/profile');
+    }
+
+    public function StoreProfileHrd(Request $request){
+        /* $user = request()->user();
+        $user->update($request->except(['image']));
+        //Tambahin Validator
+        return redirect('hrd/profile'); */
+        dd($request);
     }
 }

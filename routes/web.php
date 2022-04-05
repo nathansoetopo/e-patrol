@@ -65,6 +65,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [HRDController::class, 'index']);
             Route::post('/', [HRDController::class, 'storePresensi']);
             Route::get('/profile', [ProfileController::class, 'hrdProfile']);
+            Route::post('/update-profile-hrd', [ProfileController::class, 'StoreProfileHrd']);
             Route::get('/data-shift', [DataShiftController::class, 'showShiftHRD']);
             Route::get('/data-shift/{shiftID}/update-status', [ShiftController::class, 'updateShiftStatus']);
             Route::get('/data-shift/{shiftID}/data-satpam', [DataShiftController::class, 'showSatpam']);
@@ -96,6 +97,7 @@ Route::middleware('auth')->group(function () {
         Route::prefix('satpam')->group(function () {
             Route::get('/', [SatpamController::class, 'index']);
             Route::get('/profile', [ProfileController::class, 'satpamProfile']);
+            Route::post('/update-profile-satpam', [ProfileController::class, 'StoreProfileSatpam']);
             Route::get('/scan', [SatpamController::class, 'indexScanBarcode']);
             Route::get('/laporan', [SatpamController::class, 'showPresensi']);
             Route::get('/laporan/{presensiID}/detail', [SatpamController::class, 'reportSatpam']);
