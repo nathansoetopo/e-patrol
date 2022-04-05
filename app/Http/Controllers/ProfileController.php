@@ -10,8 +10,9 @@ class ProfileController extends Controller
 {
     public function adminProfile()
     {
-        
-        return view('pages.admin.SuperAdmin-Profile');
+        $id = Auth::user()->id;
+        $data = User::find($id);
+        return view('pages.admin.SuperAdmin-Profile', compact('data'));
     }
 
     // public function store(Request $request){
