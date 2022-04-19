@@ -7,6 +7,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -46,11 +47,16 @@ class User extends Authenticatable
 
     public function presensi()
     {
-        return $this->belongsToMany(Presensi::class,'presensi_user','user_id','presensi_id')->withPivot('attachment','status')->withTimestamps();
+        return $this->belongsToMany(Presensi::class,'presensi_user','user_id','presensi_id')->withPivot('laporan','detail','attachment','status')->withTimestamps();
     }
 
     public function barcodes()
     {
         return $this->belongsToMany(Barcode::class,'barcode_users','user_id','barcode_id')->withPivot('range','attachment','status')->withTimestamps();
     }
+
+    // public function user_presensi()
+    // {
+    //     return $this->hasMany(Presensi::class);
+    // }
 }

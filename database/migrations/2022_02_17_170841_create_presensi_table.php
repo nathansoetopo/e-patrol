@@ -15,6 +15,7 @@ class CreatePresensiTable extends Migration
     {
         Schema::create('presensi', function (Blueprint $table) {
             $table->id();
+            // $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('shift_id')->constrained('shifts')->onUpdate('cascade')->onDelete('cascade');
             $table->string('name');
             $table->timestamp('start_time')->useCurrent();
