@@ -39,7 +39,7 @@
             <div class="col-12">
               <div class="card bg-transparent">
                 <div class="card-body" style="padding: 0%;">
-                  <div class="container" style="background-color: #DFE3E0;">
+                  <div class="container-fluid" style="background-color: #DFE3E0;">
                     <div class="row human" style="padding: 3%;">
                       <img alt="image" id="pp" src="../assets/img/avatar/avatar-1.png" class="rounded-circle profile-widget-picture mb-3 mt-3" style="width: 100px; min-width: 100px; max-width: 100px;min-height: 100px; max-height: 100px;">
                       <input type="file" id="image" name="image">
@@ -51,7 +51,7 @@
                     </div>
                   </div>
                   <br>
-                  <div class="container bg-white">
+                  <div class="container-fluid bg-white">
                     <!--Untuk Form-->
                     <form method="post" class="needs-validation" novalidate="" action="{{url('satpam/update-profile-satpam')}}">
                       @csrf

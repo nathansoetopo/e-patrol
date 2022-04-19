@@ -16,6 +16,7 @@ use App\Http\Controllers\Satpam\SatpamController;
 /* Route::get('/', function () {
     return view('welcome');
 }); */
+//Semangat Mas Ridwan Sayang
 
 //login
 Route::get('/', [LoginController::class, 'login'])->name('login');
