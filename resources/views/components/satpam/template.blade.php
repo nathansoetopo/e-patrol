@@ -22,7 +22,7 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script> 
   <style>
     #myMap {
       width: 100%;
