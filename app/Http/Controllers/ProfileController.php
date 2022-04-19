@@ -10,8 +10,9 @@ class ProfileController extends Controller
 {
     public function adminProfile()
     {
-        
-        return view('pages.admin.SuperAdmin-Profile');
+        $id = Auth::user()->id;
+        $data = User::find($id);
+        return view('pages.admin.SuperAdmin-Profile', compact('data'));
     }
 
     // public function store(Request $request){
@@ -35,13 +36,15 @@ class ProfileController extends Controller
         return view('pages.hrd.HR-Profile', compact('data'));
     }
 
-    public function satpamProfile(){
+    public function satpamProfile()
+    {
         $id = Auth::user()->id;
         $data = User::find($id);
         return view('pages.satpam.Satpam-profile', compact('data'));
     }
 
-    public function StoreProfileSatpam(Request $request){
+    public function StoreProfileSatpam(Request $request)
+    {
         $user = Auth::user()->id;
         $find = User::find($user);
         $find->update($request->except(['image']));
@@ -49,7 +52,8 @@ class ProfileController extends Controller
         return redirect('satpam/profile');
     }
 
-    public function StoreProfileHrd(Request $request){
+    public function StoreProfileHrd(Request $request)
+    {
         /* $user = request()->user();
         $user->update($request->except(['image']));
         //Tambahin Validator

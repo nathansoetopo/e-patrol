@@ -26,20 +26,12 @@
                       </div>
                       <div class="ml-3 col-md-6 col-lg-5">
                         <div class="mt-4 profile-widget-name">Halo <div class="text-muted d-inline font-weight-normal">
-                            <b>,</b></div>Ujang Maman</div>
+                            <b>, </b></div>{{ Auth::user()->name }}</div>
                       </div>
                     </div>
                   </div>
                   <div class="profile-widget-description">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sapiente, temporibus? Eius, consequatur
-                    explicabo, culpa a harum suscipit ad excepturi repellat qui, temporibus esse sapiente vero beatae
-                    magnam eaque tenetur. Harum?
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, eos debitis illum tempora
-                    iusto unde quam voluptates ipsum quae ut ipsa dolores amet ea, nostrum culpa non qui, error
-                    repudiandae.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta distinctio suscipit, ratione hic
-                    aliquam iste sunt fugiat autem explicabo pariatur dignissimos! Quisquam pariatur laboriosam commodi
-                    possimus amet odio ipsa hic.
+                    {{-- {{ $data-> }} --}}
                   </div>
                 </div>
               </div>
@@ -51,44 +43,37 @@
                     </div>
                     <div class="card-body">
                       <div class="row">
-                        <div class="form-group col-md-6 col-12">
-                          <label>Nama Depan</label>
-                          <input type="text" class="form-control" value="Ujang" required="">
+                        <div class="form-group col-md-12 col-12">
+                          <label>Nama</label>
+                          <input type="text" name="name" class="form-control" value="{{ $data->name }}" required="">
                           <div class="invalid-feedback">
                             Please fill in the first name
-                          </div>
-                        </div>
-                        <div class="form-group col-md-6 col-12">
-                          <label>Nama Belakang</label>
-                          <input type="text" class="form-control" value="Maman" required="">
-                          <div class="invalid-feedback">
-                            Please fill in the last name
                           </div>
                         </div>
                       </div>
                       <div class="row">
                         <div class="form-group col-md-7 col-12">
                           <label>Email</label>
-                          <input type="email" class="form-control" value="ujang@maman.com" required="">
+                          <input type="email" name="email" class="form-control" value="{{ $data->email }}" required="">
                           <div class="invalid-feedback">
                             Please fill in the email
                           </div>
                         </div>
                         <div class="form-group col-md-5 col-12">
                           <label>Nomor Handphone</label>
-                          <input type="number" class="form-control" value="">
+                          <input type="text" name="no_hp" class="form-control" value="{{ $data->no_hp }}">
                         </div>
                       </div>
                       <div class="row">
                         <div class="form-group col-12">
                           <label>Bio</label>
-                          <textarea style="height: 200px;"
-                            class="form-control summernote-simple">Ujang maman is a superhero name in <b>Indonesia</b>, especially in my family. He is not a fictional character but an original hero in my family, a hero for his children and for his wife. So, I use the name as a user in this template. Not a tribute, I'm just bored with <b>'John Doe'</b>.</textarea>
+                          <textarea style="height: 200px;" name="bio"
+                            class="form-control summernote-simple">{{ $data->bio }}</textarea>
                         </div>
                       </div>
                     </div>
                     <div class="card-footer text-center">
-                      <button class="btn btn-primary">Save Changes</button>
+                      <button type="submit" class="btn btn-primary">Save Changes</button>
                     </div>
                   </form>
                 </div>

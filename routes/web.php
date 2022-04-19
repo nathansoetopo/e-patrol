@@ -17,8 +17,12 @@ use App\Http\Controllers\Satpam\SatpamController;
     return view('welcome');
 }); */
 
+//login
 Route::get('/', [LoginController::class, 'login'])->name('login');
 Route::post('/', [LoginController::class, 'store']);
+
+
+//admin
 Route::middleware('auth')->group(function () {
     Route::middleware('is.admin')->group(function () {
         Route::prefix('admin')->group(function () {
@@ -60,6 +64,8 @@ Route::middleware('auth')->group(function () {
             Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
         });
     });
+
+    //hrd
     Route::middleware('is.hrd')->group(function () {
         Route::prefix('hrd')->group(function () {
             Route::get('/', [HRDController::class, 'index']);
@@ -93,6 +99,8 @@ Route::middleware('auth')->group(function () {
             // Route::post('add-shift',[DataShiftController::class])
         });
     });
+
+    //satpam
     Route::middleware('is.satpam')->group(function () {
         Route::prefix('satpam')->group(function () {
             Route::get('/', [SatpamController::class, 'index']);
