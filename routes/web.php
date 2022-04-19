@@ -13,9 +13,10 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Satpam\SatpamController;
 
 
-/* Route::get('/', function () {
-    return view('welcome');
-}); */
+Route::get('/test', function () {
+    return view('test.test');
+});
+
 //Semangat Mas Ridwan Sayang
 
 Route::get('/', [LoginController::class, 'login'])->name('login');
