@@ -386,7 +386,7 @@
                     </div>
                     <div class="mb-3">
                         <section class="user-input">
-                            <label for="input_text">Konten</label>
+                            {{-- <label for="input_text">Konten</label> --}}
                             <input type="text" name="input_text" id="input_text" autocomplete="off" readonly>
                             <button class="button" type="submit">Buat Barcode</button>
                             <div class="mb-3">
@@ -396,7 +396,7 @@
                     </div>
                     <div class="modal-footer bg-whitesmoke br">
                         <button type="submit"
-                            style="transform: translateX(-80%); width: 174px; border-radius: 30px; background-color: #4285F4;"
+                            style="transform: translateX(-65%); width: 174px; border-radius: 30px; background-color: #4285F4;"
                             class="btn text-white">Tambah Generate Code</button>
                     </div>
             </form>

@@ -23,7 +23,9 @@ class HRDController extends Controller
 
     public function index()
     {
-        return view('pages.hrd.HR-Dashboard');
+        $shifts = Shift::all();
+        $user = User::all();
+        return view('pages.hrd.HR-Dashboard', compact('shifts', 'user'));
         // return ResponseFormatter::success(request()->user(),'Ini adalah akun HRD');
     }
 
