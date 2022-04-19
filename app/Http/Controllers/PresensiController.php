@@ -5,28 +5,30 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Shift;
 use App\Models\Presensi;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+
 
 class PresensiController extends Controller
 {
     public function index()
     {
-        $presensi=Presensi::paginate(5);
-        $shifts=Shift::all();
-        return view('pages.admin.SuperAdmin-Datapresensi', compact('presensi','shifts'));
+        $presensi = Presensi::paginate(5);
+        $shifts = Shift::all();
+        return view('pages.admin.SuperAdmin-Datapresensi', compact('presensi', 'shifts'));
     }
 
     public function indexHRD()
     {
         $user = request()->user();
-        $presensi=$user->shifts()->with('presensi')->paginate(5);
+        $presensi = $user->shifts()->with('presensi')->paginate(5);
         /* $data = array();
         foreach($presensi as $p)
         {
             array_push($data, $p);
         } */
-        $shifts=Shift::all();
-        return view('pages.hrd.HR-Datapresensi', compact('presensi','shifts'));
+        $shifts = Shift::all();
+        return view('pages.hrd.HR-Datapresensi', compact('presensi', 'shifts'));
     }
 
     public function storePresensi()
@@ -37,8 +39,8 @@ class PresensiController extends Controller
             // return ResponseFormatter::error(null, 'User tidak punya kewenangan', 403);
             return back()->withInput()->withToastError(null, 'User tidak punya kewenangan', 403);
         }
-        $users = $shift->users()->whereHas('roles',function($query){
-            $query->where('name','=','satpam');
+        $users = $shift->users()->whereHas('roles', function ($query) {
+            $query->where('name', '=', 'satpam');
         })->get();
         $dateNow = Carbon::parse(now())->format('Y:m:d');
         $dateTomorrow = Carbon::tomorrow()->format('Y:m:d');
@@ -53,7 +55,7 @@ class PresensiController extends Controller
                 'start_time' => $dateTomorrow . ' ' . $shift->start_time,
                 'end_time' => $dateTomorrow . ' ' . $shift->end_time,
             ]);
-            if (Presensi::where('shift_id',request()->shiftID)->where('start_time', $presensi->start_time)->where('end_time', $presensi->end_time)->count() > 1) {
+            if (Presensi::where('shift_id', request()->shiftID)->where('start_time', $presensi->start_time)->where('end_time', $presensi->end_time)->count() > 1) {
                 $presensi->delete();
                 // return ResponseFormatter::error(null, 'Data presensi sudah ada', 403);
                 return redirect()->back()->with('status', 'Data presensi sudah ada');
@@ -70,7 +72,7 @@ class PresensiController extends Controller
                 'start_time' => $dateNow . ' ' . $shift->start_time,
                 'end_time' => $dateNow . ' ' . $shift->end_time,
             ]);
-            if (Presensi::where('shift_id',request()->shiftID)->where('start_time', $presensi->start_time)->where('end_time', $presensi->end_time)->count() > 1) {
+            if (Presensi::where('shift_id', request()->shiftID)->where('start_time', $presensi->start_time)->where('end_time', $presensi->end_time)->count() > 1) {
                 $presensi->delete();
                 // return ResponseFormatter::error(null, 'Data presensi sudah ada', 403);
                 return redirect()->back()->with('status', 'Data presensi sudah ada');
@@ -129,19 +131,24 @@ class PresensiController extends Controller
         }
         $satpam = $presensi->users()->paginate(5);
         // return $satpam;
-        if($user->hasRole('admin'))
-        {
-            return view('pages.admin.SuperAdmin-DataPresensiUsers',[
+        if ($user->hasRole('admin')) {
+            return view('pages.admin.SuperAdmin-DataPresensiUsers', [
+                'satpam' => $satpam,
+                'presensi' => $presensi,
+            ]);
+        } elseif ($user->hasRole('hrd')) {
+            return view('pages.hrd.HR-DataPresensiUsers', [
                 'satpam' => $satpam,
                 'presensi' => $presensi,
             ]);
         }
-        elseif($user->hasRole('hrd'))
-        {
-            return view('pages.hrd.HR-DataPresensiUsers',[
-                'satpam' => $satpam,
-                'presensi' => $presensi,
-            ]);
-        }
+    }
+
+    public function createPDF()
+    {
+        $presensi = Presensi::all();
+        $shifts = Shift::all();
+        $pdf = PDF::loadview('pages.HRD.HR-Datapresensipdf', compact('presensi', 'shifts'))->setOptions(['defaultFont' => 'sans-serif']);
+        return $pdf->stream('presensi.pdf');
     }
 }

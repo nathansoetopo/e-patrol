@@ -15,6 +15,15 @@ class ProfileController extends Controller
         return view('pages.admin.SuperAdmin-Profile', compact('data'));
     }
 
+    public function adminUpdate($id, Request $request){
+        $update = User::find($id)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'no_hp' => $request->no_hp,
+            'bio' => $request->bio
+        ]);
+        return redirect()->back()->with('success','Success Update');
+    }
     // public function store(Request $request){
     //     $request->validate([
     //         'nama_depan' => 'required',
@@ -54,10 +63,10 @@ class ProfileController extends Controller
 
     public function StoreProfileHrd(Request $request)
     {
-        /* $user = request()->user();
-        $user->update($request->except(['image']));
-        //Tambahin Validator
-        return redirect('hrd/profile'); */
-        dd($request);
+        $user = Auth::user()->id;
+        $find = User::find($user);
+        $find->update($request->except(['image']));
+        return redirect('hrd/profile'); 
+        // dd($request);
     }
 }

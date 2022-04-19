@@ -15,8 +15,8 @@
   <ul class="navbar-nav navbar-right">
     <li>
       <a href="#" class="nav-link nav-link-lg nav-link-user">
-        <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div>
-        <img alt="image" src="../assets/img/avatar/avatar-1.png" class="ml-2 rounded-circle mr-1">
+        <div class="d-sm-none d-lg-inline-block">{{ Auth::user()->name }}</div>
+        <img alt="image" src="{{ asset('/assets/img/avatar/avatar-1.png') }}" class="ml-2 rounded-circle mr-1">
       </a>
     </li>
     <li>

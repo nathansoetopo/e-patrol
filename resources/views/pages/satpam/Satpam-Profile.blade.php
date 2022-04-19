@@ -41,13 +41,13 @@
                 <div class="card-body" style="padding: 0%;">
                   <div class="container-fluid" style="background-color: #DFE3E0;">
                     <div class="row human" style="padding: 3%;">
-                      <img alt="image" id="pp" src="../assets/img/avatar/avatar-1.png" class="rounded-circle profile-widget-picture mb-3 mt-3" style="width: 100px; min-width: 100px; max-width: 100px;min-height: 100px; max-height: 100px;">
-                      <input type="file" id="image" name="image">
+                      <img alt="image" id="pp" src="{{ asset('/assets/img/avatar/avatar-1.png') }}" class="rounded-circle profile-widget-picture mb-3 mt-3" style="width: 100px; min-width: 100px; max-width: 100px;min-height: 100px; max-height: 100px;">
+                      <input type="file" id="image" name="image" value="">
                       <label for="image" class="rounded-circle text-white profile-widget-picture mt-2" id="uploadBtn" style="width: 100px; min-width: 100px; max-width: 100px;min-height: 100px; max-height: 100px; padding: 40px;"><i class="fas fa-plus-circle" id="iconPlus"></i></label>
                       <!--Hi, Ujang Maman-->
                       <div class="ml-3 mt-3 profile-widget-name">Halo <div class="text-muted d-inline font-weight-normal">
-                          <b>,</b>
-                        </div>Ujang Maman</div>
+                          <b>, </b>
+                        </div>{{ Auth::user()->name }}</div>
                     </div>
                   </div>
                   <br>
@@ -60,18 +60,11 @@
                       </div>
                       <div class="card-body">
                         <div class="row">
-                          <div class="form-group col-md-6 col-12">
-                            <label>Nama Depan</label>
+                          <div class="form-group col-md-12 col-12">
+                            <label>Nama</label>
                             <input type="text" name="name" style="border-radius: 30px;" class="form-control" value="{{$data->name}}" required="">
                             <div class="invalid-feedback">
                               Please fill in the first name
-                            </div>
-                          </div>
-                          <div class="form-group col-md-6 col-12">
-                            <label>Nama Belakang</label>
-                            <input type="text" name="lastname" style="border-radius: 30px;" class="form-control" value="{{$data->lastname}}" required="">
-                            <div class="invalid-feedback">
-                              Please fill in the last name
                             </div>
                           </div>
                         </div>
@@ -85,7 +78,7 @@
                           </div>
                           <div class="form-group col-md-5 col-12">
                             <label>Nomor Handphone</label>
-                            <input type="number" name="phone" style="border-radius: 30px;" class="form-control" value="{{$data->phone}}">
+                            <input type="text" name="no_hp" style="border-radius: 30px;" class="form-control" value="{{$data->no_hp}}">
                           </div>
                         </div>
                         <div class="row">
@@ -96,7 +89,7 @@
                         </div>
                       </div>
                       <div class="card-footer text-center">
-                        <button class="btn text-white" style="background-color: #4285F4; border-radius: 30px;">Simpan</button>
+                        <button type="submit" class="btn text-white" style="background-color: #4285F4; border-radius: 30px;">Simpan</button>
                       </div>
                     </form>
                   </div>

@@ -15,7 +15,7 @@
 <ul class="navbar-nav navbar-right">
 <li>
   <a href="#" class="nav-link nav-link-lg nav-link-user">
-  <div class="d-sm-none d-lg-inline-block text-white">Durung</div>
+  <div class="d-sm-none d-lg-inline-block text-white">{{ Auth::user()->name }}</div>
   <img alt="image" style="border-style: solid;" src="{{ asset('assets/img/avatar/avatar-1.png')}}" class="ml-2 border border-dark rounded-circle mr-1"></a>
 </li>
 <li>

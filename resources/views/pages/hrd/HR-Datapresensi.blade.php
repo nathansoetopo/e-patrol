@@ -42,8 +42,12 @@
                             <button class="btn btn-light" type="button"><i style="right: 70px;"
                                     class="fas fa-search"></i></button>
                         </div>
-                        <div class="col-lg-8">
+                        {{-- <div class="col-lg-8">
 
+                        </div> --}}
+                        <div style="border-radius: 30px; position: absolute; object-position: center; left: 25%;">
+                            <a href="{{ url('hrd/data-presensi/pdf') }}" style="padding-top: 2%; padding-bottom: 2%;" class="btn btn-light" type="button">Export PDF <i
+                                    class="fa fa-file" aria-hidden="true"></i></a>
                         </div>
                         <div style="border-radius: 30px; position: absolute; object-position: center; left: 84%;">
                             <button style="padding-top: 2%; padding-bottom: 2%;" data-toggle="modal"

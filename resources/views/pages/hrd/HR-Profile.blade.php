@@ -91,18 +91,11 @@
               </div>
               <div class="card-body">
                 <div class="row">
-                  <div class="form-group col-md-6 col-12">
+                  <div class="form-group col-md-12 col-12">
                     <label>Nama Depan</label>
                     <input type="text" name="name" class="form-control" value="{{$data->name}}" required>
                     <div class="invalid-feedback">
                       Please fill in the first name
-                    </div>
-                  </div>
-                  <div class="form-group col-md-6 col-12">
-                    <label>Nama Belakang</label>
-                    <input type="text" class="form-control" name="lastname" value="{{$data->lastname}}" required="">
-                    <div class="invalid-feedback">
-                      Please fill in the last name
                     </div>
                   </div>
                 </div>
@@ -116,8 +109,7 @@
                   </div>
                   <div class="form-group col-md-5 col-12">
                     <label>Nomor Handphone</label>
-                    <input type="number" name="phone" class="form-control" value="{{$data->phone}}">
-                    <input type="file" id="image" name="image" class="form-control">
+                    <input type="text" name="no_hp" class="form-control" value="{{$data->no_hp}}">
                   </div>
                 </div>
                 <div class="row">

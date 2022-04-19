@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [AdminController::class, 'index']);
             Route::post('/', [AdminController::class, 'storePresensi']);
             Route::get('/profile', [ProfileController::class, 'adminProfile']);
+            Route::post('/profile/{id}', [ProfileController::class, 'adminUpdate']);
             Route::get('/data-shift', [DataShiftController::class, 'showShiftAdmin']);
             Route::post('/data-shift', [ShiftController::class, 'store']);
             Route::post('/data-shift/{shiftID}/update-data', [ShiftController::class, 'update']);
@@ -79,6 +80,7 @@ Route::middleware('auth')->group(function () {
             Route::post('/data-shift/{shiftID}/assign-satpam', [ShiftController::class, 'assignSatpamToShift']);
             Route::get('/data-shift/{shiftID}/{satpamID}/resign-satpam', [ShiftController::class, 'resignSatpamFromShift']);
             Route::get('/data-presensi', [PresensiController::class, 'indexHRD']);
+            Route::get('/data-presensi/pdf', [PresensiController::class, 'CreatePDF']);
             Route::post('/data-presensi', [PresensiController::class, 'storePresensi']);
             Route::get('/data-presensi/{presensiID}/update-status', [PresensiController::class, 'updatePresensiStatus']);
             Route::get('/data-presensi/{presensiID}/delete-data', [PresensiController::class, 'deletePresensi']);
