@@ -48,7 +48,10 @@ Route::middleware('auth')->group(function () {
             Route::get('/data-presensi/{presensiID}/update-status', [PresensiController::class, 'updatePresensiStatus']);
             Route::get('/data-presensi/{presensiID}/delete-data', [PresensiController::class, 'deletePresensi']);
             Route::get('/data-presensi/{presensiID}/data-users', [PresensiController::class, 'showUsersByPresensi']);
+            Route::get('/data-presensi/pdf', [PresensiController::class, 'adminPresPDF']);
             Route::get('/data-hrd', [HRDController::class, 'dataHRDAdmin']);
+            Route::get('/data-hrd/pdf', [HRDController::class, 'adminHrdPDF']);
+            Route::get('/data-hrd/export/', [HRDController::class, 'export']);
             Route::post('/data-hrd', [RegisterController::class, 'registerHRD']);
             Route::post('/data-hrd/{hrdID}/update-data', [RegisterController::class, 'updateHRD']);
             Route::get('/data-hrd/{hrdID}/update-status', [RegisterController::class, 'updateHRDStatus']);
@@ -58,6 +61,7 @@ Route::middleware('auth')->group(function () {
             Route::post('/data-satpam/{shiftID}/update-data', [RegisterController::class, 'updateSatpam']);
             Route::get('/data-satpam/{shiftID}/update-status', [RegisterController::class, 'updateSatpamStatus']);
             Route::get('/data-satpam/{shiftID}/delete-data', [RegisterController::class, 'destroySatpam']);
+            Route::get('/data-satpam/pdf', [SatpamController::class, 'adminSatPDF']);
             Route::get('/data-lokasi', [DataLokasiController::class, 'dataLokasiAdmin']);
             Route::post('/data-lokasi', [DataLokasiController::class, 'storeBarcode']);
             Route::post('/data-lokasi/{lokasiID}/update-data', [DataLokasiController::class, 'updateBarcode']);
@@ -81,7 +85,7 @@ Route::middleware('auth')->group(function () {
             Route::post('/data-shift/{shiftID}/assign-satpam', [ShiftController::class, 'assignSatpamToShift']);
             Route::get('/data-shift/{shiftID}/{satpamID}/resign-satpam', [ShiftController::class, 'resignSatpamFromShift']);
             Route::get('/data-presensi', [PresensiController::class, 'indexHRD']);
-            Route::get('/data-presensi/pdf', [PresensiController::class, 'CreatePDF']);
+            Route::get('/data-presensi/pdf', [PresensiController::class, 'hrdPresPDF']);
             Route::post('/data-presensi', [PresensiController::class, 'storePresensi']);
             Route::get('/data-presensi/{presensiID}/update-status', [PresensiController::class, 'updatePresensiStatus']);
             Route::get('/data-presensi/{presensiID}/delete-data', [PresensiController::class, 'deletePresensi']);

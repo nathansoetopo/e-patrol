@@ -17,18 +17,18 @@
                   <div class="profile-widget-header">
                     <div class="row">
                       <div class="human col-md-5 col-sm-4">
-                        <img alt="image" id="pp" src="{{ asset('/assets/img/avatar/avatar-1.png') }}" class="rounded-circle profile-widget-picture mb-10" style="width: 150px; min-width: 150px; max-width: 150px;min-height: 150px; max-height: 150px;">
-                        <input type="file" id="image">
+                        <img alt="image" id="pp" src="{{ asset('assets/img/avatar/avatar-1.png')}}" class="rounded-circle profile-widget-picture mb-10" style="width: 150px; min-width: 150px; max-width: 150px;min-height: 150px; max-height: 150px;">
                         <label for="image" class="rounded-circle profile-widget-picture text-white" id="uploadBtn"><br><br><i class="fas fa-plus-circle"></i><br>Ubah Foto</label>
                       </div>
                       <div class="ml-3 col-md-6 col-lg-5">
                         <div class="mt-4 profile-widget-name">Halo <div class="text-muted d-inline font-weight-normal">
-                            <b>, </b></div>{{ Auth::user()->name }}</div>
+                            <b>,</b>
+                          </div>{{$data->name}}</div>
                       </div>
                     </div>
                   </div>
                   <div class="profile-widget-description">
-                    {{ $data->bio }}
+                    {{$data->bio}}
                   </div>
                 </div>
               </div>

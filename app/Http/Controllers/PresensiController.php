@@ -144,11 +144,18 @@ class PresensiController extends Controller
         }
     }
 
-    public function createPDF()
+    public function hrdPresPDF()
     {
         $presensi = Presensi::all();
-        $shifts = Shift::all();
-        $pdf = PDF::loadview('pages.HRD.HR-Datapresensipdf', compact('presensi', 'shifts'))->setOptions(['defaultFont' => 'sans-serif']);
+        // $shifts = Shift::all();
+        $pdf = PDF::loadview('pages.HRD.HR-Datapresensipdf', compact('presensi'))->setOptions(['defaultFont' => 'sans-serif']);
+        return $pdf->stream('presensi.pdf');
+    }
+    public function adminPresPDF()
+    {
+        $presensi = Presensi::all();
+        // $shifts = Shift::all();
+        $pdf = PDF::loadview('pages.admin.SuperAdmin-Datapresensipdf', compact('presensi'))->setOptions(['defaultFont' => 'sans-serif']);
         return $pdf->stream('presensi.pdf');
     }
 }

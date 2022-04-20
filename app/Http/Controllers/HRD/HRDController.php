@@ -7,9 +7,12 @@ use App\Models\User;
 use App\Models\Shift;
 use App\Models\Barcode;
 use App\Models\Presensi;
+use App\Exports\UsersExport;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\PDF;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 
 class HRDController extends Controller
@@ -29,16 +32,16 @@ class HRDController extends Controller
             return back()->withInput()->withToastError(null, 'User tidak punya kewenangan', 403);
         }
         $shifts = $user->shifts()->get();
-        $users=User::role('satpam')->paginate(5);
-        $presensi=$user->shifts()->with('presensi')->paginate(5);
-        return view('pages.hrd.HR-Dashboard',compact('shifts','users','presensi'));
+        $users = User::role('satpam')->paginate(5);
+        $presensi = $user->shifts()->with('presensi')->paginate(5);
+        return view('pages.hrd.HR-Dashboard', compact('shifts', 'users', 'presensi'));
         // return ResponseFormatter::success(request()->user(),'Ini adalah akun HRD');
     }
 
     public function dataHRDAdmin()
     {
         $hrd = User::role('hrd')->paginate(5);
-        return view('pages.admin.SuperAdmin-DataHRD',compact('hrd'));
+        return view('pages.admin.SuperAdmin-DataHRD', compact('hrd'));
     }
 
     public function showPresensiOnShift($shiftID)
@@ -135,5 +138,20 @@ class HRDController extends Controller
         $satpam = User::role('satpam')->get();
         // return ResponseFormatter::success(null, 'Data presensi berhasil dihapus');
         return response()->withInput()->withToastSuccess(null, 'Data Presensi berhasil dihapus');
+    }
+
+    public function adminHrdPDF()
+    {
+        $hrd = User::select()->where('username', 'hrd')->get();
+        $pdf = PDF::loadview('pages.admin.SuperAdmin-DataHrdpdf', compact('hrd'))->setOptions(['defaultFont' => 'sans-serif']);
+        return $pdf->stream('presensi.pdf');
+    }
+
+    public function export(Request $request)
+    {
+        // return [
+        //     (new UsersExport)->withHeadings(),
+        // ];
+        return Excel::download(new UsersExport, 'DataHrd.xlsx');
     }
 }

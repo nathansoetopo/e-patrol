@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Shift;
 use App\Models\Barcode;
 use App\Models\Presensi;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
@@ -60,7 +61,7 @@ class SatpamController extends Controller
             // return ResponseFormatter::error(null, 'User tidak punya kewenangan', 403);
             return redirect()->back()->with('status', 'User tidak punya kewenangan');
         }
-        $presensi=$user->presensi()->paginate(5);
+        $presensi = $user->presensi()->paginate(5);
         return view('pages.satpam.Satpam-Data-laporan', compact('presensi'));
     }
 
@@ -90,8 +91,7 @@ class SatpamController extends Controller
             return redirect('satpam/laporan/')->with('status', 'Presensi tidak ditemukan');
         }
         $shift = $presensi->shifts()->first();
-        if($presensi->users()->where('user_id',request())->where('attachment','!=',NULL)->exists())
-        {
+        if ($presensi->users()->where('user_id', request())->where('attachment', '!=', NULL)->exists()) {
             return redirect('satpam/laporan/')->with('status', 'Anda sudah melakukan presensi');
         }
         $now = Carbon::now();
@@ -209,5 +209,12 @@ class SatpamController extends Controller
             // return ResponseFormatter::success($barcode, 'Data laporan berhasil terupload');
             return response()->withInput()->withToastSuccess($barcode, 'Data laporan berhasil terupload');
         }
+    }
+
+    public function adminSatPDF()
+    {
+        $satpam = User::select()->where('username', 'satpam')->get();
+        $pdf = PDF::loadview('pages.admin.SuperAdmin-DataSatpampdf', compact('satpam'))->setOptions(['defaultFont' => 'sans-serif']);
+        return $pdf->stream('presensi.pdf');
     }
 }

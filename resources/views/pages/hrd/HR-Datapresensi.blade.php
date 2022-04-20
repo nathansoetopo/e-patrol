@@ -46,7 +46,7 @@
 
                         </div> --}}
                         <div style="border-radius: 30px; position: absolute; object-position: center; left: 25%;">
-                            <a href="{{ url('hrd/data-presensi/pdf') }}" style="padding-top: 2%; padding-bottom: 2%;" class="btn btn-light" type="button">Export PDF <i
+                            <a target="_blank" href="{{ url('hrd/data-presensi/pdf') }}" style="padding-top: 2%; padding-bottom: 2%;" class="btn btn-light" type="button">Export PDF <i
                                     class="fa fa-file" aria-hidden="true"></i></a>
                         </div>
                         <div style="border-radius: 30px; position: absolute; object-position: center; left: 84%;">
