@@ -11,6 +11,7 @@ use App\Http\Controllers\DataShiftController;
 use App\Http\Controllers\DataLokasiController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Satpam\SatpamController;
+use App\Http\Controllers\TestController;
 
 
 Route::get('/test', function () {
@@ -117,4 +118,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
         });
     });
+
+    //Test
+    Route::get('test-map', [TestController::class, 'TestMap']);
 });
