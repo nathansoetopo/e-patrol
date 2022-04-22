@@ -21,6 +21,36 @@ class DataLokasiController extends Controller
         return view('pages.hrd.HR-DataLokasi',compact('barcodes'));
     }
 
+    public function showLokasi(){
+        $location = Barcode::all();
+        $data = [];
+        foreach($location as $l){
+            $data[] = [
+                $l->name,
+                $l->latitude,$l->longitude,
+                $l->id,
+            ];
+        }
+        return view('pages.hrd.HR-Daftarlokasi' , [
+            'location' => $data,
+        ]);
+    }
+
+    public function showLokasiSuperAdmin(){
+        $location = Barcode::all();
+        $data = [];
+        foreach($location as $l){
+            $data[] = [
+                $l->name,
+                $l->latitude,$l->longitude,
+                $l->id,
+            ];
+        }
+        return view('pages.admin.SuperAdmin-Daftarlokasi' , [
+            'location' => $data,
+        ]);
+    }
+
     public function storeBarcode()
     {
         $user = request()->user();

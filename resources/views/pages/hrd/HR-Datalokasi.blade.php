@@ -165,9 +165,9 @@
                         <div style="border-radius: 30px; position: absolute; object-position: center; left: 84%;">
                             <button style="padding-top: 2%; padding-bottom: 2%;" data-toggle="modal"
                                 data-target="#addData" class="btn btn-light" type="button">Tambah Titik <i
-                                    class="fas fa-plus"></i></button>
+                                class="fas fa-plus"></i>
+                            </button>
                         </div>
-
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">

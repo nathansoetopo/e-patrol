@@ -66,6 +66,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/data-lokasi/{lokasiID}/delete-data', [DataLokasiController::class, 'deleteBarcode']);
             Route::get('/data-lokasi/{lokasiID}/download-barcode', [DataLokasiController::class, 'downloadBarcode']);
             Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+            Route::get('/daftar-lokasi', [DataLokasiController::class, 'showLokasiSuperAdmin']);
         });
     });
 
@@ -99,8 +100,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/data-lokasi/{lokasiID}/delete-data', [DataLokasiController::class, 'deleteBarcode']);
             Route::get('/data-lokasi/{lokasiID}/download-barcode', [DataLokasiController::class, 'downloadBarcode']);
             Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-
-
+            Route::get('/daftar-lokasi', [DataLokasiController::class, 'showLokasi']);
             // Route::post('add-shift',[DataShiftController::class])
         });
     });
