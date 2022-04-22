@@ -16,12 +16,18 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link id="bsdp-css" href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css" rel="stylesheet">
     <title>Ajax Test</title>
   </head>
   <body>
     <div class="container">
         <div class="form-group">
-            @csrf
+          <div class='input-group date' id='datetimepicker1'>
+            <input type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
             <input type="text" name="search" id="search" class="form-control" placeholder="Search Customer Data" />
         </div>
         <table class="table">
@@ -83,5 +89,18 @@
         });
         });
     </script>
+    <script type="text/javascript">
+      $(function () {
+          $('#datetimepicker1').datepicker({
+              format: "mm/dd/yy",
+              weekStart: 0,
+              calendarWeeks: true,
+              autoclose: true,
+              todayHighlight: true, 
+              orientation: "auto"
+          });
+      });
+  </script>
+    <script src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
   </body>
 </html>

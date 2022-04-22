@@ -8,7 +8,7 @@
   <!-- General CSS Files -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- CSS Libraries -->
   <link rel="stylesheet" href="{{ asset('node_modules/fullcalendar/dist/fullcalendar.min.css') }}">
   <link rel="stylesheet" href="{{ asset('node_modules/bootstrap-daterangepicker/daterangepicker.css') }}">
@@ -21,6 +21,10 @@
   <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/css/components.css')}}">
+  <!--Google and Script-->
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAj0mbXXxqrgmAy3v2S6rAiNh8XyM-Yr1M&callback=initMap"
+    type="text/javascript"></script>
 </head>
 
 <body>

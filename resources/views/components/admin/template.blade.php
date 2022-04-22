@@ -20,7 +20,7 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
-<script async defer
+  <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAj0mbXXxqrgmAy3v2S6rAiNh8XyM-Yr1M&callback=initMap"
     type="text/javascript"></script>
 </head>

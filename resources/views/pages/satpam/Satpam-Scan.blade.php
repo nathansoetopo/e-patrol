@@ -45,7 +45,12 @@
       window.location = 'https://javascript.plainenglish.io/how-to-detect-a-mobile-device-with-javascript-1c26e0002b31';
     }
   </script>-->
-  <!--Copy Scrip Di Dashboard-->
+  <!--https://dev.to/capscode/how-to-detect-mobile-device-os-using-javascript-4l9j-->
+  <script>
+    if (window.navigator.userAgent.indexOf("Mac")!= -1) {
+      window.location = 'https://www.online-qr-scanner.com/';
+    }
+  </script>
 
   @section('main-content')
       <!-- Main Content -->

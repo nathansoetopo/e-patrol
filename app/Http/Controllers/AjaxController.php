@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barcode;
+use App\Models\Presensi;
 use App\Models\Shift;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -14,10 +15,19 @@ class AjaxController extends Controller
         if ($request->ajax()) {
             $output = '';
             $query = $request->get('query');
+            $user = request()->user();
             if($query != ''){
-                $data = User::where('name', 'like', '%'.$query.'%')->get();
+                if($user->hasRole('hrd')){
+                    $data = User::role('satpam')->where('name', 'like', '%'.$query.'%')->get();
+                }elseif($user->hasRole('admin')){
+                    $data = User::where('name', 'like', '%'.$query.'%')->get();
+                }
             }else{
-                $data = User::all();
+                if($user->hasRole('hrd')){
+                    $data = User::role('satpam')->get();
+                }elseif($user->hasRole('admin')){
+                    $data = User::all();
+                }
             }
             $total_row = $data->count();
             if($total_row>0){
@@ -51,6 +61,7 @@ class AjaxController extends Controller
         if ($request->ajax()) {
             $output = '';
             $query = $request->get('query');
+            $user = request()->user();
             if($query != ''){
                 $data = Shift::where('name', 'like', '%'.$query.'%')->get();
             }else{
@@ -65,6 +76,31 @@ class AjaxController extends Controller
                     }else{
                         $badge = '<span class="badge badge-danger">Non</span>';
                     }
+                    //Button
+                    if($user->hasRole('admin')){
+                        $button1 = '
+                        <a href="/admin/data-shift/'.$shift->id.'/data-satpam" id="modal-7"
+                            class="btn btn-transparent text-center text-dark">
+                            <i class="fas fa-user-cog fa-2x"></i>
+                        </a>
+                        '; 
+                        $button2 = '
+                        <a href="#" id="modal-7" data-toggle="modal" data-target="#updateData'.$shift->id.'"
+                            class="btn btn-transparent text-center text-dark">
+                            <i class="fas fa-edit fa-2x"></i>
+                        </a>
+                        ';
+                        $button3 = '
+                        <a href="#" id="modal-7" data-toggle="modal" data-target="#deleteData'.$shift->id.'"
+                            class="btn btn-transparent text-center text-dark">
+                        <i class="fas fa-trash-alt fa-2x"></i>
+                        </a>
+                        ';
+                    }else{
+                        $button3 = '';
+                        $button1 = '';
+                        $button2 = '';
+                    }
                     $output.='
                     <tr>
                         <th scope="row">'. $i++ .'</th>
@@ -75,26 +111,17 @@ class AjaxController extends Controller
                             '.$badge.'
                         </td>
                         <td>
-                            <a href="/admin/data-shift/'.$shift->id.'/data-satpam" id="modal-7"
-                                class="btn btn-transparent text-center text-dark">
-                                <i class="fas fa-user-cog fa-2x"></i>
-                            </a>
+                            '.$button1.'
                             <a href="/admin/data-shift/'.$shift->id.'/data-hrd" id="modal-7"
                                 class="btn btn-transparent text-center text-dark">
                                 <i class="fas fa-user-shield fa-2x"></i>
                             </a>
-                            <a href="#" id="modal-7" data-toggle="modal" data-target="#updateData'.$shift->id.'"
-                                class="btn btn-transparent text-center text-dark">
-                                <i class="fas fa-edit fa-2x"></i>
-                            </a>
+                            '.$button2.'
                             <a href="#" id="modal-7" data-toggle="modal" data-target="#updateDataStatus'.$shift->id.'"
                                 class="btn btn-transparent text-center text-dark">
                                 <i class="fas fa-power-off fa-2x"></i>
                             </a>
-                            <a href="#" id="modal-7" data-toggle="modal" data-target="#deleteData'.$shift->id.'"
-                                class="btn btn-transparent text-center text-dark">
-                            <i class="fas fa-trash-alt fa-2x"></i>
-                            </a>
+                            '.$button3.'
                         </td>
                     </tr>
                     ';
@@ -111,7 +138,6 @@ class AjaxController extends Controller
             $output = '';
             $query = $request->get('query');
             if($query != ''){
-                //$data = Shift::where('name', 'like', '%'.$query.'%')->get();
                 $data = User::role('hrd')->where('name', 'like', '%'.$query.'%')->get();
             }else{
                 $data = User::role('hrd')->paginate(5);
@@ -262,6 +288,57 @@ class AjaxController extends Controller
                 }
             }else{
                 $output .= 'Location Not Found';
+            }
+        echo $output;
+        }
+    }
+
+    public function SearchPresensi(Request $request){
+        if ($request->ajax()) {
+            $output = '';
+            $query = $request->get('query');
+            if($query != ''){
+                $data = Presensi::where('start_time', 'like', '%'.$query.'%')->get();
+            }else{
+                $data = Presensi::paginate(5);
+            }
+            $total_row = $data->count();
+            if($total_row>0){
+                $i=1;
+                foreach($data as $p){
+                    if($p->status == 'ACTIVE'){
+                        $badge = '<span class="badge badge-success">Aktif</span>';
+                    }else{
+                        $badge = '<span class="badge badge-danger">Non</span>';
+                    }
+                    $output.='
+                    <tr>
+                                        <th scope="row">'.$i++.'</th>
+                                        <td>'.$p->name.'</td>
+                                        <td>'.$p->start_time.'</td>
+                                        <td>'.$p->end_time.'</td>
+                                        <td>
+                                            '.$badge.'
+                                        </td>
+                                        <td>
+                                            <a href="/admin/data-presensi/'.$p->id.'/data-users" id="modal-7"
+                                                class="btn btn-transparent text-center text-dark">
+                                                <i class="fas fa-user fa-2x"></i>
+                                            </a>
+                                            <a href="#" id="modal-7" data-toggle="modal" data-target="#updateDataStatus'.$p->id.'"
+                                                class="btn btn-transparent text-center text-dark">
+                                                <i class="fas fa-power-off fa-2x"></i>
+                                            </a>
+                                            <a href="#" id="modal-7" data-toggle="modal" data-target="#deleteData'.$p->id.'"
+                                                class="btn btn-transparent text-center text-dark">
+                                            <i class="fas fa-trash-alt fa-2x"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                    ';
+                }
+            }else{
+                $output .= 'Absensi Not Found';
             }
         echo $output;
         }

@@ -126,6 +126,7 @@ Route::middleware('auth')->group(function () {
     Route::post('search-satpam', [AjaxController::class, 'SearchSatpamAdmin']);
     Route::post('search-shift', [AjaxController::class, 'SearchShiftAdmin']);
     Route::post('search-lokasi', [AjaxController::class, 'SearchLokasi']);
+    Route::post('search-presensi', [AjaxController::class, 'SearchPresensi']);
     //Test
     Route::get('test-map', [TestController::class, 'TestMap']);
     Route::get('/test-ajax', [TestController::class, 'testAjaxView']);
