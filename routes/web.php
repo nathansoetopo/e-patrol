@@ -121,4 +121,6 @@ Route::middleware('auth')->group(function () {
 
     //Test
     Route::get('test-map', [TestController::class, 'TestMap']);
+    Route::get('/test-ajax', [TestController::class, 'testAjaxView']);
+    Route::get('test-ajax-search', [TestController::class, 'testSearchAjax']);
 });

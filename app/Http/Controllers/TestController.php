@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barcode;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TestController extends Controller
@@ -20,5 +21,21 @@ class TestController extends Controller
         return view('test.testMaps' , [
             'location' => $data,
         ]);
+    }
+
+    public function testAjaxView(){
+        $user = User::all();
+        return view('test.ajax' , [
+            'data' => $user,
+        ]);
+    }
+
+    public function testSearchAjax(Request $request){
+        if ($request->ajax()) {
+            echo $request->get('query');
+        }else{
+            return redirect('/');
+        }
+    
     }
 }
