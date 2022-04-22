@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Barcode;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TestController extends Controller
 {
@@ -32,10 +33,28 @@ class TestController extends Controller
 
     public function testSearchAjax(Request $request){
         if ($request->ajax()) {
-            echo $request->get('query');
-        }else{
-            return redirect('/');
+            $output = '';
+            $query = $request->get('query');
+            if($query != ''){
+                $data = DB::table('users')->where('name', 'like', '%'.$query.'%')->get();
+            }else{
+                $data = DB::table('users')->get();
+            }
+            $total_row = $data->count();
+            if($total_row>0){
+                foreach($data as $d){
+                    $output.='
+                    <tr>
+                        <td>'.$d->name.'</td>
+                        <td>'.$d->email.'</td>
+                        <td>'.$d->username.'</td>
+                    </tr>
+                    ';
+                }
+            }else{
+                $output .= 'Data Not Found';
+            }
+            echo $output;
         }
-    
     }
 }

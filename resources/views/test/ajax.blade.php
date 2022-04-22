@@ -32,7 +32,7 @@
                 <th scope="col">Handle</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id='tbody'>
             @foreach ($data as $d)
                 <tr>
                     <td>{{$d->name}}</td>
@@ -67,12 +67,11 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
            url:"{{ url('/test-ajax-search') }}",
-           method:'GET',
+           method:'POST',
            data:{query:query},
            success:function(response)
            {
-            //$('tbody').html(data.table_data);
-            //$('#total_records').text(data.total_data);
+            $('#tbody').html(response);
             console.log(response);
            }
           })
@@ -80,7 +79,6 @@
         
         $(document).on('keyup', '#search', function(){
           var word = $(this).val();
-          //console.log(word);
           fetch_customer_data(word);
         });
         });

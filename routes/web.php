@@ -12,6 +12,7 @@ use App\Http\Controllers\DataLokasiController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Satpam\SatpamController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\AjaxController;
 
 
 Route::get('/test', function () {
@@ -119,8 +120,14 @@ Route::middleware('auth')->group(function () {
         });
     });
 
+    //Ajax
+    Route::post('search-user', [AjaxController::class, 'SearchUserAdminSide']);
+    Route::post('search-hrd', [AjaxController::class, 'SearchHrdAdmin']);
+    Route::post('search-satpam', [AjaxController::class, 'SearchSatpamAdmin']);
+    Route::post('search-shift', [AjaxController::class, 'SearchShiftAdmin']);
+    Route::post('search-lokasi', [AjaxController::class, 'SearchLokasi']);
     //Test
     Route::get('test-map', [TestController::class, 'TestMap']);
     Route::get('/test-ajax', [TestController::class, 'testAjaxView']);
-    Route::get('test-ajax-search', [TestController::class, 'testSearchAjax']);
+    Route::post('test-ajax-search', [TestController::class, 'testSearchAjax']);
 });
