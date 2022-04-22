@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use App\Models\Shift;
 use App\Models\Presensi;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PresensiExport;
 use Illuminate\Http\Request;
 
 
@@ -157,5 +159,10 @@ class PresensiController extends Controller
         // $shifts = Shift::all();
         $pdf = PDF::loadview('pages.admin.SuperAdmin-Datapresensipdf', compact('presensi'))->setOptions(['defaultFont' => 'sans-serif']);
         return $pdf->stream('presensi.pdf');
+    }
+
+    public function excel()
+    {
+        return Excel::download(new PresensiExport, 'Presensi.xlsx');
     }
 }

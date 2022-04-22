@@ -219,6 +219,12 @@ class SatpamController extends Controller
         $pdf = PDF::loadview('pages.admin.SuperAdmin-DataSatpampdf', compact('satpam'))->setOptions(['defaultFont' => 'sans-serif']);
         return $pdf->stream('presensi.pdf');
     }
+    public function hrdSatPDF()
+    {
+        $satpam = User::select()->where('username', 'satpam')->get();
+        $pdf = PDF::loadview('pages.admin.SuperAdmin-DataSatpampdf', compact('satpam'))->setOptions(['defaultFont' => 'sans-serif']);
+        return $pdf->stream('presensi.pdf');
+    }
 
     public function excel()
     {

@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/data-presensi/{presensiID}/delete-data', [PresensiController::class, 'deletePresensi']);
             Route::get('/data-presensi/{presensiID}/data-users', [PresensiController::class, 'showUsersByPresensi']);
             Route::get('/data-presensi/pdf', [PresensiController::class, 'adminPresPDF']);
+            Route::get('/data-presensi/excel', [PresensiController::class, 'excel']);
             Route::get('/data-hrd', [HRDController::class, 'dataHRDAdmin']);
             Route::get('/data-hrd/pdf', [HRDController::class, 'adminHrdPDF']);
             Route::get('/data-hrd/export/', [HRDController::class, 'excel']); //view
@@ -91,11 +92,15 @@ Route::middleware('auth')->group(function () {
             Route::get('/data-presensi/{presensiID}/update-status', [PresensiController::class, 'updatePresensiStatus']);
             Route::get('/data-presensi/{presensiID}/delete-data', [PresensiController::class, 'deletePresensi']);
             Route::get('/data-presensi/{presensiID}/data-users', [PresensiController::class, 'showUsersByPresensi']);
+            Route::get('/data-presensi/pdf', [PresensiController::class, 'hrdPresPDF']);
+            Route::get('/data-presensi/excel', [PresensiController::class, 'excel']);
             Route::get('/data-satpam', [SatpamController::class, 'dataSatpamHRD']);
             Route::post('/data-satpam', [RegisterController::class, 'registerSatpam']);
             Route::post('/data-satpam/{shiftID}/update-data', [RegisterController::class, 'updateSatpam']);
             Route::get('/data-satpam/{shiftID}/update-status', [RegisterController::class, 'updateSatpamStatus']);
             Route::get('/data-satpam/{shiftID}/delete-data', [RegisterController::class, 'destroySatpam']);
+            Route::get('/data-satpam/pdf', [SatpamController::class, 'hrdSatPDF']);
+            Route::get('/data-satpam/excel/', [SatpamController::class, 'excel']);
             Route::get('/data-lokasi', [DataLokasiController::class, 'dataLokasiHRD']);
             Route::post('/data-lokasi', [DataLokasiController::class, 'storeBarcode']);
             Route::post('/data-lokasi/{lokasiID}/update-data', [DataLokasiController::class, 'updateBarcode']);
