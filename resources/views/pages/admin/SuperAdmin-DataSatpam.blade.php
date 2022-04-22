@@ -52,8 +52,8 @@
                               class="fa fa-file-pdf" aria-hidden="true"></i></a>
                     </div>
                     <div style="border-radius: 30px; position: absolute; object-position: center; left: 35%;">
-                      <button style="padding-top: 2%; padding-bottom: 2%;" class="btn btn-light" onclick="ExportToExcel('xlsx')">Export Excel <i
-                        class="fa fa-file-excel" aria-hidden="true"></i></button>
+                      <a href="{{ url('admin/data-satpam/excel') }}" style="padding-top: 2%; padding-bottom: 2%;" class="btn btn-light" type="button">Export Excel <i
+                        class="fa fa-file-excel" aria-hidden="true"></i></a>
                     </div>
                     <div style="border-radius: 30px; position: absolute; object-position: center; left: 84%;">
                       <button style="padding-top: 2%; padding-bottom: 2%;" data-toggle="modal" data-target="#addData"
@@ -148,7 +148,7 @@
       </div>
 
 <!-- Excel -->
-      <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+      {{-- <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
       <script>
         function ExportToExcel(type, fn, dl) {
                var elt = document.getElementById('export');
@@ -157,7 +157,7 @@
                    XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
                    XLSX.writeFile(wb, fn || ('DataSatpam.' + (type || 'xlsx')));
            }
-      </script>
+      </script> --}}
   @include('pages.admin.modal.create-satpam')
   @include('pages.admin.modal.update-satpam')
   @include('pages.admin.modal.update-satpam-status')

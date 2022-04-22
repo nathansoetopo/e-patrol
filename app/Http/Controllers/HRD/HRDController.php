@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Models\Shift;
 use App\Models\Barcode;
 use App\Models\Presensi;
-use App\Exports\UsersExport;
+use App\Exports\HrdExport;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\PDF;
 use App\Helpers\ResponseFormatter;
@@ -147,11 +147,11 @@ class HRDController extends Controller
         return $pdf->stream('presensi.pdf');
     }
 
-    public function export(Request $request)
+    public function excel()
     {
         // return [
         //     (new UsersExport)->withHeadings(),
         // ];
-        return Excel::download(new UsersExport, 'DataHrd.xlsx');
+        return Excel::download(new HrdExport, 'DataHrd.xlsx');
     }
 }

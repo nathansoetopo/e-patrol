@@ -51,7 +51,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/data-presensi/pdf', [PresensiController::class, 'adminPresPDF']);
             Route::get('/data-hrd', [HRDController::class, 'dataHRDAdmin']);
             Route::get('/data-hrd/pdf', [HRDController::class, 'adminHrdPDF']);
-            Route::get('/data-hrd/export/', [HRDController::class, 'export']);
+            Route::get('/data-hrd/export/', [HRDController::class, 'excel']); //view
             Route::post('/data-hrd', [RegisterController::class, 'registerHRD']);
             Route::post('/data-hrd/{hrdID}/update-data', [RegisterController::class, 'updateHRD']);
             Route::get('/data-hrd/{hrdID}/update-status', [RegisterController::class, 'updateHRDStatus']);
@@ -62,6 +62,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/data-satpam/{shiftID}/update-status', [RegisterController::class, 'updateSatpamStatus']);
             Route::get('/data-satpam/{shiftID}/delete-data', [RegisterController::class, 'destroySatpam']);
             Route::get('/data-satpam/pdf', [SatpamController::class, 'adminSatPDF']);
+            Route::get('/data-satpam/excel/', [SatpamController::class, 'excel']);
             Route::get('/data-lokasi', [DataLokasiController::class, 'dataLokasiAdmin']);
             Route::post('/data-lokasi', [DataLokasiController::class, 'storeBarcode']);
             Route::post('/data-lokasi/{lokasiID}/update-data', [DataLokasiController::class, 'updateBarcode']);

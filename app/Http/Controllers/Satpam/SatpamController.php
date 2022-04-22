@@ -7,11 +7,13 @@ use App\Models\User;
 use App\Models\Shift;
 use App\Models\Barcode;
 use App\Models\Presensi;
+use App\Exports\SatpamExport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 // use Illuminate\Validation\Validator;
 
 class SatpamController extends Controller
@@ -216,5 +218,14 @@ class SatpamController extends Controller
         $satpam = User::select()->where('username', 'satpam')->get();
         $pdf = PDF::loadview('pages.admin.SuperAdmin-DataSatpampdf', compact('satpam'))->setOptions(['defaultFont' => 'sans-serif']);
         return $pdf->stream('presensi.pdf');
+    }
+
+    public function excel()
+    {
+        // return [
+        //     (new UsersExport)->withHeadings(),
+        // ];
+
+        return Excel::download(new SatpamExport, 'Data Satpam.xlsx');
     }
 }
