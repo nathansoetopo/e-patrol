@@ -51,6 +51,8 @@
         function getPosition(position) {
             lat = position.coords.latitude
             long = position.coords.longitude
+            console.log(lat);
+            console.log(long);
             accuracy = position.coords.accuracy
 
             marker = L.marker([lat, long])

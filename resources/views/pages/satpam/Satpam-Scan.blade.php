@@ -1,25 +1,5 @@
 @extends('components.satpam.template')
-
 @section('title','Scan Barcode')
-
-
-    
-
-  <!-- General CSS Files -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-  <!-- CSS Libraries -->
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-  <script type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/3.3.3/adapter.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
-  <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
-  <!-- Template CSS -->
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/components.css">
   <style>
     @media screen and (max-device-width: 390px) {
       .scan {
@@ -100,8 +80,6 @@
   <script>
     let scanner = new Instascan.Scanner({ video: document.getElementById('preview'), mirror: false });
     scanner.addListener('scan', function (content) {
-      //document.getElementById("qrData").innerHTML = content;
-      //Uncoment diatas kalau gamau auto redirect
       window.location = content;
     });
     const supports = navigator.mediaDevices.getSupportedConstraints();
@@ -176,6 +154,4 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
   <!-- Page Specific JS File -->
   <script src="../assets/js/page/components-table.js"></script>
-</body>
-
-</html>
+@endsection

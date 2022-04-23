@@ -69,6 +69,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/data-satpam/excel/', [SatpamController::class, 'excel']);
             Route::get('/data-lokasi', [DataLokasiController::class, 'dataLokasiAdmin']);
             Route::post('/data-lokasi', [DataLokasiController::class, 'storeBarcode']);
+            Route::get('/data-lokasi/{barcodeID}/satpam',[PresensiController::class, 'showUsersByLaporan']);
             Route::post('/data-lokasi/{lokasiID}/update-data', [DataLokasiController::class, 'updateBarcode']);
             Route::get('/data-lokasi/{lokasiID}/update-status', [DataLokasiController::class, 'updateBarcodeStatus']);
             Route::get('/data-lokasi/{lokasiID}/delete-data', [DataLokasiController::class, 'deleteBarcode']);
@@ -107,13 +108,13 @@ Route::middleware('auth')->group(function () {
             Route::get('/data-satpam/excel/', [SatpamController::class, 'excel']);
             Route::get('/data-lokasi', [DataLokasiController::class, 'dataLokasiHRD']);
             Route::post('/data-lokasi', [DataLokasiController::class, 'storeBarcode']);
+            Route::get('/data-lokasi/{barcodeID}/satpam',[PresensiController::class, 'showUsersByLaporan']);
             Route::post('/data-lokasi/{lokasiID}/update-data', [DataLokasiController::class, 'updateBarcode']);
             Route::get('/data-lokasi/{lokasiID}/update-status', [DataLokasiController::class, 'updateBarcodeStatus']);
             Route::get('/data-lokasi/{lokasiID}/delete-data', [DataLokasiController::class, 'deleteBarcode']);
             Route::get('/data-lokasi/{lokasiID}/download-barcode', [DataLokasiController::class, 'downloadBarcode']);
             Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
             Route::get('/daftar-lokasi', [DataLokasiController::class, 'showLokasi']);
-            // Route::post('add-shift',[DataShiftController::class])
         });
     });
 

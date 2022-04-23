@@ -197,6 +197,10 @@
                                             @endif
                                         </td>
                                         <td>
+                                            <a href="{{ url('/hrd/data-lokasi/'.$b->id.'/satpam') }}"
+                                                class="btn btn-transparent text-center text-dark">
+                                                <i class="fas fa-user fa-2x"></i>
+                                            </a>
                                             <a href="#" id="modal-7" data-toggle="modal"
                                                 data-target="#barcodeLocation{{ $b->id }}"
                                                 class="btn btn-transparent text-center text-dark">

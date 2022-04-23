@@ -111,12 +111,12 @@
                     <div class="form-group">
                       <input type="text" class="form-control" value="{{ $user->name }}" readonly>
                     </div>
-
+                    <!--LatLong-->
                     <div class="form-group">
-                      <input type="hidden" class="form-control" value="-7.551995" name="latitude">
+                      <input type="hidden" id="lat" class="form-control" name="latitude">
                     </div>
                     <div class="form-group">
-                      <input type="hidden" class="form-control" value="110.853847" name="longitude">
+                      <input type="hidden" id="long" class="form-control" name="longitude">
                     </div>
 
                     <div class="row">
@@ -140,4 +140,17 @@
             </div>
           </div>
         </div>
+<script>
+  navigator.geolocation.getCurrentPosition(getLatLon);
+  function getLatLon(position) {
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+    var input1 = document.getElementById('lat');
+    var input2 = document.getElementById('long');
+    input1 = latitude;
+    input2 = longitude;
+    console.log(latitude);
+    console.log(longitude);
+  }
+</script>
  @endsection
