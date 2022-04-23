@@ -31,16 +31,20 @@ class LoginController extends Controller
         $user = User::where('email', $request->email)->first();
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
-                if ($user->hasRole('admin')) {
-                    Auth::login($user);
-                    return redirect('/admin');
-                } elseif ($user->hasRole('hrd')) {
-                    Auth::login($user);
-                    return redirect('/hrd');
-                } elseif ($user->hasRole('satpam')) {
-                    Auth::login($user);
-                    return redirect('/satpam');
+                if($user->status === 'ACTIVE')
+                {
+                    if ($user->hasRole('admin')) {
+                        Auth::login($user);
+                        return redirect('/admin');
+                    } elseif ($user->hasRole('hrd')) {
+                        Auth::login($user);
+                        return redirect('/hrd');
+                    } elseif ($user->hasRole('satpam')) {
+                        Auth::login($user);
+                        return redirect('/satpam');
+                    }
                 }
+                return redirect('/')->with('status', 'Status anda tidak aktif');
             }
             return redirect('/')->with('status', 'Password anda salah');
         }

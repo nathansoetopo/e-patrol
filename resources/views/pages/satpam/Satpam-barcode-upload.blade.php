@@ -1,6 +1,6 @@
 @extends('components.satpam.template')
 
-@section('title', 'Laporan Satpam')
+@section('title', 'Barcode Satpam')
     
 
 <style>
@@ -101,15 +101,22 @@
               <div class="card">
                 <div class="card-body">
                   <div>
-                    <form id="createRecord" action="{{ url('satpam/laporan/'.$presensiID.'/upload') }}" method="POST" enctype="multipart/form-data">
+                    <form id="createRecord" action="{{ url('satpam/scan/'.$barcode->id.'/upload') }}" method="POST" enctype="multipart/form-data">
                       @csrf
-                    <label style="color: black;">Laporan Keadaan</label>
+                    <label style="color: black;">Nama Titik</label>
                     <div class="form-group">
-                      <input type="text" class="form-control" name="laporan">
+                      <input type="text" class="form-control" value="{{ $barcode->name }}" readonly>
                     </div>
-                    <label style="color: black;">Detail Keadaan</label>
+                    <label style="color: black;">Nama Pelapor</label>
                     <div class="form-group">
-                      <input type="text" class="form-control" name="detail">
+                      <input type="text" class="form-control" value="{{ $user->name }}" readonly>
+                    </div>
+
+                    <div class="form-group">
+                      <input type="hidden" class="form-control" value="-7.551995" name="latitude">
+                    </div>
+                    <div class="form-group">
+                      <input type="hidden" class="form-control" value="110.853847" name="longitude">
                     </div>
 
                     <div class="row">

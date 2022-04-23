@@ -11,7 +11,7 @@
             </div>
                 <div class="modal-body">
                     <div class="text-center">
-                        <img src="{{ asset('data/'.$b->name.'/'.$presensi->name.'/'.$b->pivot->attachment) }}" class="img-fluid" alt="...">
+                        <img src="{{ asset('data/'.$presensi->shifts->name.'/'.$presensi->name.'/'.$b->pivot->attachment) }}" class="img-fluid" alt="...">
                     </div>
                 </div>
                 <div class="modal-footer bg-whitesmoke br">

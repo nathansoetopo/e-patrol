@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Shift;
 use App\Models\Presensi;
-use Barryvdh\DomPDF\Facade\Pdf;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\PresensiExport;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
+use App\Exports\PresensiExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class PresensiController extends Controller

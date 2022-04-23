@@ -121,6 +121,8 @@ Route::middleware('auth')->group(function () {
             Route::get('/profile', [ProfileController::class, 'satpamProfile']);
             Route::post('/update-profile-satpam', [ProfileController::class, 'StoreProfileSatpam']);
             Route::get('/scan', [SatpamController::class, 'indexScanBarcode']);
+            Route::get('/scan/{barcodeID}/detail', [SatpamController::class, 'uploadLaporanBarcode']);
+            Route::post('/scan/{barcodeID}/upload', [SatpamController::class, 'scanBarcode']);
             Route::get('/laporan', [SatpamController::class, 'showPresensi']);
             Route::get('/laporan/{presensiID}/detail', [SatpamController::class, 'reportSatpam']);
             Route::post('/laporan/{presensiID}/upload', [SatpamController::class, 'uploadPresensi']);
