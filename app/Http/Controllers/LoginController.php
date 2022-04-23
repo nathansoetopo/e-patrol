@@ -10,73 +10,69 @@ use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Validator;
 use App\Helpers\ResponseFormatter;
+use App\Http\Controllers\Controller;
 
 class LoginController extends Controller
 {
-    /* public function index()
+    public function login()
     {
-        return view('auth.login');
+        return view('pages.auth.login');
     }
 
     public function store(Request $request)
     {
-        $validator=Validator::make($request->all(),[
-            'email'=>'required|email',
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
             'password' => 'min:8|required',
         ]);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return redirect('login')->withInput()->withErrors($validator);
         }
-        $user=User::where('email',$request->email)->first();
-        if($user)
-        {
-            if(Hash::check($request->password, $user->password))
-            {
-                if($user->hasRole('admin'))
+        $user = User::where('email', $request->email)->first();
+        if ($user) {
+            if (Hash::check($request->password, $user->password)) {
+                if($user->status === 'ACTIVE')
                 {
-                    Auth::login($user);
-                    return redirect('/admin');
+                    if ($user->hasRole('admin')) {
+                        Auth::login($user);
+                        return redirect('/admin');
+                    } elseif ($user->hasRole('hrd')) {
+                        Auth::login($user);
+                        return redirect('/hrd');
+                    } elseif ($user->hasRole('satpam')) {
+                        Auth::login($user);
+                        return redirect('/satpam');
+                    }
                 }
-                elseif($user->hasRole('hrd'))
-                {
-                    Auth::login($user);
-                    return redirect('/hrd');
-                }
-                elseif($user->hasRole('satpam'))
-                {
-                    Auth::login($user);
-                    return redirect('/satpam');
-                }
+                return redirect('/')->with('status', 'Status anda tidak aktif');
             }
-            return redirect('/')->with('status','Password anda salah');
+            return redirect('/')->with('status', 'Password anda salah');
         }
-        return redirect('/')->with('status','Email anda salah');
+        return redirect('/')->with('status', 'Email anda salah');
     }
 
     public function logout()
     {
         Auth::logout(request()->user());
         return redirect('/');
-    } */
+    }
 
-    public function login(Request $request)
+    /*public function login(Request $request)
     {
-        $validator=Validator::make($request->all(),[
-            'email'=>'required|email',
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
             'password' => 'min:8|required',
         ]);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return ResponseFormatter::error($validator, $validator->messages(), 400);
         }
-        $user=User::where('email',$request->email)->first();
-        if($user)
-        {
-            if(Hash::check($request->password, $user->password))
-            {
+        $user = User::where('email', $request->email)->first();
+        if ($user) {
+            if (Hash::check($request->password, $user->password)) {
                 Auth::attempt(['email' => $request->email, 'password' => $request->password]);
-                $token=$user->createToken('authToken')->plainTextToken;
-                $data=[
-                    'user' => $user,
+                $token = $user->createToken('authToken')->plainTextToken;
+                $data = [
+                    'user' => $user->load('roles'),
                     'Token Type' => 'Bearer Token',
                     'Token' => $token,
                 ];
@@ -95,5 +91,5 @@ class LoginController extends Controller
             $token,
             'Token Revoked'
         );
-    }
+    }*/
 }

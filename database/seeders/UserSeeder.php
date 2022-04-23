@@ -23,6 +23,7 @@ class UserSeeder extends Seeder
                 'username' => 'admin',
                 'email' => 'admin@test.test',
                 'password' => Hash::make('password'),
+                'phone' => rand(0, 999999999999),
             ],
             [
                 'nik' => rand(1, 9999999999999999),
@@ -30,6 +31,7 @@ class UserSeeder extends Seeder
                 'username' => 'hrd',
                 'email' => 'hrd@test.test',
                 'password' => Hash::make('password'),
+                'phone' => rand(0, 999999999999),
             ],
             [
                 'nik' => rand(1, 9999999999999999),
@@ -37,12 +39,53 @@ class UserSeeder extends Seeder
                 'username' => 'satpam',
                 'email' => 'satpam@test.test',
                 'password' => Hash::make('password'),
+                'phone' => rand(0, 999999999999),
+            ],
+            [
+                'nik' => rand(1, 9999999999999999),
+                'name' => 'Satpam1',
+                'username' => 'satpam1',
+                'email' => 'satpam1@test.test',
+                'password' => Hash::make('password'),
+                'phone' => rand(0, 999999999999),
+            ],
+            [
+                'nik' => rand(1, 9999999999999999),
+                'name' => 'Satpam2',
+                'username' => 'satpam2',
+                'email' => 'satpam2@test.test',
+                'password' => Hash::make('password'),
+                'phone' => rand(0, 999999999999),
+            ],
+            [
+                'nik' => rand(1, 9999999999999999),
+                'name' => 'Satpam3',
+                'username' => 'satpam3',
+                'email' => 'satpam@3test.test',
+                'password' => Hash::make('password'),
+                'phone' => rand(0, 999999999999),
+            ],
+            [
+                'nik' => rand(1, 9999999999999999),
+                'name' => 'Satpam4',
+                'username' => 'satpam4',
+                'email' => 'satpam4@test.test',
+                'password' => Hash::make('password'),
+                'phone' => rand(0, 999999999999),
+            ],
+            [
+                'nik' => rand(1, 9999999999999999),
+                'name' => 'Satpam5',
+                'username' => 'satpam5',
+                'email' => 'satpam5@test.test',
+                'password' => Hash::make('password'),
+                'phone' => rand(0, 999999999999),
             ],
         ])->each(function($users){
             $user=User::create($users);
             $user->id === 1 ? $user->assignRole('admin') : '';
             $user->id === 2 ? $user->assignRole('hrd') : '';
-            $user->id === 3 ? $user->assignRole('satpam') : '';
+            $user->id >= 3 ? $user->assignRole('satpam') : '';
         });
     }
 }
