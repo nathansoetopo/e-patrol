@@ -35,6 +35,28 @@
           <h1>Profile</h1>
         </div>
         <div class="section-body">
+          @if ($errors->any())
+          @foreach ($errors->all() as $error)
+          <div class="alert alert-warning alert-dismissible show fade">
+              <div class="alert-body">
+                  <button class="close" data-dismiss="alert">
+                      <span>&times;</span>
+                  </button>
+                  {{ $error }}
+              </div>
+          </div>
+          @endforeach
+          @endif
+          @if (session('status'))
+          <div class="alert alert-info alert-dismissible show fade">
+              <div class="alert-body">
+                  <button class="close" data-dismiss="alert">
+                      <span>&times;</span>
+                  </button>
+                  {{ session('status') }}
+              </div>
+          </div>
+          @endif
           <div class="row">
             <div class="col-12">
               <div class="card bg-transparent">

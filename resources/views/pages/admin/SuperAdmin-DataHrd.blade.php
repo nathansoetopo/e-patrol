@@ -40,18 +40,18 @@
                     <form>
                       <div class="input-group">
                         <div style="border-radius: 30px;" class="input-group-text">
-                          <input style="border: none;" type="text" class="form-control" placeholder="Cari"
+                          <input style="border: none;" id="search" type="text" class="form-control" placeholder="Cari"
                             aria-label="Search">
                           <button class="btn btn-light" type="button"><i style="right: 70px;" class="fas fa-search"
                               disabled></i></button>
                         </div>
                       </div>
                     </form>
-                    <div style="border-radius: 30px; position: absolute; object-position: center; left: 25%;">
+                    <div style="border-radius: 30px; position: absolute; object-position: center; left: 30%;">
                       <a target="_blank" href="{{ url('admin/data-hrd/pdf') }}" style="padding-top: 2%; padding-bottom: 2%;" class="btn btn-light" type="button">Export PDF <i
                               class="fa fa-file-pdf" aria-hidden="true"></i></a>
                     </div>
-                    <div style="border-radius: 30px; position: absolute; object-position: center; left: 35%;">
+                    <div style="border-radius: 30px; position: absolute; object-position: center; left: 45%;">
                       <a href="{{ url('admin/data-hrd/export') }}" style="padding-top: 2%; padding-bottom: 2%;" class="btn btn-light" type="button">Export Excel <i
                         class="fa fa-file-excel" aria-hidden="true"></i></a>
                     </div>
@@ -75,7 +75,7 @@
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tbody">
                             @foreach ($hrd as $key => $s)
                             <tr>
                                 <th scope="row">{{ $key+1 }}</th>
@@ -150,4 +150,33 @@
       @include('pages.admin.modal.update-hrd')
       @include('pages.admin.modal.update-hrd-status')
       @include('pages.admin.modal.delete-hrd')
+    <!--Search Script-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>
+      $(document).ready(function(){
+      
+      fetch_user_data();
+      
+      function fetch_user_data(query = '')
+      {
+        $.ajax({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+         url:"{{ url('/search-hrd') }}",
+         method:'POST',
+         data:{query:query},
+         success:function(response)
+         {
+          $('#tbody').html(response);
+          //console.log(response);
+         }
+        })
+      }
+      $(document).on('keyup', '#search', function(){
+        var word = $(this).val();
+        fetch_user_data(word);
+      });
+      });
+    </script>
   @endsection

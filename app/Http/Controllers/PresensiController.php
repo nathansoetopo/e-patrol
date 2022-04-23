@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Shift;
+use App\Models\Barcode;
 use App\Models\Presensi;
 use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
@@ -142,6 +143,33 @@ class PresensiController extends Controller
             return view('pages.hrd.HR-DataPresensiUsers', [
                 'satpam' => $satpam,
                 'presensi' => $presensi,
+            ]);
+        }
+    }
+
+    public function showUsersByLaporan($barcodeID)
+    {
+        $user = request()->user();
+        if (!$user->hasRole('admin') && !$user->hasRole('hrd')) {
+            // return ResponseFormatter::error(null, 'User tidak punya kewenangan', 403);
+            return redirect()->back()->with('status', 'User tidak punya kewenangan');
+        }
+        $barcode = Barcode::find($barcodeID);
+        if (!$barcode) {
+            // return ResponseFormatter::error(null, 'Data shift tidak ditemukan', 404);
+            return redirect()->back()->with('status', 'Data barcode tidak ditemukan');
+        }
+        $satpam = $barcode->users()->paginate(5);
+        // return $satpam;
+        if ($user->hasRole('admin')) {
+            return view('pages.admin.SuperAdmin-DataLaporanUsers', [
+                'satpam' => $satpam,
+                'barcode' => $barcode,
+            ]);
+        } elseif ($user->hasRole('hrd')) {
+            return view('pages.hrd.HR-DataLaporanUsers', [
+                'satpam' => $satpam,
+                'barcode' => $barcode,
             ]);
         }
     }

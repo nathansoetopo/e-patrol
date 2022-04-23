@@ -154,7 +154,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div style="border-radius: 30px;" class="input-group-text">
-                            <input style="border: none;" type="text" class="form-control" placeholder="Search"
+                            <input style="border: none;" id="search" type="text" class="form-control" placeholder="Search"
                                 aria-label="Search">
                             <button class="btn btn-light" type="button"><i style="right: 70px;"
                                     class="fas fa-search"></i></button>
@@ -182,7 +182,7 @@
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tbody">
                                     @foreach ($barcodes as $key => $b)
                                     <tr>
                                         <th scope="row">{{ $key+1 }}</th>
@@ -197,6 +197,10 @@
                                             @endif
                                         </td>
                                         <td>
+                                            <a href="{{ url('/admin/data-lokasi/'.$b->id.'/satpam') }}" id="modal-7"
+                                                class="btn btn-transparent text-center text-dark">
+                                                <i class="fas fa-user fa-2x"></i>
+                                            </a>
                                             <a href="#" id="modal-7" data-toggle="modal"
                                                 data-target="#barcodeLocation{{ $b->id }}"
                                                 class="btn btn-transparent text-center text-dark">
@@ -320,12 +324,7 @@
 </div>
 </div>
 @endsection
-
-
-
-<script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAj0mbXXxqrgmAy3v2S6rAiNh8XyM-Yr1M&callback=initMap"
-    type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
     let map;
     // letak = { lat: $data->latitude, lng: $data->longitude };
@@ -417,5 +416,31 @@
             }, 300);
         }
     }
-
+</script>
+<script>
+  $(document).ready(function(){
+  
+  fetch_user_data();
+  
+  function fetch_user_data(query = '')
+  {
+    $.ajax({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+     url:"{{ url('/search-lokasi') }}",
+     method:'POST',
+     data:{query:query},
+     success:function(response)
+     {
+      $('#tbody').html(response);
+      //console.log(response);
+     }
+    })
+  }
+  $(document).on('keyup', '#search', function(){
+    var word = $(this).val();
+    fetch_user_data(word);
+  });
+  });
 </script>

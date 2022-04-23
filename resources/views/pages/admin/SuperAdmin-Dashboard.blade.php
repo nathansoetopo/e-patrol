@@ -37,14 +37,11 @@
                 <div class="card">
                     <div class="card-header">
                         <div style="border-radius: 30px;" class="input-group-text">
-                            <input style="border: none;" type="text" class="form-control" placeholder="Search"
+                            <input style="border: none;" id="search" type="text" class="form-control" placeholder="Search"
                                 aria-label="Search">
                             <button class="btn btn-light" type="button"><i style="right: 70px;"
                                     class="fas fa-search"></i></button>
                         </div>
-                        <!-- <div class="card-header-action">
-                    <a href="#" class="btn btn-danger">View More <i class="fas fa-chevron-right"></i></a>
-                  </div> -->
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -58,7 +55,7 @@
                                         <th scope="col">Status</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tbody">
                                     @foreach ($users as $key => $u)
                                     <tr>
                                         <th scope="row">{{ $key+1 }}</th>
@@ -201,4 +198,33 @@
             </div>
     </section>
 </div>
+<!--Js Search-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+    
+    fetch_user_data();
+    
+    function fetch_user_data(query = '')
+    {
+      $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+       url:"{{ url('/search-user') }}",
+       method:'POST',
+       data:{query:query},
+       success:function(response)
+       {
+        $('#tbody').html(response);
+        console.log(response);
+       }
+      })
+    }
+    $(document).on('keyup', '#search', function(){
+      var word = $(this).val();
+      fetch_user_data(word);
+    });
+    });
+</script>
 @endsection

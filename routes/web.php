@@ -11,6 +11,8 @@ use App\Http\Controllers\DataShiftController;
 use App\Http\Controllers\DataLokasiController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Satpam\SatpamController;
+use App\Http\Controllers\TestController;
+use App\Http\Controllers\AjaxController;
 
 
 Route::get('/test', function () {
@@ -31,6 +33,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [AdminController::class, 'index']);
             Route::post('/', [AdminController::class, 'storePresensi']);
             Route::get('/profile', [ProfileController::class, 'adminProfile']);
+            Route::post('/update-profile-admin', [ProfileController::class, 'StoreProfileAdmin']);
             Route::post('/profile/{id}', [ProfileController::class, 'adminUpdate']);
             Route::get('/data-shift', [DataShiftController::class, 'showShiftAdmin']);
             Route::post('/data-shift', [ShiftController::class, 'store']);
@@ -66,11 +69,13 @@ Route::middleware('auth')->group(function () {
             Route::get('/data-satpam/excel/', [SatpamController::class, 'excel']);
             Route::get('/data-lokasi', [DataLokasiController::class, 'dataLokasiAdmin']);
             Route::post('/data-lokasi', [DataLokasiController::class, 'storeBarcode']);
+            Route::get('/data-lokasi/{barcodeID}/satpam',[PresensiController::class, 'showUsersByLaporan']);
             Route::post('/data-lokasi/{lokasiID}/update-data', [DataLokasiController::class, 'updateBarcode']);
             Route::get('/data-lokasi/{lokasiID}/update-status', [DataLokasiController::class, 'updateBarcodeStatus']);
             Route::get('/data-lokasi/{lokasiID}/delete-data', [DataLokasiController::class, 'deleteBarcode']);
             Route::get('/data-lokasi/{lokasiID}/download-barcode', [DataLokasiController::class, 'downloadBarcode']);
             Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+            Route::get('/daftar-lokasi', [DataLokasiController::class, 'showLokasiSuperAdmin']);
         });
     });
 
@@ -103,14 +108,13 @@ Route::middleware('auth')->group(function () {
             Route::get('/data-satpam/excel/', [SatpamController::class, 'excel']);
             Route::get('/data-lokasi', [DataLokasiController::class, 'dataLokasiHRD']);
             Route::post('/data-lokasi', [DataLokasiController::class, 'storeBarcode']);
+            Route::get('/data-lokasi/{barcodeID}/satpam',[PresensiController::class, 'showUsersByLaporan']);
             Route::post('/data-lokasi/{lokasiID}/update-data', [DataLokasiController::class, 'updateBarcode']);
             Route::get('/data-lokasi/{lokasiID}/update-status', [DataLokasiController::class, 'updateBarcodeStatus']);
             Route::get('/data-lokasi/{lokasiID}/delete-data', [DataLokasiController::class, 'deleteBarcode']);
             Route::get('/data-lokasi/{lokasiID}/download-barcode', [DataLokasiController::class, 'downloadBarcode']);
             Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-
-
-            // Route::post('add-shift',[DataShiftController::class])
+            Route::get('/daftar-lokasi', [DataLokasiController::class, 'showLokasi']);
         });
     });
 
@@ -129,4 +133,17 @@ Route::middleware('auth')->group(function () {
             Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
         });
     });
+
+    //Ajax
+    Route::post('search-user', [AjaxController::class, 'SearchUserAdminSide']);
+    Route::post('search-hrd', [AjaxController::class, 'SearchHrdAdmin']);
+    Route::post('search-satpam', [AjaxController::class, 'SearchSatpamAdmin']);
+    Route::post('search-shift', [AjaxController::class, 'SearchShiftAdmin']);
+    Route::post('search-lokasi', [AjaxController::class, 'SearchLokasi']);
+    Route::post('search-presensi', [AjaxController::class, 'SearchPresensi']);
+    //Test
+    Route::get('test-map', [TestController::class, 'TestMap']);
+    Route::get('test-form', [TestController::class, 'TestForm']);
+    Route::get('/test-ajax', [TestController::class, 'testAjaxView']);
+    Route::post('test-ajax-search', [TestController::class, 'testSearchAjax']);
 });

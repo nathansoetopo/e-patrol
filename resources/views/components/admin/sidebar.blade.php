@@ -19,6 +19,7 @@
         <li><a class="nav-link" href="{{ url('/admin/data-hrd') }}"><i class="fas fa-user-cog"></i> <span class="ml-3">Data HRD</span></a></li>
         <li><a class="nav-link" href="{{ url('/admin/data-satpam') }}"><i class="fas fa-user-shield"></i> <span class="ml-3">Data Satpam</span></a></li>
         <li><a class="nav-link" href="{{ url('/admin/data-lokasi') }}"><i class="fas fa-map-marked-alt"></i> <span class="ml-3">Data Lokasi</span></a></li>
+        <li><a class="nav-link" href="{{ url('/admin/daftar-lokasi') }}"><i class="fas fa-map-marked-alt"></i> <span class="ml-3">Daftar Lokasi</span></a></li>
         <li><a class="nav-link" href="{{ url('/admin/logout') }}"><i class="fas fa-sign-out-alt"></i> <span class="ml-3">Keluar</span></a></li>
       </ul>
     </aside>
