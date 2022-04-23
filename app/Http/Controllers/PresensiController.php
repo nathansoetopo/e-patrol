@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Shift;
 use App\Models\Presensi;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
+use App\Exports\PresensiExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class PresensiController extends Controller
@@ -144,11 +146,23 @@ class PresensiController extends Controller
         }
     }
 
-    public function createPDF()
+    public function hrdPresPDF()
     {
         $presensi = Presensi::all();
-        $shifts = Shift::all();
-        $pdf = PDF::loadview('pages.HRD.HR-Datapresensipdf', compact('presensi', 'shifts'))->setOptions(['defaultFont' => 'sans-serif']);
+        // $shifts = Shift::all();
+        $pdf = PDF::loadview('pages.HRD.HR-Datapresensipdf', compact('presensi'))->setOptions(['defaultFont' => 'sans-serif']);
         return $pdf->stream('presensi.pdf');
+    }
+    public function adminPresPDF()
+    {
+        $presensi = Presensi::all();
+        // $shifts = Shift::all();
+        $pdf = PDF::loadview('pages.admin.SuperAdmin-Datapresensipdf', compact('presensi'))->setOptions(['defaultFont' => 'sans-serif']);
+        return $pdf->stream('presensi.pdf');
+    }
+
+    public function excel()
+    {
+        return Excel::download(new PresensiExport, 'Presensi.xlsx');
     }
 }

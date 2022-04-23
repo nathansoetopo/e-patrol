@@ -47,6 +47,14 @@
                         </div>
                       </div>
                     </form>
+                    <div style="border-radius: 30px; position: absolute; object-position: center; left: 30%;">
+                      <a target="_blank" href="{{ url('admin/data-hrd/pdf') }}" style="padding-top: 2%; padding-bottom: 2%;" class="btn btn-light" type="button">Export PDF <i
+                              class="fa fa-file-pdf" aria-hidden="true"></i></a>
+                    </div>
+                    <div style="border-radius: 30px; position: absolute; object-position: center; left: 45%;">
+                      <a href="{{ url('admin/data-hrd/export') }}" style="padding-top: 2%; padding-bottom: 2%;" class="btn btn-light" type="button">Export Excel <i
+                        class="fa fa-file-excel" aria-hidden="true"></i></a>
+                    </div>
                     <div style="border-radius: 30px; position: absolute; object-position: center; left: 84%;">
                       <button style="padding-top: 2%; padding-bottom: 2%;" data-toggle="modal" data-target="#addData"
                         class="btn btn-light" type="button">Tambah Data <i class="fas fa-plus"></i></button>
@@ -75,7 +83,7 @@
                                 <td>{{ $s->nik }}</td>
                                 <td>{{ $s->username }}</td>
                                 <td>{{ $s->email }}</td>
-                                <td>{{ $s->phone }}</td>
+                                <td>{{ $s->no_hp }}</td>
                                 <td>
                                     @if ($s->status == 'ACTIVE')
                                     <span class="badge badge-success">Aktif</span>

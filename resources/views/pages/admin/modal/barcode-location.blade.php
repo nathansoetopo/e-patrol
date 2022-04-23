@@ -11,7 +11,7 @@
             </div>
                 <div class="modal-body">
                     <div class="text-center">
-                        {!! QrCode::size(250)->generate(env('APP_URL') . '/satpam/' . $b->id . '/scan'); !!}
+                        {!! QrCode::size(250)->generate(env('APP_URL') . '/satpam/scan/' . $b->id . '/detail'); !!}
                     </div>
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
