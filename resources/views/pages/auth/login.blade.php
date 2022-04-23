@@ -59,7 +59,14 @@
                         </a>
                       </div>
                     </div>
-                    <input style="border-radius: 30px;" id="password" type="password" class="form-control" name="password" tabindex="2" required>
+                    <div class="input-group mb-3">
+                      <input style="border-top-left-radius: 30px; border-bottom-left-radius: 30px;" 
+                      id="password" type="password" class="form-control" name="password" tabindex="2" required>
+                      <span style="border-top-right-radius:30px; border-bottom-right-radius:30px;" class="input-group-text">
+                        <i class="fas fa-eye" id="togglePassword" style="cursor: pointer;"></i>
+                      </span>
+                    </div>
+                    <!--<input style="border-radius: 30px;" id="password" type="password" class="form-control" name="password" tabindex="2" required>-->
                     <div class="invalid-feedback">
                       Isi password anda
                     </div>
@@ -102,5 +109,17 @@
   <script src="{{ asset('assets/js/custom.js') }}"></script>
 
   <!-- Page Specific JS File -->
+  <script>
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#password');
+    
+    togglePassword.addEventListener('click', function (e) {
+        // toggle the type attribute
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        // toggle the eye slash icon
+        //this.classList.toggle('fas-eye-slash');
+    });
+  </script>
 </body>
 </html>

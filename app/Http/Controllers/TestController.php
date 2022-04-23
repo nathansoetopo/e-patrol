@@ -57,4 +57,8 @@ class TestController extends Controller
             echo $output;
         }
     }
+
+    public function TestForm(){
+        return view('test.test-form');
+    }
 }
