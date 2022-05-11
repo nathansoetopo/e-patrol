@@ -143,6 +143,7 @@ Route::middleware('auth')->group(function () {
     Route::post('search-presensi', [AjaxController::class, 'SearchPresensi']);
     //Test
     Route::get('test-map', [TestController::class, 'TestMap']);
+    Route::get('test-scanner', [TestController::class, 'TestScanner']);
     Route::get('test-form', [TestController::class, 'TestForm']);
     Route::get('/test-ajax', [TestController::class, 'testAjaxView']);
     Route::post('test-ajax-search', [TestController::class, 'testSearchAjax']);

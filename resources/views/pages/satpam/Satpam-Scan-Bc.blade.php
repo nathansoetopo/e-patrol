@@ -51,8 +51,7 @@
                   <div class="card-body p-4">
                     <center>
                       <div class="container" style="padding: 2%; border-radius: 30px; background-color: #737D74">
-                        <div id="preview" class="mt-1 videoScan" style="width: 100%; border-radius: 30px;"></div>
-                        {{-- <video width="100%" class="mt-1 videoScan" id="preview" style="border-radius: 30px;"></video> --}}
+                        <video width="100%" class="mt-1 videoScan" id="preview" style="border-radius: 30px;"></video>
                       </div>
                       <label class="text-white scan"
                         style="bottom: 55%; object-position: center; position: absolute; z-index: 10; left: 44%;"
@@ -63,12 +62,10 @@
                     </center>
                   </div>
                   <div class="card-footer text-center">
-                    {{-- <button type="button" class="btn btn-primary switch" value="OFF" id="switcher"><i class="fab fa-free-code-camp fa-3x"></i></button> --}}
-                    <center>
-                        <button class="ml-4 btn btn-primary" onclick="switchCamera()" style="padding-left: 9%; padding-right: 9%;"><i class="fas fa-camera fa-3x"></i></button>
-                    </center>
-                    <input type="hidden" value="1" id="camera">
-                </div>
+                      <button type="button" class="btn btn-primary switch" value="OFF" id="switcher"><i class="fab fa-free-code-camp fa-3x"></i></button>
+                    <button class="ml-4 btn btn-primary" style="padding-left: 9%; padding-right: 9%;"><i
+                        class="fas fa-info fa-3x"></i></button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -79,42 +76,62 @@
     </div>
   </div>
   <!--Script Qr Code Scanner and Generator-->
+  <script type="text/javascript" src="js/qrcode.min.js"></script>
   <script>
-    window.onload = function(){
-        startCamera();
-    };
-    var camera = document.getElementById("camera").value;
-    const html5QrCode = new Html5Qrcode("preview");
-    const qrCodeSuccessCallback = (decodedText, decodedResult) => {
-      alert(decodedText);
-    };
-    const config = { fps: 10, qrbox: { width: 250, height: 250} };
-    //If you want to prefer front camera
-    function startCamera(){
-      if(camera == 0){
-        html5QrCode.start({ facingMode: "user"}, config, qrCodeSuccessCallback).catch((err) => {
-          console.log('Redirect');
-        });
-      }else if(camera==1){
-        html5QrCode.start({ facingMode: "environment"}, config, qrCodeSuccessCallback).catch((err) => {
-          console.log('Redirect');
-        });
+    let scanner = new Instascan.Scanner({ video: document.getElementById('preview'), mirror: false });
+    scanner.addListener('scan', function (content) {
+      window.location = content;
+    });
+    const supports = navigator.mediaDevices.getSupportedConstraints();
+    Instascan.Camera.getCameras().then(function (cameras) {
+      if (cameras.length > 0) {
+        scanner.start(cameras[1]);
+        const SUPPORTS_MEDIA_DEVICES = 'mediaDevices' in navigator;
+        const btn = document.querySelector('.switch');
+        if (SUPPORTS_MEDIA_DEVICES) {
+          navigator.mediaDevices.enumerateDevices().then(devices => {
+
+            const cameras = devices.filter((device) => device.kind === 'videoinput');
+
+            if (cameras.length === 0) {
+              throw 'No camera found on this device.';
+            }
+            const camera = cameras[cameras.length - 1];
+            navigator.mediaDevices.getUserMedia({
+              video: {
+                deviceId: camera.deviceId,
+                facingMode: ['environment'],
+                height: { ideal: 1080 },
+                width: { ideal: 1920 }
+              }
+            }).then(stream => {
+              const track = stream.getVideoTracks()[0];
+              const imageCapture = new ImageCapture(track)
+              const photoCapabilities = imageCapture.getPhotoCapabilities().then(() => {
+                btn.addEventListener('click', function () {
+                  param = document.getElementById("switcher").value;
+                  if(param == 'OFF'){
+                    document.getElementById("switcher").value = 'ON';
+                    track.applyConstraints({
+                      advanced: [{torch: true}]
+                    });
+                  }else{
+                    document.getElementById("switcher").value = 'OFF';
+                    track.applyConstraints({
+                      advanced: [{torch: false}]
+                    });
+                  }
+                });
+              });
+            });
+          });
+        }
+      } else {
+        console.error('Cammera Not Found');
       }
-    }
-    //Function
-    function switchCamera(){
-      if(camera == 1){
-        camera = 0;
-      }else if(camera == 0){
-        camera = 1;
-      }
-      html5QrCode.stop().then((ignore) => {
-        startCamera()
-        console.log('Stopped')
-      }).catch((err) => {
-        // Stop failed, handle it.
-      });
-    }
+    }).catch(function (e) {
+      console.error(e);
+    });
   </script>
   <!--Script Qr Code Scanner and Generator-->
   <!-- General JS Scripts -->

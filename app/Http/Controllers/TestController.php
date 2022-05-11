@@ -61,4 +61,8 @@ class TestController extends Controller
     public function TestForm(){
         return view('test.test-form');
     }
+
+    public function TestScanner(){
+        return view('pages.satpam.test-scanner');
+    }
 }
