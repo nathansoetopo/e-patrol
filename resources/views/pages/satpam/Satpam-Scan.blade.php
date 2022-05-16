@@ -86,18 +86,19 @@
     var camera = document.getElementById("camera").value;
     const html5QrCode = new Html5Qrcode("preview");
     const qrCodeSuccessCallback = (decodedText, decodedResult) => {
-      alert(decodedText);
+      //alert(decodedText);
+      window.location.href = decodedText;
     };
     const config = { fps: 10, qrbox: { width: 250, height: 250} };
     //If you want to prefer front camera
     function startCamera(){
       if(camera == 0){
         html5QrCode.start({ facingMode: "user"}, config, qrCodeSuccessCallback).catch((err) => {
-          console.log('Redirect');
+          window.location = 'https://www.online-qr-scanner.com/';
         });
       }else if(camera==1){
         html5QrCode.start({ facingMode: "environment"}, config, qrCodeSuccessCallback).catch((err) => {
-          console.log('Redirect');
+          window.location = 'https://www.online-qr-scanner.com/';
         });
       }
     }
@@ -113,6 +114,7 @@
         console.log('Stopped')
       }).catch((err) => {
         // Stop failed, handle it.
+        window.location = 'https://www.online-qr-scanner.com/';
       });
     }
   </script>

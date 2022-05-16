@@ -71,7 +71,8 @@ class SatpamController extends Controller
     public function reportSatpam($presensiID)
     {
         $user = request()->user();
-        if($user->presensi()->where('attachment','!=',null)->exists())
+        $presensi = $user->presensi()->where('attachment','!=',null)->latest('presensi_id')->first();
+        if(!$presensi)
         {
             return redirect('/satpam/laporan')->with('status','Anda sudah presensi');
         }

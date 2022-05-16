@@ -107,12 +107,16 @@
                     <div class="form-group">
                       <input type="text" class="form-control" name="laporan">
                     </div>
-                    <label style="color: black;">Detail Keadaan</label>
+                    {{-- <label style="color: black;">Detail Keadaan</label>
                     <div class="form-group">
                       <input type="text" class="form-control" name="detail">
+                    </div> --}}
+                    <label style="color: black;">Deskripsi Keadaan</label>
+                    <div class="form-group">
+                      <textarea class="form-control" name="detail" id="" cols="60" rows="30" style="height: 150px"></textarea>
                     </div>
-
                     <div class="row">
+                      {{-- Foto Suasana --}}
                       <div class="col-lg-12 col-md-12 col-12 col-sm-12">
                         <div style="color: #DFE3E0; background-color: #DFE3E0;" class="card">
                           <div class="card-body">
@@ -121,6 +125,18 @@
                                   <i style="color: black;" class="fas fa-cloud-upload-alt fa-7x"></i>
                               </div>
                               <p class="row justify-content-center" style="color: black;">Buka Kamera atau Cari Foto</p>
+                          </div>
+                        </div>
+                      </div>
+                      {{-- Foto Selfie --}}
+                      <div class="col-lg-12 col-md-12 col-12 col-sm-12">
+                        <div style="color: #DFE3E0; background-color: #DFE3E0;" class="card">
+                          <div class="card-body">
+                            <div class="row justify-content-center">
+                                  <input type="file" name="attachment" value="">
+                                  <i style="color: black;" class="fas fa-cloud-upload-alt fa-7x"></i>
+                              </div>
+                              <p class="row justify-content-center" style="color: black;">Lakukan Selfie</p>
                           </div>
                         </div>
                       </div>
