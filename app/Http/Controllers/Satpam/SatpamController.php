@@ -208,14 +208,17 @@ class SatpamController extends Controller
             // return ResponseFormatter::error($validate, $validate->messages(), 417);
             return back()->withInput()->withErrors($validate, $validate->messages(), 417);
         }
-        if (request()->hasFile('attachment')) {
+        if (request()->hasFile('attachment') && request()->hasFile('attachment_selfie')) {
             $name = time() . "_" . request()->attachment->getClientOriginalName();
             request()->attachment->move(public_path('data/' . $user->name . '/laporan'), $name);
+            // Front Cam
+            $name2 = time() . "_" . request()->attachment_selfie->getClientOriginalName();
+            request()->attachment_selfie->move(public_path('data/' . $user->name . '/laporan'), $name2);
         }
 
         $earthRadius = 6371000;
-        $myLatitude = -7.551995;
-        $myLongitude = 110.853847;
+        $myLatitude = request()->latitude;
+        $myLongitude = request()->longitude;
         $latFrom = deg2rad($barcode->latitude);
         $lonFrom = deg2rad($barcode->longitude);
         $latTo = deg2rad($myLatitude);
@@ -231,6 +234,8 @@ class SatpamController extends Controller
             $barcode->users()->attach($user->id, [
                 'range' => $range,
                 'attachment' => $name,
+                'selfie' => $name2,
+                'deskripsi' => request()->deskripsi,
                 'status' => 'OUT OF RANGE',
             ]);
             // return ResponseFormatter::success($barcode, 'Data laporan berhasil terupload');
@@ -239,6 +244,7 @@ class SatpamController extends Controller
             $barcode->users()->attach($user->id, [
                 'range' => $range,
                 'attachment' => $name,
+                'selfie' => $name2,
                 'status' => 'IN RANGE',
             ]);
             // return ResponseFormatter::success($barcode, 'Data laporan berhasil terupload');

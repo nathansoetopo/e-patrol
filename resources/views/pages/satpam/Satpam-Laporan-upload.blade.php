@@ -124,19 +124,7 @@
                                   <input type="file" name="attachment" value="">
                                   <i style="color: black;" class="fas fa-cloud-upload-alt fa-7x"></i>
                               </div>
-                              <p class="row justify-content-center" style="color: black;">Buka Kamera atau Cari Foto</p>
-                          </div>
-                        </div>
-                      </div>
-                      {{-- Foto Selfie --}}
-                      <div class="col-lg-12 col-md-12 col-12 col-sm-12">
-                        <div style="color: #DFE3E0; background-color: #DFE3E0;" class="card">
-                          <div class="card-body">
-                            <div class="row justify-content-center">
-                                  <input type="file" name="attachment" value="">
-                                  <i style="color: black;" class="fas fa-cloud-upload-alt fa-7x"></i>
-                              </div>
-                              <p class="row justify-content-center" style="color: black;">Lakukan Selfie</p>
+                              <p class="row justify-content-center" style="color: black;">Buka Kamera Depan</p>
                           </div>
                         </div>
                       </div>

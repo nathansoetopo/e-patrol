@@ -118,7 +118,7 @@
                     <div class="form-group">
                       <input type="hidden" id="long" class="form-control" name="longitude">
                     </div>
-
+                    {{-- Kamera Belakang --}}
                     <div class="row">
                       <div class="col-lg-12 col-md-12 col-12 col-sm-12">
                         <div style="color: #DFE3E0; background-color: #DFE3E0;" class="card">
@@ -127,11 +127,27 @@
                                   <input type="file" name="attachment" value="">
                                   <i style="color: black;" class="fas fa-cloud-upload-alt fa-7x"></i>
                               </div>
-                              <p class="row justify-content-center" style="color: black;">Buka Kamera atau Cari Foto</p>
+                              <p class="row justify-content-center" style="color: black;">Buka Kamera Belakang</p>
                           </div>
                         </div>
                       </div>
                     </div>
+                    {{-- Foto Selfie --}}
+                    <div class="row">
+                      <div class="col-lg-12 col-md-12 col-12 col-sm-12">
+                        <div style="color: #DFE3E0; background-color: #DFE3E0;" class="card">
+                          <div class="card-body">
+                            <div class="row justify-content-center">
+                                  <input type="file" name="attachment_selfie" value="">
+                                  <i style="color: black;" class="fas fa-cloud-upload-alt fa-7x"></i>
+                              </div>
+                              <p class="row justify-content-center" style="color: black;">Lakukan Selfie</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {{-- Deskripsi --}}
+                    <textarea name="deskripsi" class="form-control mb-3" style="height: 200px" required>Masukkan Deskripsi Keadaan</textarea>
                     <button type="submit" class="btn btn-primary">Submit</button>
                   </form>
                     </div>
@@ -147,8 +163,8 @@
     var longitude = position.coords.longitude;
     var input1 = document.getElementById('lat');
     var input2 = document.getElementById('long');
-    input1 = latitude;
-    input2 = longitude;
+    input1.value = latitude;
+    input2.value = longitude;
     console.log(latitude);
     console.log(longitude);
   }
