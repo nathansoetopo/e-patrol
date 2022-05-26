@@ -64,7 +64,6 @@
             <div class="card-body" style="padding: 0%;">
               <div class="container-fluid" style="background-color: #DFE3E0;">
                 <div class="row human" style="padding: 3%;">
-                  {{-- <form method="post" class="needs-validation" novalidate="" action="{{url('satpam/update-profile-satpam')}}"> --}}
                   @if ($data->image == null)
                   <img alt="image" id="pp" src="{{ asset('/assets/img/avatar/avatar-1.png') }}" class="rounded-circle profile-widget-picture mb-3 mt-3" style="width: 100px; min-width: 100px; max-width: 100px;min-height: 100px; max-height: 100px;">
                   @else

@@ -156,7 +156,7 @@ class DataLokasiController extends Controller
         }
         QrCode::size(500)
             ->format('svg')
-            ->generate(env('APP_URL') . '/satpam/' . $barcodeID . '/scan', public_path('QrCode/'.$barcode->name.'-qrcode-'.$barcodeID.'.svg'));
+            ->generate(env('APP_URL') . '/satpam/scan/' . $barcodeID . '/detail', public_path('QrCode/'.$barcode->name.'-qrcode-'.$barcodeID.'.svg'));
         return response()->download('QrCode/'.$barcode->name.'-qrcode-'.$barcodeID.'.svg');
     }
 }
