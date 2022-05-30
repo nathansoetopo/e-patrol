@@ -27,6 +27,11 @@
                             class="form-control" id="nik" name="nik" required>
                     </div>
                     <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">BPJS</label>
+                        <input type="number" style="border-radius: 30px;" placeholder="Masukkan BPJS HRD"
+                            class="form-control" id="bpjs" name="bpjs" required>
+                    </div>
+                    <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Nomor HP</label>
                         <input type="number" placeholder="Masukkan Nomor HP HRD" style="border-radius: 30px;"
                             class="form-control" id="hp" name="phone" required>
