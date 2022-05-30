@@ -331,7 +331,6 @@
     type="text/javascript"></script>
 <script>
     let map;
-    // letak = { lat: $data->latitude, lng: $data->longitude };
     function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
             center: {

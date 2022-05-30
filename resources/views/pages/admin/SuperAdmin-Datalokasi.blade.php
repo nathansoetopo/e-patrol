@@ -327,19 +327,29 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
     let map;
-    // letak = { lat: $data->latitude, lng: $data->longitude };
+    let lati;
+    let longti;
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(locationData);
+    } else { 
+        console.log('Maps Error');
+    }
+    function locationData(position){
+        lati = position.coords.latitude;
+        longti = position.coords.longitude;
+    }
     function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
             center: {
-                lat: -7.565575691874592,
-                lng: 110.86450695991516
+                lat: lati,
+                lng: longti
             },
-            zoom: 15,
+            zoom: 20,
             scrollwheel: true,
         });
         const uluru = {
-            lat: -7.565575691874592,
-            lng: 110.86450695991516
+            lat: lati,
+            lng: longti
         };
         let marker = new google.maps.Marker({
             position: uluru,
@@ -359,7 +369,6 @@
                 marker.setPosition(pos)
             })
     }
-
 </script>
 
 <script>
