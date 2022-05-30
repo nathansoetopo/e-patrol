@@ -23,8 +23,13 @@
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">NIK</label>
-                        <input type="number" style="border-radius: 30px;" placeholder="Masukkan NIK Satpam"
+                        <input type="text" style="border-radius: 30px;" placeholder="Masukkan NIK Satpam"
                             class="form-control" id="nik" name="nik" value="{{ $s->nik }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">BPJS</label>
+                        <input type="text" style="border-radius: 30px;" placeholder="Masukkan BPJS Satpam"
+                            class="form-control" id="nik" name="bpjs" value="{{ $s->bpjs }}" required>
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Nomor HP</label>

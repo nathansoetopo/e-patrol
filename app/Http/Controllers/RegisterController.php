@@ -19,6 +19,7 @@ class RegisterController extends Controller
         }
         $validator = Validator::make($request->all(), [
             'nik' => 'required|string|unique:users,nik',
+            'bpjs' => 'nullable|string|unique:users,bpjs',
             'name' => 'required|max:255|string',
             'username' => 'required|alpha_dash|unique:users,username',
             'email' => 'required|email|unique:users,email',
@@ -32,6 +33,7 @@ class RegisterController extends Controller
         }
         $user = User::create([
             'nik' => $request->nik,
+            'bpjs' => $request->bpjs,
             'name' => $request->name,
             'username' => $request->username,
             'email' => $request->email,
@@ -57,6 +59,7 @@ class RegisterController extends Controller
         }
         $validator = Validator::make($request->all(), [
             'nik' => 'required|string|unique:users,nik,'.$user->id,
+            'bpjs' => 'nullable|string|unique:users,bpjs,'.$user->id,
             'name' => 'required|max:255|string',
             'username' => 'required|alpha_dash|unique:users,username,'.$user->id,
             'email' => 'required|email|unique:users,email,'.$user->id,
@@ -70,6 +73,7 @@ class RegisterController extends Controller
         }
         $user->update([
             'nik' => $request->nik,
+            'bpjs' => $request->bpjs,
             'name' => $request->name,
             'username' => $request->username,
             'email' => $request->email,
@@ -123,6 +127,7 @@ class RegisterController extends Controller
         }
         $validator = Validator::make($request->all(), [
             'nik' => 'required|string|unique:users,nik',
+            'bpjs' => 'nullable|string|unique:users,bpjs',
             'name' => 'required|max:255|string',
             'username' => 'required|alpha_dash|unique:users,username',
             'email' => 'required|email|unique:users,email',
@@ -136,6 +141,7 @@ class RegisterController extends Controller
         }
         $user = User::create([
             'nik' => $request->nik,
+            'bpjs' => $request->bpjs,
             'name' => $request->name,
             'username' => $request->username,
             'email' => $request->email,
@@ -161,6 +167,7 @@ class RegisterController extends Controller
         }
         $validator = Validator::make($request->all(), [
             'nik' => 'required|string|unique:users,nik,'.$user->id,
+            'bpjs' => 'nullable|string|unique:users,bpjs,'.$user->id,
             'name' => 'required|max:255|string',
             'username' => 'required|alpha_dash|unique:users,username,'.$user->id,
             'email' => 'required|email|unique:users,email,'.$user->id,
@@ -173,6 +180,7 @@ class RegisterController extends Controller
         }
         $user->update([
             'nik' => $request->nik,
+            'bpjs' => $request->bpjs,
             'name' => $request->name,
             'username' => $request->username,
             'email' => $request->email,
