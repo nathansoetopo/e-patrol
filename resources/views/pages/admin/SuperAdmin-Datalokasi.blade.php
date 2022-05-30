@@ -418,7 +418,7 @@
     }
 </script>
 <script>
-  $(document).ready(function(){
+$(document).ready(function(){
   
   fetch_user_data();
   
@@ -442,5 +442,5 @@
     var word = $(this).val();
     fetch_user_data(word);
   });
-  });
+});
 </script>
