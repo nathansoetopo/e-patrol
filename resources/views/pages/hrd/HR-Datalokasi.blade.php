@@ -154,7 +154,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div style="border-radius: 30px;" class="input-group-text">
-                            <input style="border: none;" type="text" class="form-control" placeholder="Search"
+                            <input style="border: none;" id="search" type="text" class="form-control" placeholder="Search"
                                 aria-label="Search">
                             <button class="btn btn-light" type="button"><i style="right: 70px;"
                                     class="fas fa-search"></i></button>
@@ -165,9 +165,9 @@
                         <div style="border-radius: 30px; position: absolute; object-position: center; left: 84%;">
                             <button style="padding-top: 2%; padding-bottom: 2%;" data-toggle="modal"
                                 data-target="#addData" class="btn btn-light" type="button">Tambah Titik <i
-                                    class="fas fa-plus"></i></button>
+                                class="fas fa-plus"></i>
+                            </button>
                         </div>
-
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -182,7 +182,7 @@
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tbody">
                                     @foreach ($barcodes as $key => $b)
                                     <tr>
                                         <th scope="row">{{ $key+1 }}</th>
@@ -197,6 +197,10 @@
                                             @endif
                                         </td>
                                         <td>
+                                            <a href="{{ url('/hrd/data-lokasi/'.$b->id.'/satpam') }}"
+                                                class="btn btn-transparent text-center text-dark">
+                                                <i class="fas fa-user fa-2x"></i>
+                                            </a>
                                             <a href="#" id="modal-7" data-toggle="modal"
                                                 data-target="#barcodeLocation{{ $b->id }}"
                                                 class="btn btn-transparent text-center text-dark">
@@ -416,5 +420,32 @@
             }, 300);
         }
     }
-
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+    
+    fetch_user_data();
+    
+    function fetch_user_data(query = '')
+    {
+      $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+       url:"{{ url('/search-lokasi') }}",
+       method:'POST',
+       data:{query:query},
+       success:function(response)
+       {
+        $('#tbody').html(response);
+        //console.log(response);
+       }
+      })
+    }
+    $(document).on('keyup', '#search', function(){
+      var word = $(this).val();
+      fetch_user_data(word);
+    });
+    });
+  </script>

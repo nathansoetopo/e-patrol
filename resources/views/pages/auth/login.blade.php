@@ -27,6 +27,28 @@
 <body>
   <div id="app">
     <section class="section">
+      @if ($errors->any())
+          @foreach ($errors->all() as $error)
+          <div class="alert alert-warning alert-dismissible show fade">
+              <div class="alert-body">
+                  <button class="close" data-dismiss="alert">
+                      <span>&times;</span>
+                  </button>
+                  {{ $error }}
+              </div>
+          </div>
+          @endforeach
+          @endif
+          @if (session('status'))
+          <div class="alert alert-info alert-dismissible show fade">
+              <div class="alert-body">
+                  <button class="close" data-dismiss="alert">
+                      <span>&times;</span>
+                  </button>
+                  {{ session('status') }}
+              </div>
+          </div>
+          @endif
       <div class="container mt-5">
         <div class="row">
           <div class="col-12 col-sm-3 of
@@ -59,7 +81,14 @@
                         </a>
                       </div>
                     </div>
-                    <input style="border-radius: 30px;" id="password" type="password" class="form-control" name="password" tabindex="2" required>
+                    <div class="input-group mb-3">
+                      <input style="border-top-left-radius: 30px; border-bottom-left-radius: 30px;" 
+                      id="password" type="password" class="form-control" name="password" tabindex="2" required>
+                      <span style="border-top-right-radius:30px; border-bottom-right-radius:30px;" class="input-group-text">
+                        <i class="fas fa-eye" id="togglePassword" style="cursor: pointer;"></i>
+                      </span>
+                    </div>
+                    <!--<input style="border-radius: 30px;" id="password" type="password" class="form-control" name="password" tabindex="2" required>-->
                     <div class="invalid-feedback">
                       Isi password anda
                     </div>
@@ -102,5 +131,17 @@
   <script src="{{ asset('assets/js/custom.js') }}"></script>
 
   <!-- Page Specific JS File -->
+  <script>
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#password');
+    
+    togglePassword.addEventListener('click', function (e) {
+        // toggle the type attribute
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        // toggle the eye slash icon
+        //this.classList.toggle('fas-eye-slash');
+    });
+  </script>
 </body>
 </html>

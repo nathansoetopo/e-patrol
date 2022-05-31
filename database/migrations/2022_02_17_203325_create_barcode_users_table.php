@@ -18,6 +18,8 @@ class CreateBarcodeUsersTable extends Migration
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('barcode_id')->constrained('barcodes')->onUpdate('cascade')->onDelete('cascade');
             $table->string('attachment')->nullable();
+            $table->string('selfie')->nullable();
+            $table->string('deskripsi')->nullable();
             $table->integer('range')->nullable();
             $table->enum('status',['IN RANGE','OUT OF RANGE']);
             $table->timestamps();

@@ -87,6 +87,11 @@ class SatpamController extends Controller
     public function reportSatpam($presensiID)
     {
         $user = request()->user();
+        $presensi = $user->presensi()->where('attachment','!=',null)->latest('presensi_id')->first();
+        if(!$presensi)
+        {
+            return redirect('/satpam/laporan')->with('status','Anda sudah presensi');
+        }
 
         return view('pages.satpam.Satpam-Laporan-upload', compact('presensiID'));
         // return ResponseFormatter::success(request()->user(),'Ini adalah akun satpam');
@@ -173,35 +178,65 @@ class SatpamController extends Controller
     {
         return view('pages.satpam.Satpam-scan');
     }
-    public function scanBarcode($latitude, $longitude)
+
+    public function uploadLaporanBarcode($barcodeID)
     {
         $user = request()->user();
         if (!$user->hasRole('satpam')) {
             // return ResponseFormatter::error(null, 'User tidak punya kewenangan', 403);
-            return back()->withInput()->withToastError(null, 'User tidak punya kewenangan', 403);
+            return redirect('/satpam')->with('status','User tidak punya kewenangan');
         }
-        if ($user->presensi()->where('presensi.status', '=', 'SKIP')->exists()) {
+        $barcode = Barcode::find($barcodeID);
+        $presensi = $user->presensi()->where('presensi.status', '=', 'SKIP')->latest('created_at')->first();
+        if ($presensi) {
             // return ResponseFormatter::error(null, 'User belum melakukan presensi', 403);
-            return back()->withInput()->withToastError(null, 'User belum melakukan presensi', 403);
+            return redirect('/satpam')->with('status','User belum melakukan presensi');
+        }
+        if($user->barcodes()->where('barcodes.id',$barcodeID)->where('attachment','!=',null)->exists())
+        {
+            return redirect('/satpam')->with('status','anda sudah melakukan scanning di titik ini');
+        }
+
+        return view('pages.satpam.Satpam-barcode-upload',compact('barcode','user'));
+    }
+
+    public function scanBarcode($barcodeID)
+    {
+        $user = request()->user();
+        if (!$user->hasRole('satpam')) {
+            // return ResponseFormatter::error(null, 'User tidak punya kewenangan', 403);
+            return redirect('/satpam')->with('status','User tidak punya kewenangan');
+        }
+        $barcode = Barcode::find($barcodeID);
+        $presensi = $user->presensi()->where('presensi.status', '=', 'SKIP')->latest('created_at')->first();
+        if ($presensi) {
+            // return ResponseFormatter::error(null, 'User belum melakukan presensi', 403);
+            return redirect('/satpam')->with('status','User belum melakukan presensi');
+        }
+        if($user->barcodes()->where('barcodes.id',$barcodeID)->where('attachment','!=',null)->exists())
+        {
+            return redirect('/satpam')->with('status','anda sudah melakukan scanning di titik ini');
         }
         $validate = Validator::make(request()->all(), [
             'attachment' => 'required|max:10240|mimes:jpg,png,jpeg',
         ]);
         if ($validate->fails()) {
             // return ResponseFormatter::error($validate, $validate->messages(), 417);
-            return back()->withInput()->withToastError($validate, $validate->messages(), 417);
+            return back()->withInput()->withErrors($validate, $validate->messages(), 417);
         }
-        if (request()->hasFile('attachment')) {
+        if (request()->hasFile('attachment') && request()->hasFile('attachment_selfie')) {
             $name = time() . "_" . request()->attachment->getClientOriginalName();
             request()->attachment->move(public_path('data/' . $user->name . '/laporan'), $name);
+            // Front Cam
+            $name2 = time() . "_" . request()->attachment_selfie->getClientOriginalName();
+            request()->attachment_selfie->move(public_path('data/' . $user->name . '/laporan'), $name2);
         }
 
-        $barcode = Barcode::where('latitude', $latitude)->where('longitude', $longitude)->first();
         $earthRadius = 6371000;
-        $myLatitude = -7.551995;
-        $myLongitude = 110.853847;
-        $latFrom = deg2rad($latitude);
-        $lonFrom = deg2rad($longitude);
+        $myLatitude = request()->latitude;
+        $myLongitude = request()->longitude;
+        $latFrom = deg2rad($barcode->latitude);
+        $lonFrom = deg2rad($barcode->longitude);
         $latTo = deg2rad($myLatitude);
         $lonTo = deg2rad($myLongitude);
 
@@ -215,18 +250,21 @@ class SatpamController extends Controller
             $barcode->users()->attach($user->id, [
                 'range' => $range,
                 'attachment' => $name,
+                'selfie' => $name2,
+                'deskripsi' => request()->deskripsi,
                 'status' => 'OUT OF RANGE',
             ]);
             // return ResponseFormatter::success($barcode, 'Data laporan berhasil terupload');
-            return response()->withInput()->withToastSuccess($barcode, 'Data laporan berhasil terupload');
+            return redirect('/satpam')->with('status', 'Data laporan berhasil terupload');
         } elseif ($range <= 50) {
             $barcode->users()->attach($user->id, [
                 'range' => $range,
                 'attachment' => $name,
+                'selfie' => $name2,
                 'status' => 'IN RANGE',
             ]);
             // return ResponseFormatter::success($barcode, 'Data laporan berhasil terupload');
-            return response()->withInput()->withToastSuccess($barcode, 'Data laporan berhasil terupload');
+            return redirect('/satpam')->with('status', 'Data laporan berhasil terupload');
         }
     }
 

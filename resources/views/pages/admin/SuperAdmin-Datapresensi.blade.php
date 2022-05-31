@@ -37,16 +37,16 @@
                 <div class="card">
                     <div class="card-header">
                         <div style="border-radius: 30px;" class="input-group-text">
-                            <input style="border: none;" type="text" class="form-control" placeholder="Search"
+                            <input style="border: none;" type="date" id="date" class="form-control" placeholder="Tanggal Mulai"
                                 aria-label="Search">
-                            <button class="btn btn-light" type="button"><i style="right: 70px;"
+                            <button class="btn btn-light" id="search" type="button"><i style="right: 70px;"
                                     class="fas fa-search"></i></button>
                         </div>
                         <div style="border-radius: 30px; position: absolute; object-position: center; left: 25%;">
                             <a target="_blank" href="{{ url('admin/data-presensi/pdf') }}" style="padding-top: 2%; padding-bottom: 2%;" class="btn btn-light" type="button">Export PDF <i
                                     class="fa fa-file-pdf" aria-hidden="true"></i></a>
                         </div>
-                        <div style="border-radius: 30px; position: absolute; object-position: center; left: 35%;">
+                        <div style="border-radius: 30px; position: absolute; object-position: center; left: 40%;">
                             <a href="{{ url('admin/data-presensi/excel') }}" style="padding-top: 2%; padding-bottom: 2%;" class="btn btn-light" type="button">Export Excel <i
                               class="fa fa-file-excel" aria-hidden="true"></i></a>
                         </div>
@@ -70,7 +70,7 @@
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tbody">
                                     @foreach ($presensi as $key => $p)
                                     <tr>
                                         <th scope="row">{{ $key+1 }}</th>
@@ -144,4 +144,33 @@
 @include('pages.admin.modal.create-presensi')
 @include('pages.admin.modal.update-presensi-status')
 @include('pages.admin.modal.delete-presensi')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+    
+    fetch_user_data();
+    
+    function fetch_user_data(query = '')
+    {
+      $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+       url:"{{ url('/search-presensi') }}",
+       method:'POST',
+       data:{query:query},
+       success:function(response)
+       {
+        $('#tbody').html(response);
+        //console.log(response);
+       }
+      })
+    }
+    $(document).on('click', '#search', function(){
+      var word = $('#date').val();
+      console.log(word);
+      fetch_user_data(word);
+    });
+    });
+</script>
 @endsection

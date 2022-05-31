@@ -37,9 +37,9 @@
                 <div class="card">
                     <div class="card-header">
                         <div style="border-radius: 30px;" class="input-group-text">
-                            <input style="border: none;" type="text" class="form-control" placeholder="Search"
+                            <input style="border: none;" type="date" id="date" class="form-control" placeholder="Search"
                                 aria-label="Search">
-                            <button class="btn btn-light" type="button"><i style="right: 70px;"
+                            <button class="btn btn-light" id="search" type="button"><i style="right: 70px;"
                                     class="fas fa-search"></i></button>
                         </div>
                         {{-- <div class="col-lg-8">
@@ -73,7 +73,7 @@
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tbody">
                                     @foreach ($presensi as $key => $item)
                                     @foreach ($item->presensi as $p)
                                     <tr>
@@ -149,4 +149,33 @@
 @include('pages.hrd.modal.create-presensi')
 @include('pages.hrd.modal.update-presensi-status')
 @include('pages.hrd.modal.delete-presensi')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+    
+    fetch_user_data();
+    
+    function fetch_user_data(query = '')
+    {
+      $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+       url:"{{ url('/search-presensi') }}",
+       method:'POST',
+       data:{query:query},
+       success:function(response)
+       {
+        $('#tbody').html(response);
+        //console.log(response);
+       }
+      })
+    }
+    $(document).on('click', '#search', function(){
+      var word = $('#date').val();
+      console.log(word);
+      fetch_user_data(word);
+    });
+    });
+</script>
 @endsection

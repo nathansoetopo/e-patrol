@@ -35,13 +35,41 @@
           <h1>Profile</h1>
         </div>
         <div class="section-body">
+          @if ($errors->any())
+          @foreach ($errors->all() as $error)
+          <div class="alert alert-warning alert-dismissible show fade">
+              <div class="alert-body">
+                  <button class="close" data-dismiss="alert">
+                      <span>&times;</span>
+                  </button>
+                  {{ $error }}
+              </div>
+          </div>
+          @endforeach
+          @endif
+          @if (session('status'))
+          <div class="alert alert-info alert-dismissible show fade">
+              <div class="alert-body">
+                  <button class="close" data-dismiss="alert">
+                      <span>&times;</span>
+                  </button>
+                  {{ session('status') }}
+              </div>
+          </div>
+          @endif
           <div class="row">
             <div class="col-12">
               <div class="card bg-transparent">
+                <form method="post" class="needs-validation" novalidate="" action="{{url('satpam/update-profile-satpam')}}" enctype="multipart/form-data">
                 <div class="card-body" style="padding: 0%;">
                   <div class="container-fluid" style="background-color: #DFE3E0;">
                     <div class="row human" style="padding: 3%;">
+                      {{-- <form method="post" class="needs-validation" novalidate="" action="{{url('satpam/update-profile-satpam')}}"> --}}
+                      @if ($data->image == null)
                       <img alt="image" id="pp" src="{{ asset('/assets/img/avatar/avatar-1.png') }}" class="rounded-circle profile-widget-picture mb-3 mt-3" style="width: 100px; min-width: 100px; max-width: 100px;min-height: 100px; max-height: 100px;">
+                      @else
+                      <img alt="image" id="pp" src="{{ asset('data_users/'.$data->name.'/image/'.$data->image) }}" class="rounded-circle profile-widget-picture mb-3 mt-3" style="width: 100px; min-width: 100px; max-width: 100px;min-height: 100px; max-height: 100px;">
+                      @endif
                       <input type="file" id="image" name="image" value="">
                       <label for="image" class="rounded-circle text-white profile-widget-picture mt-2" id="uploadBtn" style="width: 100px; min-width: 100px; max-width: 100px;min-height: 100px; max-height: 100px; padding: 40px;"><i class="fas fa-plus-circle" id="iconPlus"></i></label>
                       <!--Hi, Ujang Maman-->
@@ -53,7 +81,7 @@
                   <br>
                   <div class="container-fluid bg-white">
                     <!--Untuk Form-->
-                    <form method="post" class="needs-validation" novalidate="" action="{{url('satpam/update-profile-satpam')}}">
+                    {{-- <form method="post" class="needs-validation" novalidate="" action="{{url('satpam/update-profile-satpam')}}"> --}}
                       @csrf
                       <div class="card-header">
                         <h4>Edit Profile</h4>
@@ -78,7 +106,7 @@
                           </div>
                           <div class="form-group col-md-5 col-12">
                             <label>Nomor Handphone</label>
-                            <input type="text" name="no_hp" style="border-radius: 30px;" class="form-control" value="{{$data->no_hp}}">
+                            <input type="text" name="phone" style="border-radius: 30px;" class="form-control" value="{{$data->phone}}">
                           </div>
                         </div>
                         <div class="row">

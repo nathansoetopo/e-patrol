@@ -37,7 +37,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div style="border-radius: 30px;" class="input-group-text">
-                            <input style="border: none;" type="text" class="form-control" placeholder="Search"
+                            <input style="border: none;" type="text" class="form-control" id="search" placeholder="Search"
                                 aria-label="Search">
                             <button class="btn btn-light" type="button"><i style="right: 70px;"
                                     class="fas fa-search"></i></button>
@@ -65,7 +65,7 @@
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tbody">
                                     @foreach ($shifts as $key => $shift)
                                     <tr>
                                         <th scope="row">{{ $key+1 }}</th>
@@ -149,6 +149,35 @@
 @include('pages.admin.modal.update-shift')
 @include('pages.admin.modal.update-shift-status')
 @include('pages.admin.modal.delete-shift')
+<!--Script Search-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+    
+    fetch_user_data();
+    
+    function fetch_user_data(query = '')
+    {
+      $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+       url:"{{ url('/search-shift') }}",
+       method:'POST',
+       data:{query:query},
+       success:function(response)
+       {
+        $('#tbody').html(response);
+        //console.log(response);
+       }
+      })
+    }
+    $(document).on('keyup', '#search', function(){
+      var word = $(this).val();
+      fetch_user_data(word);
+    });
+    });
+</script>
 {{-- <footer class="main-footer">
         <div class="footer-left">
           Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>

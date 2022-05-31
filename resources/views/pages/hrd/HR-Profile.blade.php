@@ -1,56 +1,30 @@
 @extends('components.hrd.template')
 
-@section('title','Profile HRD')
+@section('title','Profile')
 
-
-<!--Kurang
-  1. Responsive button ubah foto (Aman Gan)
-  2. Menggunakan form awesome dan string ubah gambar (Sedikit beda dari UI)
-  2. Form get file aman, form get text number email aman, cek console log untuk cek data file upload
-  3. Js Script ada di bawah
-  -->
 <style>
   #image {
     display: none;
   }
 
   #uploadBtn {
-    height: 150px;
-    width: 150px;
     position: absolute;
     object-position: center;
-    bottom: 0;
     text-align: center;
     transform: translateX(-0%);
+    transform: translateY(8%);
     z-index: 9;
     opacity: 0.8;
     cursor: pointer;
-    display: none;
     padding: 10%;
+    display: none;
     background-color: black;
   }
 
-  #pp {
-    z-index: 1;
-  }
-
-  @media screen and (max-device-width: 320px) {
-
-    #image {
-      display: none;
-    }
-
-    #uploadBtn {
-      display: none;
-    }
-
-    #pp {
-      display: none;
-    }
-
+  .form-control {
+    background-color: #E5E5E5;
   }
 </style>
-
 
 @section('main-content')
 
@@ -61,68 +35,92 @@
       <h1>Profile</h1>
     </div>
     <div class="section-body">
-      <div class="row mt-sm-4">
-        <div class="col-12 col-md-12 col-lg-6">
-          <div class="card profile-widget">
-            <div class="profile-widget-header">
-              <div class="row">
-                <div class="human col-md-5 col-sm-4">
-                  <img alt="image" id="pp" src="{{ asset('assets/img/avatar/avatar-1.png')}}" class="rounded-circle profile-widget-picture mb-10" style="width: 150px; min-width: 150px; max-width: 150px;min-height: 150px; max-height: 150px;">
-                  <label for="image" class="rounded-circle profile-widget-picture text-white" id="uploadBtn"><br><br><i class="fas fa-plus-circle"></i><br>Ubah Foto</label>
-                </div>
-                <div class="ml-3 col-md-6 col-lg-5">
-                  <div class="mt-4 profile-widget-name">Halo <div class="text-muted d-inline font-weight-normal">
-                      <b>,</b>
-                    </div>{{$data->name}}</div>
-                </div>
+      @if ($errors->any())
+          @foreach ($errors->all() as $error)
+          <div class="alert alert-warning alert-dismissible show fade">
+              <div class="alert-body">
+                  <button class="close" data-dismiss="alert">
+                      <span>&times;</span>
+                  </button>
+                  {{ $error }}
               </div>
-            </div>
-            <div class="profile-widget-description">
-              {{$data->bio}}
-            </div>
           </div>
-        </div>
-        <div class="col-12 col-md-12 col-lg-6">
-          <div class="card">
-            <form method="post" class="needs-validation" action="{{url('hrd/update-profile-hrd')}}">
-              @csrf
-              <div class="card-header">
-                <h4>Edit Profile</h4>
+          @endforeach
+          @endif
+          @if (session('status'))
+          <div class="alert alert-info alert-dismissible show fade">
+              <div class="alert-body">
+                  <button class="close" data-dismiss="alert">
+                      <span>&times;</span>
+                  </button>
+                  {{ session('status') }}
               </div>
-              <div class="card-body">
-                <div class="row">
-                  <div class="form-group col-md-12 col-12">
-                    <label>Nama Depan</label>
-                    <input type="text" name="name" class="form-control" value="{{$data->name}}" required>
-                    <div class="invalid-feedback">
-                      Please fill in the first name
+          </div>
+          @endif
+      <div class="row">
+        <div class="col-12">
+          <div class="card bg-transparent">
+            <form method="post" class="needs-validation" novalidate="" action="{{url('hrd/update-profile-hrd')}}" enctype="multipart/form-data">
+            <div class="card-body" style="padding: 0%;">
+              <div class="container-fluid" style="background-color: #DFE3E0;">
+                <div class="row human" style="padding: 3%;">
+                  @if ($data->image == null)
+                  <img alt="image" id="pp" src="{{ asset('/assets/img/avatar/avatar-1.png') }}" class="rounded-circle profile-widget-picture mb-3 mt-3" style="width: 100px; min-width: 100px; max-width: 100px;min-height: 100px; max-height: 100px;">
+                  @else
+                  <img alt="image" id="pp" src="{{ asset('data_users/'.$data->name.'/image/'.$data->image) }}" class="rounded-circle profile-widget-picture mb-3 mt-3" style="width: 100px; min-width: 100px; max-width: 100px;min-height: 100px; max-height: 100px;">
+                  @endif
+                  <input type="file" id="image" name="image" value="">
+                  <label for="image" class="rounded-circle text-white profile-widget-picture mt-2" id="uploadBtn" style="width: 100px; min-width: 100px; max-width: 100px;min-height: 100px; max-height: 100px; padding: 40px;"><i class="fas fa-plus-circle" id="iconPlus"></i></label>
+                  <!--Hi, Ujang Maman-->
+                  <div class="ml-3 mt-3 profile-widget-name">Halo <div class="text-muted d-inline font-weight-normal">
+                      <b>, </b>
+                    </div>{{ Auth::user()->name }}</div>
+                </div>
+              </div>
+              <br>
+              <div class="container-fluid bg-white">
+                <!--Untuk Form-->
+                {{-- <form method="post" class="needs-validation" novalidate="" action="{{url('satpam/update-profile-satpam')}}"> --}}
+                  @csrf
+                  <div class="card-header">
+                    <h4>Edit Profile</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="form-group col-md-12 col-12">
+                        <label>Nama</label>
+                        <input type="text" name="name" style="border-radius: 30px;" class="form-control" value="{{$data->name}}" required="">
+                        <div class="invalid-feedback">
+                          Please fill in the first name
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-md-7 col-12">
+                        <label>Email</label>
+                        <input type="email" name="email" style="border-radius: 30px;" class="form-control" value="{{$data->email}}" required="">
+                        <div class="invalid-feedback">
+                          Please fill in the email
+                        </div>
+                      </div>
+                      <div class="form-group col-md-5 col-12">
+                        <label>Nomor Handphone</label>
+                        <input type="text" name="phone" style="border-radius: 30px;" class="form-control" value="{{$data->phone}}">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-12">
+                        <label>Bio</label>
+                        <textarea style="height: 150px;" name="bio" class="form-control summernote-simple">{{$data->bio}}</textarea>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="form-group col-md-7 col-12">
-                    <label>Email</label>
-                    <input type="email" class="form-control" value="{{$data->email}}" required="">
-                    <div class="invalid-feedback">
-                      Please fill in the email
-                    </div>
+                  <div class="card-footer text-center">
+                    <button type="submit" class="btn text-white" style="background-color: #4285F4; border-radius: 30px;">Simpan</button>
                   </div>
-                  <div class="form-group col-md-5 col-12">
-                    <label>Nomor Handphone</label>
-                    <input type="text" name="no_hp" class="form-control" value="{{$data->no_hp}}">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="form-group col-12">
-                    <label>Bio</label>
-                    <textarea style="height: 200px;" class="form-control summernote-simple" name="bio">{{$data->bio}}</textarea>
-                  </div>
-                </div>
+                </form>
               </div>
-              <div class="card-footer text-center">
-                <button class="btn btn-primary">Save Changes</button>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
@@ -130,6 +128,8 @@
   </section>
 </div>
 
+<!--Script Qr Code Scanner and Generator-->
+<!-- General JS Scripts -->
 <script>
   const imgDiv = document.querySelector('.human');
   const img = document.querySelector('#pp');
@@ -157,16 +157,3 @@
   })
 </script>
 @endsection
-{{-- <footer class="main-footer">
-        <div class="footer-left">
-          Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval
-            Azhar</a>
-        </div>
-        <div class="footer-right">
-          2.3.0
-        </div>
-      </footer>
-    </div>
-  </div> --}}
-
-<!-- General JS Scripts -->
