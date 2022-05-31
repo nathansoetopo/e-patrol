@@ -7,13 +7,14 @@ use App\Models\User;
 use App\Models\Shift;
 use App\Models\Barcode;
 use App\Models\Presensi;
+use Illuminate\Http\Request;
 use App\Exports\SatpamExport;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Http\Request;
 use App\Helpers\ResponseFormatter;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Validator;
 // use Illuminate\Validation\Validator;
 
 class SatpamController extends Controller
@@ -33,6 +34,22 @@ class SatpamController extends Controller
     //data satpam Admin
     public function dataSatpamAdmin()
     {
+        // $IDsatpam = User::where('username', 'satpam')->pluck('id');
+        // // return $IDsatpam;
+        // $name = DB::table('presensi_user')->where('user_id', $IDsatpam)->get();
+
+        // foreach ($name as $n) {
+
+        //     return [
+        //         $n->user_id,
+        //         $n->presensi_id,
+
+        //     ];
+            
+        // }
+
+        // return $t;
+
         $satpam = User::role('satpam')->paginate(5);
         return view('pages.admin.SuperAdmin-DataSatpam', compact('satpam'));
     }
