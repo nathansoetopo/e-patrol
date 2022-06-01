@@ -327,19 +327,18 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
     let map;
-    // letak = { lat: $data->latitude, lng: $data->longitude };
     function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
             center: {
-                lat: -7.565575691874592,
-                lng: 110.86450695991516
+                lat: -7.611110353571192,
+                lng: 110.80840697050553
             },
-            zoom: 15,
+            zoom: 20,
             scrollwheel: true,
         });
         const uluru = {
-            lat: -7.565575691874592,
-            lng: 110.86450695991516
+            lat: -7.611110353571192,
+            lng: 110.80840697050553
         };
         let marker = new google.maps.Marker({
             position: uluru,
@@ -359,9 +358,7 @@
                 marker.setPosition(pos)
             })
     }
-
 </script>
-
 <script>
     let btn = document.querySelector(".button");
     let qr_code_element = document.querySelector(".qr-code");
@@ -418,10 +415,6 @@
     }
 </script>
 <script>
-  $(document).ready(function(){
-  
-  fetch_user_data();
-  
   function fetch_user_data(query = '')
   {
     $.ajax({
@@ -434,13 +427,11 @@
      success:function(response)
      {
       $('#tbody').html(response);
-      //console.log(response);
      }
     })
   }
   $(document).on('keyup', '#search', function(){
     var word = $(this).val();
     fetch_user_data(word);
-  });
   });
 </script>

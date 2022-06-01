@@ -72,7 +72,7 @@ class SatpamController extends Controller
     {
         $user = request()->user();
         $presensi = $user->presensi()->where('attachment','!=',null)->latest('presensi_id')->first();
-        if(!$presensi)
+        if($presensi)
         {
             return redirect('/satpam/laporan')->with('status','Anda sudah presensi');
         }

@@ -331,19 +331,18 @@
     type="text/javascript"></script>
 <script>
     let map;
-    // letak = { lat: $data->latitude, lng: $data->longitude };
     function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
             center: {
-                lat: -7.565575691874592,
-                lng: 110.86450695991516
+                lat: -7.565163495399274,
+                lng: 110.8057650801195
             },
             zoom: 15,
             scrollwheel: true,
         });
         const uluru = {
-            lat: -7.565575691874592,
-            lng: 110.86450695991516
+            lat: -7.565163495399274,
+            lng: 110.8057650801195
         };
         let marker = new google.maps.Marker({
             position: uluru,
@@ -439,7 +438,6 @@
        success:function(response)
        {
         $('#tbody').html(response);
-        //console.log(response);
        }
       })
     }

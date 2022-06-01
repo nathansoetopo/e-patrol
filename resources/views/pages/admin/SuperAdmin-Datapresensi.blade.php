@@ -146,10 +146,6 @@
 @include('pages.admin.modal.delete-presensi')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
-    $(document).ready(function(){
-    
-    fetch_user_data();
-    
     function fetch_user_data(query = '')
     {
       $.ajax({
@@ -170,7 +166,6 @@
       var word = $('#date').val();
       console.log(word);
       fetch_user_data(word);
-    });
     });
 </script>
 @endsection
