@@ -112,6 +112,82 @@ class AjaxController extends Controller
                         </td>
                         <td>
                             '.$button1.'
+                            <a href="/hrd/data-shift/'.$shift->id.'/data-satpam" id="modal-7"
+                                class="btn btn-transparent text-center text-dark">
+                                <i class="fas fa-user-shield fa-2x"></i>
+                            </a>
+                            '.$button2.'
+                            <a href="#" id="modal-7" data-toggle="modal" data-target="#updateDataStatus'.$shift->id.'"
+                                class="btn btn-transparent text-center text-dark">
+                                <i class="fas fa-power-off fa-2x"></i>
+                            </a>
+                            '.$button3.'
+                        </td>
+                    </tr>
+                    ';
+                }
+            }else{
+                $output .= 'Shift Not Found';
+            }
+            echo $output;
+        }
+    }
+
+    public function SearchShiftHRD(Request $request){
+        if ($request->ajax()) {
+            $output = '';
+            $query = $request->get('query');
+            $user = request()->user();
+            if($query != ''){
+                $data = Shift::where('name', 'like', '%'.$query.'%')->get();
+            }else{
+                $data = Shift::all();
+            }
+            $total_row = $data->count();
+            if($total_row>0){
+                $i=1;
+                foreach($data as $shift){
+                    if($shift->status == 'ACTIVE'){
+                        $badge = '<span class="badge badge-success">Aktif</span>';
+                    }else{
+                        $badge = '<span class="badge badge-danger">Non</span>';
+                    }
+                    //Button
+                    if($user->hasRole('hrd')){
+                        $button1 = '
+                        <a href="/hrd/data-shift/'.$shift->id.'/data-satpam" id="modal-7"
+                            class="btn btn-transparent text-center text-dark">
+                            <i class="fas fa-user-cog fa-2x"></i>
+                        </a>
+                        '; 
+                        $button2 = '
+                        <a href="#" id="modal-7" data-toggle="modal" data-target="#updateData'.$shift->id.'"
+                            class="btn btn-transparent text-center text-dark">
+                            <i class="fas fa-edit fa-2x"></i>
+                        </a>
+                        ';
+                        $button3 = '
+                        <a href="#" id="modal-7" data-toggle="modal" data-target="#deleteData'.$shift->id.'"
+                            class="btn btn-transparent text-center text-dark">
+                        <i class="fas fa-trash-alt fa-2x"></i>
+                        </a>
+                        ';
+                    }else{
+                        $button3 = '';
+                        $button1 = '';
+                        $button2 = '';
+                    }
+                    $output.='
+                    <tr>
+                        <th scope="row">'. $i++ .'</th>
+                        <td>' .$shift->name. '</td>
+                        <td>' .$shift->start_time. '</td>
+                        <td>' .$shift->end_time. '</td>
+                        <td>
+                            '.$badge.'
+                        </td>
+                        <td>
+                            '.$button1.'
                             <a href="/admin/data-shift/'.$shift->id.'/data-hrd" id="modal-7"
                                 class="btn btn-transparent text-center text-dark">
                                 <i class="fas fa-user-shield fa-2x"></i>
