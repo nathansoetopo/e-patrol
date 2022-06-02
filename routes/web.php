@@ -139,6 +139,7 @@ Route::middleware('auth')->group(function () {
     Route::post('search-hrd', [AjaxController::class, 'SearchHrdAdmin']);
     Route::post('search-satpam', [AjaxController::class, 'SearchSatpamAdmin']);
     Route::post('search-shift', [AjaxController::class, 'SearchShiftAdmin']);
+    Route::post('search-shift-hrd', [AjaxController::class, 'SearchShiftHRD']);
     Route::post('search-lokasi', [AjaxController::class, 'SearchLokasi']);
     Route::post('search-presensi', [AjaxController::class, 'SearchPresensi']);
     //Test

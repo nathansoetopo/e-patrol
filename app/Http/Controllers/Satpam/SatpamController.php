@@ -7,14 +7,14 @@ use App\Models\User;
 use App\Models\Shift;
 use App\Models\Barcode;
 use App\Models\Presensi;
-use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use App\Exports\SatpamExport;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Helpers\ResponseFormatter;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
-
 // use Illuminate\Validation\Validator;
 
 class SatpamController extends Controller
@@ -34,6 +34,22 @@ class SatpamController extends Controller
     //data satpam Admin
     public function dataSatpamAdmin()
     {
+        // $IDsatpam = User::where('username', 'satpam')->pluck('id');
+        // // return $IDsatpam;
+        // $name = DB::table('presensi_user')->where('user_id', $IDsatpam)->get();
+
+        // foreach ($name as $n) {
+
+        //     return [
+        //         $n->user_id,
+        //         $n->presensi_id,
+
+        //     ];
+            
+        // }
+
+        // return $t;
+
         $satpam = User::role('satpam')->paginate(5);
         return view('pages.admin.SuperAdmin-DataSatpam', compact('satpam'));
     }
@@ -184,6 +200,27 @@ class SatpamController extends Controller
         return view('pages.satpam.Satpam-barcode-upload',compact('barcode','user'));
     }
 
+    public function uploadLaporanBarcodeSecond($barcodeID)
+    {
+        $user = request()->user();
+        if (!$user->hasRole('satpam')) {
+            // return ResponseFormatter::error(null, 'User tidak punya kewenangan', 403);
+            return redirect('/satpam')->with('status','User tidak punya kewenangan');
+        }
+        $barcode = Barcode::find($barcodeID);
+        $presensi = $user->presensi()->where('presensi.status', '=', 'SKIP')->latest('created_at')->first();
+        if ($presensi) {
+            // return ResponseFormatter::error(null, 'User belum melakukan presensi', 403);
+            return redirect('/satpam')->with('status','User belum melakukan presensi');
+        }
+        if($user->barcodes_second()->where('barcodes.id',$barcodeID)->where('attachment','!=',null)->exists())
+        {
+            return redirect('/satpam')->with('status','anda sudah melakukan scanning di titik ini');
+        }
+
+        return view('pages.satpam.Satpam-barcode-upload',compact('barcode','user'));
+    }
+
     public function scanBarcode($barcodeID)
     {
         $user = request()->user();
@@ -242,6 +279,74 @@ class SatpamController extends Controller
             return redirect('/satpam')->with('status', 'Data laporan berhasil terupload');
         } elseif ($range <= 50) {
             $barcode->users()->attach($user->id, [
+                'range' => $range,
+                'attachment' => $name,
+                'selfie' => $name2,
+                'status' => 'IN RANGE',
+            ]);
+            // return ResponseFormatter::success($barcode, 'Data laporan berhasil terupload');
+            return redirect('/satpam')->with('status', 'Data laporan berhasil terupload');
+        }
+    }
+
+    public function scanBarcodeSecond($barcodeID)
+    {
+        $user = request()->user();
+        if (!$user->hasRole('satpam')) {
+            // return ResponseFormatter::error(null, 'User tidak punya kewenangan', 403);
+            return redirect('/satpam')->with('status','User tidak punya kewenangan');
+        }
+        $barcode = Barcode::find($barcodeID);
+        $presensi = $user->presensi()->where('presensi.status', '=', 'SKIP')->latest('created_at')->first();
+        if ($presensi) {
+            // return ResponseFormatter::error(null, 'User belum melakukan presensi', 403);
+            return redirect('/satpam')->with('status','User belum melakukan presensi');
+        }
+        if($user->barcodes_second()->where('barcodes.id',$barcodeID)->where('attachment','!=',null)->exists())
+        {
+            return redirect('/satpam')->with('status','anda sudah melakukan scanning di titik ini');
+        }
+        $validate = Validator::make(request()->all(), [
+            'attachment' => 'required|max:10240|mimes:jpg,png,jpeg',
+        ]);
+        if ($validate->fails()) {
+            // return ResponseFormatter::error($validate, $validate->messages(), 417);
+            return back()->withInput()->withErrors($validate, $validate->messages(), 417);
+        }
+        if (request()->hasFile('attachment') && request()->hasFile('attachment_selfie')) {
+            $name = time() . "_" . request()->attachment->getClientOriginalName();
+            request()->attachment->move(public_path('data/' . $user->name . '/laporan'), $name);
+            // Front Cam
+            $name2 = time() . "_" . request()->attachment_selfie->getClientOriginalName();
+            request()->attachment_selfie->move(public_path('data/' . $user->name . '/laporan'), $name2);
+        }
+
+        $earthRadius = 6371000;
+        $myLatitude = request()->latitude;
+        $myLongitude = request()->longitude;
+        $latFrom = deg2rad($barcode->latitude);
+        $lonFrom = deg2rad($barcode->longitude);
+        $latTo = deg2rad($myLatitude);
+        $lonTo = deg2rad($myLongitude);
+
+        $latDelta = $latTo - $latFrom;
+        $lonDelta = $lonTo - $lonFrom;
+
+        $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) +
+            cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
+        $range = $angle * $earthRadius;
+        if ($range > 50) {
+            $barcode->users_second()->attach($user->id, [
+                'range' => $range,
+                'attachment' => $name,
+                'selfie' => $name2,
+                'deskripsi' => request()->deskripsi,
+                'status' => 'OUT OF RANGE',
+            ]);
+            // return ResponseFormatter::success($barcode, 'Data laporan berhasil terupload');
+            return redirect('/satpam')->with('status', 'Data laporan berhasil terupload');
+        } elseif ($range <= 50) {
+            $barcode->users_second()->attach($user->id, [
                 'range' => $range,
                 'attachment' => $name,
                 'selfie' => $name2,
