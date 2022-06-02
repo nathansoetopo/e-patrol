@@ -17,8 +17,8 @@ class Barcode extends Model
         return $this->belongsToMany(User::class,'barcode_users','barcode_id','user_id')->withPivot('range','attachment','status')->withTimestamps();
     }
 
-    public function users_second()
-    {
-        return $this->belongsToMany(User::class,'barcode_users_second','barcode_id','user_id')->withPivot('range','attachment','status')->withTimestamps();
-    }
+    // public function users_second()
+    // {
+    //     return $this->belongsToMany(User::class,'barcode_users_second','barcode_id','user_id')->withPivot('range','attachment','status')->withTimestamps();
+    // }
 }
