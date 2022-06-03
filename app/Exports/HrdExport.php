@@ -3,49 +3,20 @@
 namespace App\Exports;
 
 use App\Models\User;
-use App\Models\Presensi;
-use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Events\AfterSheet;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithEvents;
-use Maatwebsite\Excel\Concerns\WithStyles;
-use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
 
-
-class HrdExport implements FromCollection, WithHeadings, WithEvents
+class HrdExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder implements WithCustomValueBinder, FromView
 {
-    public function headings(): array
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function  view(): View
     {
-
-        return [
-            'ID',
-            'Nama',
-            'NIK',
-            'Email',
-            'Phone',
-            'Foto',
-        ];
-    }
-    public function collection()
-    {
-        $IDsatpam = User::where('username', 'satpam')->pluck('id');
-        // return $IDsatpam;
-        // $name = DB::table('presensi_user')->where('user_id', $IDsatpam)->get();
-        // $type = Presensi::where('user_id', $IDsatpam)->pluck('id', 'user_id', 'presensi_id', 'status');
-        $type = DB::table('users')->select('id', 'name', 'nik', 'email', 'no_hp')->where('username', 'hrd')->get();
-        return $type;
-    }
-
-
-    public function registerEvents(): array
-    {
-        return [
-            AfterSheet::class    => function (AfterSheet $event) {
-
-                $event->sheet->getDelegate()->getStyle('A1:H1')
-                    ->getFont()
-                    ->setBold(true);
-            },
-        ];
+        return view('pages.exports.hrd-excel', [
+            'hrd' => User::role('hrd')->get()
+        ]);
     }
 }

@@ -292,6 +292,8 @@ class SatpamController extends Controller
         //     (new UsersExport)->withHeadings(),
         // ];
 
-        return Excel::download(new SatpamExport, 'Data Satpam.xlsx');
+        // return Excel::download(new SatpamExport, 'Data Satpam.xlsx');
+        return Excel::download(new SatpamExport, 'satpam.xlsx'); 
+        // return (new SatpamExport)->download('invoices.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
     }
 }

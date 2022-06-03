@@ -423,4 +423,55 @@ class AjaxController extends Controller
         echo $output;
         }
     }
+
+    public function SearchPresensiHrd(Request $request){
+        if ($request->ajax()) {
+            $output = '';
+            $query = $request->get('query');
+            if($query != ''){
+                $data = Presensi::where('start_time', 'like', '%'.$query.'%')->get();
+            }else{
+                $data = Presensi::paginate(5);
+            }
+            $total_row = $data->count();
+            if($total_row>0){
+                $i=1;
+                foreach($data as $p){
+                    if($p->status == 'ACTIVE'){
+                        $badge = '<span class="badge badge-success">Aktif</span>';
+                    }else{
+                        $badge = '<span class="badge badge-danger">Non</span>';
+                    }
+                    $output.='
+                    <tr>
+                                        <th scope="row">'.$i++.'</th>
+                                        <td>'.$p->name.'</td>
+                                        <td>'.$p->start_time.'</td>
+                                        <td>'.$p->end_time.'</td>
+                                        <td>
+                                            '.$badge.'
+                                        </td>
+                                        <td>
+                                            <a href="/hrd/data-presensi/'.$p->id.'/data-users" id="modal-7"
+                                                class="btn btn-transparent text-center text-dark">
+                                                <i class="fas fa-user fa-2x"></i>
+                                            </a>
+                                            <a href="#" id="modal-7" data-toggle="modal" data-target="#updateDataStatus'.$p->id.'"
+                                                class="btn btn-transparent text-center text-dark">
+                                                <i class="fas fa-power-off fa-2x"></i>
+                                            </a>
+                                            <a href="#" id="modal-7" data-toggle="modal" data-target="#deleteData'.$p->id.'"
+                                                class="btn btn-transparent text-center text-dark">
+                                            <i class="fas fa-trash-alt fa-2x"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                    ';
+                }
+            }else{
+                $output .= 'Absensi Not Found';
+            }
+        echo $output;
+        }
+    }
 }
