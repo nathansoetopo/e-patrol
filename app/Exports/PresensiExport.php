@@ -4,48 +4,28 @@ namespace App\Exports;
 
 use App\Models\User;
 use App\Models\Presensi;
-use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Events\AfterSheet;
-use Maatwebsite\Excel\Concerns\WithEvents;
-use Maatwebsite\Excel\Concerns\WithStyles;
-use Maatwebsite\Excel\Concerns\WithHeadings;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
 
-
-class PresensiExport implements FromCollection, WithHeadings, WithEvents
+class PresensiExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder implements WithCustomValueBinder, FromView
 {
-    public function headings(): array
-    {
+    protected $presensiID;
 
-        return [
-            'ID',
-            'User ID',
-            'Presensi ID',
-            'Status',
-            'Gambar Selfie',
-            'Gambar Keadaan',
-        ];
+    function __construct($presensiID) {
+            $this->presensiID = $presensiID;
     }
-    public function collection()
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function view(): View
     {
-        $IDsatpam = User::where('username', 'satpam')->pluck('id');
-        // return $IDsatpam;
-        // $name = DB::table('presensi_user')->where('user_id', $IDsatpam)->get();
-        // $type = Presensi::where('user_id', $IDsatpam)->pluck('id', 'user_id', 'presensi_id', 'status');
-        $type = DB::table('presensi_user')->select('id', 'user_id', 'presensi_id', 'status')->get();
-        return $type;
-    }
-
-
-    public function registerEvents(): array
-    {
-        return [
-            AfterSheet::class    => function (AfterSheet $event) {
-
-                $event->sheet->getDelegate()->getStyle('A1:H1')
-                    ->getFont()
-                    ->setBold(true);
-            },
-        ];
+        $presensi = Presensi::find($this->presensiID);
+        $satpam = $presensi->users()->get();
+        return view('pages.exports.presensi-excel', [
+            'satpam' => $satpam,
+            'presensi' => $presensi,
+        ]);
     }
 }

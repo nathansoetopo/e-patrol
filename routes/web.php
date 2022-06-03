@@ -52,7 +52,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/data-presensi/{presensiID}/delete-data', [PresensiController::class, 'deletePresensi']);
             Route::get('/data-presensi/{presensiID}/data-users', [PresensiController::class, 'showUsersByPresensi']);
             Route::get('/data-presensi/pdf', [PresensiController::class, 'adminPresPDF']);
-            Route::get('/data-presensi/excel', [PresensiController::class, 'excel']);
+            Route::get('/data-presensi/{presensiID}/excel', [PresensiController::class, 'excel']);
             Route::get('/data-hrd', [HRDController::class, 'dataHRDAdmin']);
             Route::get('/data-hrd/pdf', [HRDController::class, 'adminHrdPDF']);
             Route::get('/data-hrd/export/', [HRDController::class, 'excel']); //view
@@ -98,7 +98,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/data-presensi/{presensiID}/delete-data', [PresensiController::class, 'deletePresensi']);
             Route::get('/data-presensi/{presensiID}/data-users', [PresensiController::class, 'showUsersByPresensi']);
             Route::get('/data-presensi/pdf', [PresensiController::class, 'hrdPresPDF']);
-            Route::get('/data-presensi/excel', [PresensiController::class, 'excel']);
+            Route::get('/data-presensi/{presensiID}/excel', [PresensiController::class, 'excel']);
             Route::get('/data-satpam', [SatpamController::class, 'dataSatpamHRD']);
             Route::post('/data-satpam', [RegisterController::class, 'registerSatpam']);
             Route::post('/data-satpam/{shiftID}/update-data', [RegisterController::class, 'updateSatpam']);
@@ -142,6 +142,7 @@ Route::middleware('auth')->group(function () {
     Route::post('search-shift-hrd', [AjaxController::class, 'SearchShiftHRD']);
     Route::post('search-lokasi', [AjaxController::class, 'SearchLokasi']);
     Route::post('search-presensi', [AjaxController::class, 'SearchPresensi']);
+    Route::post('search-presensi-hrd', [AjaxController::class, 'SearchPresensiHrd']);
     //Test
     Route::get('test-map', [TestController::class, 'TestMap']);
     Route::get('test-scanner', [TestController::class, 'TestScanner']);

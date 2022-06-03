@@ -2,45 +2,23 @@
 
 namespace App\Exports;
 
-use App\Models\user;
-use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Events\AfterSheet;
+use App\Models\User;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithStyles;
-use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
 
-class SatpamExport implements FromCollection, WithHeadings, WithEvents
+class SatpamExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder implements WithCustomValueBinder, FromView
 {
+    use Exportable;
     /**
-     * @return \Illuminate\Support\Collection
-     */
-    public function headings(): array
+    * @return \Illuminate\Support\Collection
+    */
+    public function  view(): View
     {
-        return [
-            'ID',
-            'Nama',
-            'NIK',
-            'Email',
-            'Phone',
-            'Foto',
-        ];
-    }
-    public function collection()
-    {
-        $type = DB::table('users')->select('id', 'name', 'nik', 'email', 'no_hp')->where('username', 'satpam')->get();
-        return $type;
-    }
-
-    public function registerEvents(): array
-    {
-        return [
-            AfterSheet::class    => function (AfterSheet $event) {
-
-                $event->sheet->getDelegate()->getStyle('A1:G1')
-                    ->getFont()
-                    ->setBold(true);
-            },
-        ];
+        return view('pages.exports.satpam-excel', [
+            'satpam' => User::role('satpam')->get()
+        ]);
     }
 }
