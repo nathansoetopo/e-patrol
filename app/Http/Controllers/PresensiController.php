@@ -188,9 +188,6 @@ class PresensiController extends Controller
 
     public function excel($presensiID)
     {
-        // $presensi = Presensi::find($presensiID);
-        // $satpam = $presensi->users()->get();
-        // return $satpam;
         return Excel::download(new PresensiExport($presensiID), 'Presensi.xlsx');
     }
 }

@@ -80,9 +80,9 @@
                                             <td>{{ $s->pivot->range }}</td>
                                             <td>
                                                 @if ($s->pivot->status == 'OUT OF RANGE')
-                                                <span class="badge badge-danger">Out Of Range</span>
+                                                    <span class="badge badge-danger">Out Of Range</span>
                                                 @elseif($s->pivot->status == 'IN RANGE')
-                                                <span class="badge badge-success">In Range</span>
+                                                    <span class="badge badge-success">In Range</span>
                                                 @endif
                                             </td>
                                             <td>

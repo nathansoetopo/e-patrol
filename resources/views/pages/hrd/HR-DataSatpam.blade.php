@@ -47,10 +47,10 @@
                         </div>
                       </div>
                     </form>
-                    <div style="border-radius: 30px; position: absolute; object-position: center; left: 25%;">
+                    {{-- <div style="border-radius: 30px; position: absolute; object-position: center; left: 25%;">
                       <a target="_blank" href="{{ url('hrd/data-satpam/pdf') }}" style="padding-top: 2%; padding-bottom: 2%;" class="btn btn-light" type="button">Export PDF <i
                               class="fa fa-file-pdf" aria-hidden="true"></i></a>
-                    </div>
+                    </div> --}}
                     <div style="border-radius: 30px; position: absolute; object-position: center; left: 35%;">
                       <a href="{{ url('hrd/data-satpam/excel') }}" style="padding-top: 2%; padding-bottom: 2%;" class="btn btn-light" type="button">Export Excel <i
                         class="fa fa-file-excel" aria-hidden="true"></i></a>
