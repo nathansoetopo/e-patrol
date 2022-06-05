@@ -76,7 +76,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{ url('/hrd/data-shift/'.$shift->id.'/data-satpam') }}" id="modal-7"
+                                                <a href="#" id="modal-7" data-toggle="modal" data-target="#showDataSatpam{{ $shift->id }}"
                                                     class="btn btn-transparent text-center text-dark">
                                                     <i class="fas fa-user-shield fa-2x"></i>
                                                 </a>
@@ -127,6 +127,7 @@
     </div>
 
 @include('pages.hrd.modal.update-shift-status')
+@include('pages.hrd.modal.show-satpam')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
     $(document).ready(function(){

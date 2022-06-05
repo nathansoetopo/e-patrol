@@ -133,11 +133,13 @@ class PresensiController extends Controller
             return view('pages.admin.SuperAdmin-DataPresensiUsers', [
                 'satpam' => $satpam,
                 'presensi' => $presensi,
+                'presensiID' => $presensiID,
             ]);
         } elseif ($user->hasRole('hrd')) {
             return view('pages.hrd.HR-DataPresensiUsers', [
                 'satpam' => $satpam,
                 'presensi' => $presensi,
+                'presensiID' => $presensiID,
             ]);
         }
     }
@@ -184,8 +186,11 @@ class PresensiController extends Controller
         return $pdf->stream('presensi.pdf');
     }
 
-    public function excel()
+    public function excel($presensiID)
     {
-        return Excel::download(new PresensiExport, 'Presensi.xlsx');
+        // $presensi = Presensi::find($presensiID);
+        // $satpam = $presensi->users()->get();
+        // return $satpam;
+        return Excel::download(new PresensiExport($presensiID), 'Presensi.xlsx');
     }
 }

@@ -3,19 +3,20 @@
 namespace App\Exports;
 
 use App\Models\User;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
 
-class HrdExport implements FromCollection
+class HrdExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder implements WithCustomValueBinder, FromView
 {
     /**
-     * @return \Illuminate\Support\Collection
-     */
-    public function collection()
+    * @return \Illuminate\Support\Collection
+    */
+    public function  view(): View
     {
-        return User::select()->where('username', 'hrd')->downloadExcel(
-            $disk = null,
-            $writerType = null,
-            $headings = true
-        )->get();
+        return view('pages.exports.hrd-excel', [
+            'hrd' => User::role('hrd')->get()
+        ]);
     }
 }

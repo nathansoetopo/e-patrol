@@ -37,6 +37,10 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
+                            <div style="border-radius: 30px; position: absolute; object-position: center; left: 40%;">
+                                <a href="{{ url('admin/data-presensi/'.$presensiID.'/excel') }}" style="padding-top: 2%; padding-bottom: 2%;" class="btn btn-light" type="button">Export Excel <i
+                                    class="fa fa-file-excel" aria-hidden="true"></i></a>
+                            </div>
                             <form>
                                 <div class="input-group">
                                     <div style="border-radius: 30px;" class="input-group-text">

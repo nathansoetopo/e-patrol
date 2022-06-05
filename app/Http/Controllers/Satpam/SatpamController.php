@@ -7,14 +7,14 @@ use App\Models\User;
 use App\Models\Shift;
 use App\Models\Barcode;
 use App\Models\Presensi;
-use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use App\Exports\SatpamExport;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Helpers\ResponseFormatter;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
-
 // use Illuminate\Validation\Validator;
 
 class SatpamController extends Controller
@@ -34,6 +34,22 @@ class SatpamController extends Controller
     //data satpam Admin
     public function dataSatpamAdmin()
     {
+        // $IDsatpam = User::where('username', 'satpam')->pluck('id');
+        // // return $IDsatpam;
+        // $name = DB::table('presensi_user')->where('user_id', $IDsatpam)->get();
+
+        // foreach ($name as $n) {
+
+        //     return [
+        //         $n->user_id,
+        //         $n->presensi_id,
+
+        //     ];
+            
+        // }
+
+        // return $t;
+
         $satpam = User::role('satpam')->paginate(5);
         return view('pages.admin.SuperAdmin-DataSatpam', compact('satpam'));
     }
@@ -176,13 +192,16 @@ class SatpamController extends Controller
             // return ResponseFormatter::error(null, 'User belum melakukan presensi', 403);
             return redirect('/satpam')->with('status','User belum melakukan presensi');
         }
-        if($user->barcodes()->where('barcodes.id',$barcodeID)->where('attachment','!=',null)->exists())
+        // $check = $user->barcodes()->where('barcodes.id',$barcodeID)->where('attachment','!=',null)->count();
+        // return $check;
+        if($user->barcodes()->where('barcodes.id',$barcodeID)->where('attachment','!=',null)->count() >= 2)
         {
             return redirect('/satpam')->with('status','anda sudah melakukan scanning di titik ini');
         }
 
         return view('pages.satpam.Satpam-barcode-upload',compact('barcode','user'));
     }
+
 
     public function scanBarcode($barcodeID)
     {
@@ -197,7 +216,9 @@ class SatpamController extends Controller
             // return ResponseFormatter::error(null, 'User belum melakukan presensi', 403);
             return redirect('/satpam')->with('status','User belum melakukan presensi');
         }
-        if($user->barcodes()->where('barcodes.id',$barcodeID)->where('attachment','!=',null)->exists())
+        // $check = $user->barcodes()->where('barcodes.id',$barcodeID)->where('attachment','!=',null)->count();
+        // return $check;
+        if($user->barcodes()->where('barcodes.id',$barcodeID)->where('attachment','!=',null)->count() >= 2)
         {
             return redirect('/satpam')->with('status','anda sudah melakukan scanning di titik ini');
         }
@@ -271,6 +292,8 @@ class SatpamController extends Controller
         //     (new UsersExport)->withHeadings(),
         // ];
 
-        return Excel::download(new SatpamExport, 'Data Satpam.xlsx');
+        // return Excel::download(new SatpamExport, 'Data Satpam.xlsx');
+        return Excel::download(new SatpamExport, 'satpam.xlsx'); 
+        // return (new SatpamExport)->download('invoices.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
     }
 }

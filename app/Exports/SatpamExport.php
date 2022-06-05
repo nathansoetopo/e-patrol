@@ -2,17 +2,23 @@
 
 namespace App\Exports;
 
-use App\Models\user;
-use Illuminate\Foundation\Auth\User as AuthUser;
+use App\Models\User;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
 
-class SatpamExport implements FromCollection
+class SatpamExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder implements WithCustomValueBinder, FromView
 {
+    use Exportable;
     /**
-     * @return \Illuminate\Support\Collection
-     */
-    public function collection()
+    * @return \Illuminate\Support\Collection
+    */
+    public function  view(): View
     {
-        return User::select()->where('username', 'satpam')->get();
+        return view('pages.exports.satpam-excel', [
+            'satpam' => User::role('satpam')->get()
+        ]);
     }
 }
