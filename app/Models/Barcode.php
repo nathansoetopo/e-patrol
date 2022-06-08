@@ -10,10 +10,10 @@ class Barcode extends Model
     use HasFactory;
 
     protected $table='barcodes';
-    protected $guarded=['id'];
+    protected $guarded=[];
 
     public function users()
     {
-        return $this->belongsToMany(User::class,'barcode_users','barcode_id','user_id')->withPivot('range','attachment', 'selfie','status')->withTimestamps();
+        return $this->belongsToMany(User::class,'barcode_users','barcode_id','user_id')->withPivot('id', 'range','attachment', 'selfie','status')->withTimestamps();
     }
 }

@@ -157,7 +157,6 @@ class PresensiController extends Controller
             return redirect()->back()->with('status', 'Data barcode tidak ditemukan');
         }
         $satpam = $barcode->users()->paginate(5);
-        // return $satpam;
         if ($user->hasRole('admin')) {
             return view('pages.admin.SuperAdmin-DataLaporanUsers', [
                 'satpam' => $satpam,
