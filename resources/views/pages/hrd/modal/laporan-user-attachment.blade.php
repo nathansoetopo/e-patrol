@@ -1,6 +1,6 @@
 <!--Modal Tambah Data-->
 @foreach ($satpam as $b)
-<div class="modal fade" tabindex="-1" role="dialog" id="showUserImage{{ $b->id }}">
+<div class="modal fade" tabindex="-1" role="dialog" id="showUserImage{{ $b->pivot->id }}">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -13,11 +13,12 @@
                     <div class="text-center">
                         <img src="{{ asset('data/' . $b->name . '/laporan/'.$b->pivot->attachment) }}" class="img-fluid" alt="...">
                     </div>
+                    <br>
+                    <div class="text-center">
+                        <img src="{{ asset('data/' . $b->name . '/laporan/'.$b->pivot->selfie) }}" class="img-fluid" alt="{{$b->pivot->selfie}}">
+                    </div>
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
-                    {{-- <a type="button" href="#"
-                        style="transform: translateX(-80%); width: 174px; border-radius: 30px; background-color: #4285F4;"
-                        class="btn text-white">Download</a> --}}
                 </div>
         </div>
     </div>

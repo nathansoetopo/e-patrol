@@ -47,7 +47,7 @@ class User extends Authenticatable
 
     public function presensi()
     {
-        return $this->belongsToMany(Presensi::class,'presensi_user','user_id','presensi_id')->withPivot('laporan','detail','attachment', 'selfie', 'status')->withTimestamps();
+        return $this->belongsToMany(Presensi::class,'presensi_user','user_id','presensi_id')->withPivot('laporan','detail','attachment', 'status')->withTimestamps();
     }
 
     public function barcodes()
