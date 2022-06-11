@@ -10,7 +10,7 @@ class Barcode extends Model
     use HasFactory;
 
     protected $table='barcodes';
-    protected $guarded=['id'];
+    protected $guarded=[];
 
     public function users()
     {

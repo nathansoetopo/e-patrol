@@ -30,9 +30,10 @@ class LoginController extends Controller
         }
         $user = User::where('email', $request->email)->first();
         if ($user) {
+
+
             if (Hash::check($request->password, $user->password)) {
-                if($user->status === 'ACTIVE')
-                {
+                if ($user->status === 'ACTIVE') {
                     if ($user->hasRole('admin')) {
                         Auth::login($user);
                         return redirect('/admin');
@@ -44,6 +45,7 @@ class LoginController extends Controller
                         return redirect('/satpam');
                     }
                 }
+                // return $user;
                 return redirect('/')->with('status', 'Status anda tidak aktif');
             }
             return redirect('/')->with('status', 'Password anda salah');
