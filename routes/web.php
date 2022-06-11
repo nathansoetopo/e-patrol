@@ -74,6 +74,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/data-lokasi/{lokasiID}/update-status', [DataLokasiController::class, 'updateBarcodeStatus']);
             Route::get('/data-lokasi/{lokasiID}/delete-data', [DataLokasiController::class, 'deleteBarcode']);
             Route::get('/data-lokasi/{lokasiID}/download-barcode', [DataLokasiController::class, 'downloadBarcode']);
+            Route::get('/data-lokasi/{lokasiID}/excel-barcode', [DataLokasiController::class, 'laporanExcel']);
             Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
             Route::get('/daftar-lokasi', [DataLokasiController::class, 'showLokasiSuperAdmin']);
         });
@@ -113,6 +114,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/data-lokasi/{lokasiID}/update-status', [DataLokasiController::class, 'updateBarcodeStatus']);
             Route::get('/data-lokasi/{lokasiID}/delete-data', [DataLokasiController::class, 'deleteBarcode']);
             Route::get('/data-lokasi/{lokasiID}/download-barcode', [DataLokasiController::class, 'downloadBarcode']);
+            Route::get('/data-lokasi/{lokasiID}/excel-barcode', [DataLokasiController::class, 'laporanExcel']);
             Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
             Route::get('/daftar-lokasi', [DataLokasiController::class, 'showLokasi']);
         });

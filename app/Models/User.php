@@ -52,7 +52,7 @@ class User extends Authenticatable
 
     public function barcodes()
     {
-        return $this->belongsToMany(Barcode::class,'barcode_users','user_id','barcode_id')->withPivot('range','attachment','status')->withTimestamps();
+        return $this->belongsToMany(Barcode::class,'barcode_users','user_id','barcode_id')->withPivot('deskripsi','range','attachment','selfie','tanggal_laporan','status')->withTimestamps();
     }
 
     // public function barcodes_second()

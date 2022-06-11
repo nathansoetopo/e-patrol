@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Barcode;
 use Illuminate\Http\Request;
+use App\Exports\LaporanExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -158,5 +160,10 @@ class DataLokasiController extends Controller
             ->format('svg')
             ->generate(env('APP_URL') . '/satpam/scan/' . $barcodeID . '/detail', public_path('QrCode/'.$barcode->name.'-qrcode-'.$barcodeID.'.svg'));
         return response()->download('QrCode/'.$barcode->name.'-qrcode-'.$barcodeID.'.svg');
+    }
+
+    public function laporanExcel($barcodeID)
+    {
+        return Excel::download(new LaporanExport($barcodeID),'laporan.xlsx');
     }
 }

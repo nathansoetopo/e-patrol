@@ -8,17 +8,19 @@ use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class PresensiExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder implements WithCustomValueBinder, FromView
+class PresensiExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder implements WithCustomValueBinder, FromView, WithHeadings
 {
     protected $presensiID;
 
-    function __construct($presensiID) {
-            $this->presensiID = $presensiID;
+    function __construct($presensiID)
+    {
+        $this->presensiID = $presensiID;
     }
     /**
-    * @return \Illuminate\Support\Collection
-    */
+     * @return \Illuminate\Support\Collection
+     */
     public function view(): View
     {
         $presensi = Presensi::find($this->presensiID);
@@ -27,5 +29,20 @@ class PresensiExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder im
             'satpam' => $satpam,
             'presensi' => $presensi,
         ]);
+    }
+
+    public function headings(): array
+    {
+
+        return [
+            'ID',
+            'Shift ID',
+            'Name',
+            'Start Time',
+            'End Time',
+            'Status',
+            'Created At',
+            'Updated At',
+        ];
     }
 }

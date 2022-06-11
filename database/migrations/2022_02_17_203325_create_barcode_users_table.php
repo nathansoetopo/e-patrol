@@ -21,6 +21,8 @@ class CreateBarcodeUsersTable extends Migration
             $table->string('selfie')->nullable();
             $table->string('deskripsi')->nullable();
             $table->integer('range')->nullable();
+            $table->date('tanggal_laporan');
+            $table->time('jam_laporan');
             $table->enum('status',['IN RANGE','OUT OF RANGE']);
             $table->timestamps();
         });
