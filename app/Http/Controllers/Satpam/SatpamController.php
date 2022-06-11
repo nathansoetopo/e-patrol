@@ -9,7 +9,6 @@ use App\Models\Barcode;
 use App\Models\Presensi;
 use Illuminate\Http\Request;
 use App\Exports\SatpamExport;
-use App\Exports\LaporanExport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Helpers\ResponseFormatter;
 use Illuminate\Support\Facades\DB;
@@ -201,26 +200,12 @@ class SatpamController extends Controller
             // return ResponseFormatter::error(null, 'User belum melakukan presensi', 403);
             return redirect('/satpam')->with('status','User belum melakukan presensi');
         }
-        $dateNow = Carbon::parse(now())->format('Y:m:d');
-        $now = Carbon::parse(now())->format('H:i:s');
         // $check = $user->barcodes()->where('barcodes.id',$barcodeID)->where('attachment','!=',null)->count();
         // return $check;
-        if($user->barcodes()->where('barcodes.id',$barcodeID)->where('attachment','!=',null)->where('tanggal_laporan',$dateNow)->count() >= 2)
+        if($user->barcodes()->where('barcodes.id',$barcodeID)->where('attachment','!=',null)->count() >= 2)
         {
             return redirect('/satpam')->with('status','anda sudah melakukan scanning di titik ini');
         }
-        $laporan = $user->barcodes()->where('barcodes.id',$barcodeID)->where('attachment','!=',null)->first();
-        if($laporan)
-        {
-            $time = Carbon::parse($laporan->jam_laporan);
-            $diff = $time->diffInMinutes($now, false);
-            if ($diff < 2)
-            {
-                return redirect('/satpam')->with('status','Waktu interval presensi kurang dari dua jam');
-            }
-        }
-        // return $laporan;
-        
         $validate = Validator::make(request()->all(), [
             'attachment' => 'required|max:10240|mimes:jpg,png,jpeg',
         ]);
@@ -257,8 +242,6 @@ class SatpamController extends Controller
                 'selfie' => $name2,
                 'deskripsi' => request()->deskripsi,
                 'status' => 'OUT OF RANGE',
-                'tanggal_laporan' => $dateNow,
-                'jam_laporan' => $now,
             ]);
             // return ResponseFormatter::success($barcode, 'Data laporan berhasil terupload');
             return redirect('/satpam')->with('status', 'Data laporan berhasil terupload');
@@ -268,8 +251,6 @@ class SatpamController extends Controller
                 'attachment' => $name,
                 'selfie' => $name2,
                 'status' => 'IN RANGE',
-                'tanggal_laporan' => $dateNow,
-                'jam_laporan' => $now,
             ]);
             // return ResponseFormatter::success($barcode, 'Data laporan berhasil terupload');
             return redirect('/satpam')->with('status', 'Data laporan berhasil terupload');
@@ -299,6 +280,4 @@ class SatpamController extends Controller
         return Excel::download(new SatpamExport, 'satpam.xlsx'); 
         // return (new SatpamExport)->download('invoices.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
     }
-
-    
 }
