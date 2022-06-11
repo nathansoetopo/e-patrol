@@ -317,6 +317,7 @@ class AjaxController extends Controller
 
     public function SearchLokasi(Request $request){
         if ($request->ajax()) {
+            $user = request()->user();
             $output = '';
             $query = $request->get('query');
             if($query != ''){
@@ -333,7 +334,9 @@ class AjaxController extends Controller
                     }else{
                         $badge = '<span class="badge badge-danger">Non</span>';
                     }
-                    $output.='
+                    if($user->hasRole('admin'))
+                    {
+                        $output.='
                     <tr>
                         <th scope="row">'.$i++.'</th>
                         <td>'.$b->name.'</td>
@@ -362,9 +365,45 @@ class AjaxController extends Controller
                                 class="btn btn-transparent text-center text-dark">
                                 <i class="fas fa-trash-alt fa-2x"></i>
                             </a>
-                         </td>
+                        </td>
                     </tr>
                     ';
+                    }else
+                    {
+                        $output.='
+                    <tr>
+                        <th scope="row">'.$i++.'</th>
+                        <td>'.$b->name.'</td>
+                        <td>'.$b->latitude.'</td>
+                        <td>'.$b->longitude.'</td>
+                        <td>
+                            '.$badge.'
+                        </td>
+                        <td>
+                            <a href="/hrd/data-lokasi/'.$b->id.'/satpam" id="modal-7"
+                                class="btn btn-transparent text-center text-dark">
+                                <i class="fas fa-user fa-2x"></i>
+                            </a>
+                            <a href="#" id="modal-7" data-toggle="modal"
+                                data-target="#barcodeLocation'.$b->id.'"
+                                class="btn btn-transparent text-center text-dark">
+                                <i class="fas fa-qrcode fa-2x"></i>
+                            </a>
+                            <a href="#" id="modal-7" data-toggle="modal"
+                                data-target="#updateDataStatus'.$b->id.'"
+                                class="btn btn-transparent text-center text-dark">
+                                <i class="fas fa-power-off fa-2x"></i>
+                            </a>
+                            <a href="#" id="modal-7" data-toggle="modal"
+                                data-target="#deleteData'.$b->id.'"
+                                class="btn btn-transparent text-center text-dark">
+                                <i class="fas fa-trash-alt fa-2x"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    ';
+                    }
+                    
                 }
             }else{
                 $output .= 'Location Not Found';
@@ -375,6 +414,7 @@ class AjaxController extends Controller
 
     public function SearchPresensi(Request $request){
         if ($request->ajax()) {
+            $user = request()->user();
             $output = '';
             $query = $request->get('query');
             if($query != ''){
@@ -391,7 +431,9 @@ class AjaxController extends Controller
                     }else{
                         $badge = '<span class="badge badge-danger">Non</span>';
                     }
-                    $output.='
+                    if($user->hasRole('admin'))
+                    {
+                        $output.='
                     <tr>
                                         <th scope="row">'.$i++.'</th>
                                         <td>'.$p->name.'</td>
@@ -416,6 +458,36 @@ class AjaxController extends Controller
                                         </td>
                                     </tr>
                     ';
+                    }
+                    else
+                    {
+                        $output.='
+                    <tr>
+                                        <th scope="row">'.$i++.'</th>
+                                        <td>'.$p->name.'</td>
+                                        <td>'.$p->start_time.'</td>
+                                        <td>'.$p->end_time.'</td>
+                                        <td>
+                                            '.$badge.'
+                                        </td>
+                                        <td>
+                                            <a href="/hrd/data-presensi/'.$p->id.'/data-users" id="modal-7"
+                                                class="btn btn-transparent text-center text-dark">
+                                                <i class="fas fa-user fa-2x"></i>
+                                            </a>
+                                            <a href="#" id="modal-7" data-toggle="modal" data-target="#updateDataStatus'.$p->id.'"
+                                                class="btn btn-transparent text-center text-dark">
+                                                <i class="fas fa-power-off fa-2x"></i>
+                                            </a>
+                                            <a href="#" id="modal-7" data-toggle="modal" data-target="#deleteData'.$p->id.'"
+                                                class="btn btn-transparent text-center text-dark">
+                                            <i class="fas fa-trash-alt fa-2x"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                    ';
+                    }
+                    
                 }
             }else{
                 $output .= 'Absensi Not Found';

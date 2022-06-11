@@ -167,11 +167,13 @@ class PresensiController extends Controller
             return view('pages.admin.SuperAdmin-DataLaporanUsers', [
                 'satpam' => $satpam,
                 'barcode' => $barcode,
+                'barcodeID' => $barcodeID,
             ]);
         } elseif ($user->hasRole('hrd')) {
             return view('pages.hrd.HR-DataLaporanUsers', [
                 'satpam' => $satpam,
                 'barcode' => $barcode,
+                'barcodeID' => $barcodeID,
             ]);
         }
     }
