@@ -164,11 +164,7 @@
   @include('pages.admin.modal.delete-satpam')
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
       <!--Search Script-->
-      <script>
-        $(document).ready(function(){
-        
-        fetch_user_data();
-        
+      <script> 
         function fetch_user_data(query = '')
         {
           $.ajax({
@@ -181,14 +177,12 @@
            success:function(response)
            {
             $('#tbody').html(response);
-            //console.log(response);
            }
           })
         }
         $(document).on('keyup', '#search', function(){
           var word = $(this).val();
           fetch_user_data(word);
-        });
         });
       </script>
   @endsection

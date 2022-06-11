@@ -146,17 +146,12 @@
           </div>
         </section>
       </div>
-
   @include('pages.hrd.modal.create-satpam')
   @include('pages.hrd.modal.update-satpam')
   @include('pages.hrd.modal.update-satpam-status')
   @include('pages.hrd.modal.delete-satpam')
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script>
-    $(document).ready(function(){
-    
-    fetch_user_data();
-    
     function fetch_user_data(query = '')
     {
       $.ajax({
@@ -176,7 +171,6 @@
     $(document).on('keyup', '#search', function(){
       var word = $(this).val();
       fetch_user_data(word);
-    });
     });
   </script>
   @endsection

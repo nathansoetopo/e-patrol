@@ -34,22 +34,6 @@ class SatpamController extends Controller
     //data satpam Admin
     public function dataSatpamAdmin()
     {
-        // $IDsatpam = User::where('username', 'satpam')->pluck('id');
-        // // return $IDsatpam;
-        // $name = DB::table('presensi_user')->where('user_id', $IDsatpam)->get();
-
-        // foreach ($name as $n) {
-
-        //     return [
-        //         $n->user_id,
-        //         $n->presensi_id,
-
-        //     ];
-            
-        // }
-
-        // return $t;
-
         $satpam = User::role('satpam')->paginate(5);
         return view('pages.admin.SuperAdmin-DataSatpam', compact('satpam'));
     }
