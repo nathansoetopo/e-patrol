@@ -52,6 +52,7 @@ class User extends Authenticatable
 
     public function barcodes()
     {
-        return $this->belongsToMany(Barcode::class,'barcode_users','user_id','barcode_id')->withPivot('id', 'range','attachment', 'selfie','status')->withTimestamps();
+        //return $this->belongsToMany(Barcode::class,'barcode_users','user_id','barcode_id')->withPivot('id', 'range','attachment', 'selfie','status')->withTimestamps();
+        return $this->belongsToMany(Barcode::class,'barcode_users','user_id','barcode_id')->withPivot('deskripsi','range','attachment','selfie','tanggal_laporan','status')->withTimestamps();
     }
 }
