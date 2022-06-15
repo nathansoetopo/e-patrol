@@ -35,22 +35,6 @@ class SatpamController extends Controller
     //data satpam Admin
     public function dataSatpamAdmin()
     {
-        // $IDsatpam = User::where('username', 'satpam')->pluck('id');
-        // // return $IDsatpam;
-        // $name = DB::table('presensi_user')->where('user_id', $IDsatpam)->get();
-
-        // foreach ($name as $n) {
-
-        //     return [
-        //         $n->user_id,
-        //         $n->presensi_id,
-
-        //     ];
-            
-        // }
-
-        // return $t;
-
         $satpam = User::role('satpam')->paginate(5);
         return view('pages.admin.SuperAdmin-DataSatpam', compact('satpam'));
     }
@@ -193,8 +177,6 @@ class SatpamController extends Controller
             // return ResponseFormatter::error(null, 'User belum melakukan presensi', 403);
             return redirect('/satpam')->with('status','User belum melakukan presensi');
         }
-        // $check = $user->barcodes()->where('barcodes.id',$barcodeID)->where('attachment','!=',null)->count();
-        // return $check;
         $dateNow = Carbon::parse(now())->format('Y:m:d');
         if($user->barcodes()->where('barcodes.id',$barcodeID)->where('attachment','!=',null)->where('tanggal_laporan',$dateNow)->count() >= 2)
         {
@@ -220,8 +202,6 @@ class SatpamController extends Controller
         }
         $dateNow = Carbon::parse(now())->format('Y:m:d');
         $now = Carbon::parse(now())->format('H:i:s');
-        // $check = $user->barcodes()->where('barcodes.id',$barcodeID)->where('attachment','!=',null)->count();
-        // return $check;
         if($user->barcodes()->where('barcodes.id',$barcodeID)->where('attachment','!=',null)->where('tanggal_laporan',$dateNow)->count() >= 2)
         {
             return redirect('/satpam')->with('status','anda sudah melakukan scanning di titik ini');

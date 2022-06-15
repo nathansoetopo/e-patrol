@@ -17,6 +17,14 @@
                         <div class="text-center">
                             <img src="{{ asset('data/' . $b->name . '/laporan/'.$b->pivot->selfie) }}" class="img-fluid" alt="{{$b->pivot->selfie}}">
                         </div>
+                        <br>
+                        <b>Nama Petugas</b>
+                        <br>
+                        <p>{{$b->name}}</p>
+                        <br>
+                        <b>Deskripsi</b>
+                        <br>
+                        <p>{{$b->pivot->deskripsi}}</p>
                     </div>
                 <div class="modal-footer bg-whitesmoke br">
             </div>

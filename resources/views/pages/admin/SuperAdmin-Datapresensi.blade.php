@@ -42,10 +42,10 @@
                             <button class="btn btn-light" id="search" type="button"><i style="right: 70px;"
                                     class="fas fa-search"></i></button>
                         </div>
-                        <div style="border-radius: 30px; position: absolute; object-position: center; left: 25%;">
+                        {{-- <div style="border-radius: 30px; position: absolute; object-position: center; left: 25%;">
                             <a target="_blank" href="{{ url('admin/data-presensi/pdf') }}" style="padding-top: 2%; padding-bottom: 2%;" class="btn btn-light" type="button">Export PDF <i
                                     class="fa fa-file-pdf" aria-hidden="true"></i></a>
-                        </div>
+                        </div> --}}
                         {{-- <div style="border-radius: 30px; position: absolute; object-position: center; left: 40%;">
                             <a href="{{ url('admin/data-presensi/excel') }}" style="padding-top: 2%; padding-bottom: 2%;" class="btn btn-light" type="button">Export Excel <i
                               class="fa fa-file-excel" aria-hidden="true"></i></a>

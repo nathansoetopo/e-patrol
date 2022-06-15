@@ -17,11 +17,16 @@
                     <div class="text-center">
                         <img src="{{ asset('data/' . $b->name . '/laporan/'.$b->pivot->selfie) }}" class="img-fluid" alt="{{$b->pivot->selfie}}">
                     </div>
+                    <br>
+                    <b>Nama Petugas</b>
+                    <br>
+                    <p>{{$b->name}}</p>
+                    <br>
+                    <b>Deskripsi</b>
+                    <br>
+                    <p>{{$b->pivot->deskripsi}}</p>
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
-                    {{-- <a type="button" href="#"
-                        style="transform: translateX(-80%); width: 174px; border-radius: 30px; background-color: #4285F4;"
-                        class="btn text-white">Download</a> --}}
                 </div>
         </div>
     </div>
