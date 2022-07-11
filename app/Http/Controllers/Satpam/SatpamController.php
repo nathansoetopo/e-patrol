@@ -43,7 +43,7 @@ class SatpamController extends Controller
     public function storeSatpam(Request $request)
     {
 
-        // $satpam = 
+        // $satpam =
     }
 
     public function isUserMemberOfTheShift($user, $shiftID)
@@ -161,7 +161,7 @@ class SatpamController extends Controller
 
     public function indexScanBarcode()
     {
-        return view('pages.satpam.Satpam-scan');
+        return view('pages.satpam.Satpam-Scan');
     }
 
     public function uploadLaporanBarcode($barcodeID)
@@ -218,7 +218,7 @@ class SatpamController extends Controller
         //     // }
         // }
         // return $laporan;
-        
+
         $validate = Validator::make(request()->all(), [
             'attachment' => 'required|max:10240|mimes:jpg,png,jpeg',
         ]);
@@ -294,7 +294,7 @@ class SatpamController extends Controller
         // ];
 
         // return Excel::download(new SatpamExport, 'Data Satpam.xlsx');
-        return Excel::download(new SatpamExport, 'satpam.xlsx'); 
+        return Excel::download(new SatpamExport, 'satpam.xlsx');
         // return (new SatpamExport)->download('invoices.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
     }
 }

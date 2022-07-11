@@ -11,7 +11,7 @@ class DataShiftController extends Controller
     public function showShiftAdmin()
     {
         $shifts = Shift::paginate(5);
-        return view('pages.admin.SuperAdmin-DataShift', compact('shifts'));
+        return view('pages.admin.SuperAdmin-Datashift', compact('shifts'));
     }
 
     public function showShiftHRD()

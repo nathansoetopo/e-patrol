@@ -36,7 +36,7 @@ class ProfileController extends Controller
 
     //     $input -> $request->all();
 
-    //     $admin = 
+    //     $admin =
     // }
 
     public function hrdProfile()
@@ -50,7 +50,7 @@ class ProfileController extends Controller
     {
         $id = Auth::user()->id;
         $data = User::find($id);
-        return view('pages.satpam.Satpam-profile', compact('data'));
+        return view('pages.satpam.Satpam-Profile', compact('data'));
     }
 
     public function StoreProfileSatpam(Request $request)
@@ -75,7 +75,7 @@ class ProfileController extends Controller
         if(request()->hasFile('image'))
         {
             $image = time()."_".request()->image->getClientOriginalName();
-            request()->image->move(public_path('data_users/'.request()->name.'/image'), $image); 
+            request()->image->move(public_path('data_users/'.request()->name.'/image'), $image);
 
             $user->update([
                 'name' => request('name'),
@@ -94,7 +94,7 @@ class ProfileController extends Controller
             ]);
         }
 
-       
+
         //Tambahin Validator
         return redirect('satpam/profile');
     }
@@ -121,7 +121,7 @@ class ProfileController extends Controller
         if(request()->hasFile('image'))
         {
             $image = time()."_".request()->image->getClientOriginalName();
-            request()->image->move(public_path('data_users/'.request()->name.'/image'), $image); 
+            request()->image->move(public_path('data_users/'.request()->name.'/image'), $image);
 
             $user->update([
                 'name' => request('name'),
@@ -139,7 +139,7 @@ class ProfileController extends Controller
                 'bio' => request('bio'),
             ]);
         }
- 
+
         //Tambahin Validator
         return redirect('hrd/profile');
     }
@@ -165,7 +165,7 @@ class ProfileController extends Controller
         if(request()->hasFile('image'))
         {
             $image = time()."_".request()->image->getClientOriginalName();
-            request()->image->move(public_path('data_users/'.request()->name.'/image'), $image); 
+            request()->image->move(public_path('data_users/'.request()->name.'/image'), $image);
 
             $user->update([
                 'name' => request('name'),
@@ -183,7 +183,7 @@ class ProfileController extends Controller
                 'bio' => request('bio'),
             ]);
         }
- 
+
         //Tambahin Validator
         return redirect('admin/profile');
     }
