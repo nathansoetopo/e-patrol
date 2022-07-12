@@ -11,8 +11,20 @@
             </div>
                 <div class="modal-body">
                     <div class="text-center">
-                        <img src="{{ asset('data/'.$b->name.'/'.$presensi->name.'/'.$b->pivot->attachment) }}" class="img-fluid" alt="...">
+                        <img src="{{ asset('data/'.$presensi->shifts->name.'/'.$presensi->name.'/'.$b->pivot->attachment) }}" class="img-fluid" alt="...">
                     </div>
+                                        <br>
+                    <b>Laporan</b>
+                    <br>
+                    <p>{{$b->pivot->laporan}}</p>
+                    <br>
+                    <b>Detail</b>
+                    <br>
+                    <p>{{$b->pivot->detail}}</p>
+                    <br>
+                    <b>Kehadiran</b>
+                    <br>
+                    <p>{{$b->pivot->status}}</p>
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
                     {{-- <a type="button" href="#"

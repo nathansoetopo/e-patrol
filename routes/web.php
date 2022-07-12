@@ -19,8 +19,6 @@ Route::get('/test', function () {
     return view('test.test');
 });
 
-//Semangat Mas Ridwan Sayang
-
 //login
 Route::get('/', [LoginController::class, 'login'])->name('login');
 Route::post('/', [LoginController::class, 'store']);

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Shift;
 use App\Models\Barcode;
 use App\Models\Presensi;
-use App\Models\Shift;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class AjaxController extends Controller
 {
@@ -329,6 +330,23 @@ class AjaxController extends Controller
             if($total_row>0){
                 $i=1;
                 foreach($data as $b){
+                    // Modal
+                    if(Auth::user()->hasRole('admin')){
+                        $modal = '
+                        <a href="/admin/data-lokasi/'.$b->id.'/satpam" id="modal-7"
+                            class="btn btn-transparent text-center text-dark">
+                            <i class="fas fa-user fa-2x"></i>
+                        </a>
+                        ';
+                    }elseif(Auth::user()->hasRole('hrd')){
+                        $modal = '
+                        <a href="/hrd/data-lokasi/'.$b->id.'/satpam" id="modal-7"
+                            class="btn btn-transparent text-center text-dark">
+                            <i class="fas fa-user fa-2x"></i>
+                        </a>
+                        ';
+                    }
+                    // Badge
                     if($b->status == 'ACTIVE'){
                         $badge = '<span class="badge badge-success">Aktif</span>';
                     }else{
@@ -346,10 +364,7 @@ class AjaxController extends Controller
                             '.$badge.'
                         </td>
                         <td>
-                            <a href="/admin/data-lokasi/'.$b->id.'/satpam" id="modal-7"
-                                class="btn btn-transparent text-center text-dark">
-                                <i class="fas fa-user fa-2x"></i>
-                            </a>
+                            '.$modal.'
                             <a href="#" id="modal-7" data-toggle="modal"
                                 data-target="#barcodeLocation'.$b->id.'"
                                 class="btn btn-transparent text-center text-dark">

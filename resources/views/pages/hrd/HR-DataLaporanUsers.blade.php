@@ -90,7 +90,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="#" id="modal-7" data-toggle="modal" data-target="#showUserImage{{ $s->id }}"
+                                                <a href="#" id="modal-7" data-toggle="modal" data-target="#showUserImage{{ $s->pivot->id }}"
                                                   class="btn btn-transparent text-center text-dark">
                                                   <i class="fas fa-image fa-2x"></i>
                                                 </a>

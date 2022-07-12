@@ -25,11 +25,6 @@ class PresensiController extends Controller
     {
         $user = request()->user();
         $presensi = $user->shifts()->with('presensi')->paginate(5);
-        /* $data = array();
-        foreach($presensi as $p)
-        {
-            array_push($data, $p);
-        } */
         $shifts = Shift::all();
         return view('pages.hrd.HR-Datapresensi', compact('presensi', 'shifts'));
     }
@@ -162,7 +157,6 @@ class PresensiController extends Controller
             return redirect()->back()->with('status', 'Data barcode tidak ditemukan');
         }
         $satpam = $barcode->users()->paginate(5);
-        // return $satpam;
         if ($user->hasRole('admin')) {
             return view('pages.admin.SuperAdmin-DataLaporanUsers', [
                 'satpam' => $satpam,
@@ -195,9 +189,6 @@ class PresensiController extends Controller
 
     public function excel($presensiID)
     {
-        // $presensi = Presensi::find($presensiID);
-        // $satpam = $presensi->users()->get();
-        // return $satpam;
         return Excel::download(new PresensiExport($presensiID), 'Presensi.xlsx');
     }
 }

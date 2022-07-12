@@ -35,22 +35,6 @@ class SatpamController extends Controller
     //data satpam Admin
     public function dataSatpamAdmin()
     {
-        // $IDsatpam = User::where('username', 'satpam')->pluck('id');
-        // // return $IDsatpam;
-        // $name = DB::table('presensi_user')->where('user_id', $IDsatpam)->get();
-
-        // foreach ($name as $n) {
-
-        //     return [
-        //         $n->user_id,
-        //         $n->presensi_id,
-
-        //     ];
-            
-        // }
-
-        // return $t;
-
         $satpam = User::role('satpam')->paginate(5);
         return view('pages.admin.SuperAdmin-DataSatpam', compact('satpam'));
     }
@@ -59,7 +43,7 @@ class SatpamController extends Controller
     public function storeSatpam(Request $request)
     {
 
-        // $satpam = 
+        // $satpam =
     }
 
     public function isUserMemberOfTheShift($user, $shiftID)
@@ -88,8 +72,8 @@ class SatpamController extends Controller
     public function reportSatpam($presensiID)
     {
         $user = request()->user();
-        $presensi = $user->presensi()->where('attachment','!=',null)->latest('presensi_id')->first();
-        if($presensi)
+        $presensi = $user->presensi()->where('attachment','=',null)->latest('presensi_id')->first();
+        if(!$presensi)
         {
             return redirect('/satpam/laporan')->with('status','Anda sudah presensi');
         }
@@ -177,7 +161,7 @@ class SatpamController extends Controller
 
     public function indexScanBarcode()
     {
-        return view('pages.satpam.Satpam-scan');
+        return view('pages.satpam.Satpam-Scan');
     }
 
     public function uploadLaporanBarcode($barcodeID)
@@ -193,9 +177,8 @@ class SatpamController extends Controller
             // return ResponseFormatter::error(null, 'User belum melakukan presensi', 403);
             return redirect('/satpam')->with('status','User belum melakukan presensi');
         }
-        // $check = $user->barcodes()->where('barcodes.id',$barcodeID)->where('attachment','!=',null)->count();
-        // return $check;
-        if($user->barcodes()->where('barcodes.id',$barcodeID)->where('attachment','!=',null)->count() >= 2)
+        $dateNow = Carbon::parse(now())->format('Y:m:d');
+        if($user->barcodes()->where('barcodes.id',$barcodeID)->where('attachment','!=',null)->where('tanggal_laporan',$dateNow)->count() >= 2)
         {
             return redirect('/satpam')->with('status','anda sudah melakukan scanning di titik ini');
         }
@@ -219,24 +202,23 @@ class SatpamController extends Controller
         }
         $dateNow = Carbon::parse(now())->format('Y:m:d');
         $now = Carbon::parse(now())->format('H:i:s');
-        // $check = $user->barcodes()->where('barcodes.id',$barcodeID)->where('attachment','!=',null)->count();
-        // return $check;
         if($user->barcodes()->where('barcodes.id',$barcodeID)->where('attachment','!=',null)->where('tanggal_laporan',$dateNow)->count() >= 2)
         {
             return redirect('/satpam')->with('status','anda sudah melakukan scanning di titik ini');
         }
         $laporan = $user->barcodes()->where('barcodes.id',$barcodeID)->where('attachment','!=',null)->first();
-        if($laporan)
-        {
-            $time = Carbon::parse($laporan->jam_laporan);
-            $diff = $time->diffInMinutes($now, false);
-            if ($diff < 2)
-            {
-                return redirect('/satpam')->with('status','Waktu interval presensi kurang dari dua jam');
-            }
-        }
+        // if($laporan)
+        // {
+        //     $time = Carbon::parse($laporan->jam_laporan);
+        //     $diff = $time->diffInMinutes($now, false);
+        //     return $time;
+        //     // if ($diff < 2)
+        //     // {
+        //     //     return redirect('/satpam')->with('status','Waktu interval presensi kurang dari dua jam');
+        //     // }
+        // }
         // return $laporan;
-        
+
         $validate = Validator::make(request()->all(), [
             'attachment' => 'required|max:10240|mimes:jpg,png,jpeg',
         ]);
@@ -312,9 +294,7 @@ class SatpamController extends Controller
         // ];
 
         // return Excel::download(new SatpamExport, 'Data Satpam.xlsx');
-        return Excel::download(new SatpamExport, 'satpam.xlsx'); 
+        return Excel::download(new SatpamExport, 'satpam.xlsx');
         // return (new SatpamExport)->download('invoices.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
     }
-
-    
 }

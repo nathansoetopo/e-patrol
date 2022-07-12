@@ -47,10 +47,10 @@
                         </div>
                       </div>
                     </form>
-                    <div style="border-radius: 30px; position: absolute; object-position: center; left: 25%;">
+                    {{-- <div style="border-radius: 30px; position: absolute; object-position: center; left: 25%;">
                       <a target="_blank" href="{{ url('hrd/data-satpam/pdf') }}" style="padding-top: 2%; padding-bottom: 2%;" class="btn btn-light" type="button">Export PDF <i
                               class="fa fa-file-pdf" aria-hidden="true"></i></a>
-                    </div>
+                    </div> --}}
                     <div style="border-radius: 30px; position: absolute; object-position: center; left: 35%;">
                       <a href="{{ url('hrd/data-satpam/excel') }}" style="padding-top: 2%; padding-bottom: 2%;" class="btn btn-light" type="button">Export Excel <i
                         class="fa fa-file-excel" aria-hidden="true"></i></a>
@@ -146,17 +146,12 @@
           </div>
         </section>
       </div>
-
   @include('pages.hrd.modal.create-satpam')
   @include('pages.hrd.modal.update-satpam')
   @include('pages.hrd.modal.update-satpam-status')
   @include('pages.hrd.modal.delete-satpam')
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script>
-    $(document).ready(function(){
-    
-    fetch_user_data();
-    
     function fetch_user_data(query = '')
     {
       $.ajax({
@@ -176,7 +171,6 @@
     $(document).on('keyup', '#search', function(){
       var word = $(this).val();
       fetch_user_data(word);
-    });
     });
   </script>
   @endsection

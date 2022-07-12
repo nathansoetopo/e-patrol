@@ -47,21 +47,12 @@ class User extends Authenticatable
 
     public function presensi()
     {
-        return $this->belongsToMany(Presensi::class,'presensi_user','user_id','presensi_id')->withPivot('laporan','detail','attachment','status')->withTimestamps();
+        return $this->belongsToMany(Presensi::class,'presensi_user','user_id','presensi_id')->withPivot('laporan','detail','attachment', 'status')->withTimestamps();
     }
 
     public function barcodes()
     {
+        //return $this->belongsToMany(Barcode::class,'barcode_users','user_id','barcode_id')->withPivot('id', 'range','attachment', 'selfie','status')->withTimestamps();
         return $this->belongsToMany(Barcode::class,'barcode_users','user_id','barcode_id')->withPivot('deskripsi','range','attachment','selfie','tanggal_laporan','status')->withTimestamps();
     }
-
-    // public function barcodes_second()
-    // {
-    //     return $this->belongsToMany(Barcode::class,'barcode_users_second','user_id','barcode_id')->withPivot('range','attachment','status')->withTimestamps();
-    // }
-
-    // public function user_presensi()
-    // {
-    //     return $this->hasMany(Presensi::class);
-    // }
 }

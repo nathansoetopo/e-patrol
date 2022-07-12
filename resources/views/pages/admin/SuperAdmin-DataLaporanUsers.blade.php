@@ -84,13 +84,13 @@
                                             <td>{{ $s->pivot->range }}</td>
                                             <td>
                                                 @if ($s->pivot->status == 'OUT OF RANGE')
-                                                <span class="badge badge-danger">Out Of Range</span>
+                                                    <span class="badge badge-danger">Out Of Range</span>
                                                 @elseif($s->pivot->status == 'IN RANGE')
-                                                <span class="badge badge-success">In Range</span>
+                                                    <span class="badge badge-success">In Range</span>
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="#" id="modal-7" data-toggle="modal" data-target="#showUserImage{{ $s->id }}"
+                                                <a href="#" id="modal-7" data-toggle="modal" data-target="#showUserImage{{ $s->pivot->id }}"
                                                   class="btn btn-transparent text-center text-dark">
                                                   <i class="fas fa-image fa-2x"></i>
                                                 </a>

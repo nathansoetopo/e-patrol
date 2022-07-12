@@ -22,7 +22,7 @@
                     <th>Nama Presensi</th>
                     <th>Laporan</th>
                     <th>Detail</th>
-                    <th>Attachment</th>
+                    <th>Link Attachment</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -41,12 +41,6 @@
                     <td>
                         {{ $s->pivot->detail }}
                     </td>
-                    {{-- <td>
-                        {{ $s->pivot->attachment }}
-                    </td> --}}
-                    {{-- <td>
-                        <img src="{{ asset('data_users/' . $s->name . '/image/'.$s->image) }}" alt="satpam">
-                    </td> --}}
                     <td>
                         {{ env('APP_URL').'/data/'.$presensi->shifts->name.'/'.$presensi->name.'/'.$s->pivot->attachment }}
                     </td>

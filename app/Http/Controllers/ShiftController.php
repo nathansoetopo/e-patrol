@@ -31,10 +31,10 @@ class ShiftController extends Controller
         }
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'start_time' => 'required|date_format:H:i:s',
-            'end_time' => 'required|date_format:H:i:s|after:start_time',
+            'start_time' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i|after:start_time',
         ]);
-        if ($validator->fails()) {
+        if (!$validator) {
             // return ResponseFormatter::error($validator, $validator->messages(), 400);
             return redirect()->back()->withInput()->withError($validator);
         }
@@ -59,12 +59,12 @@ class ShiftController extends Controller
             // return ResponseFormatter::error(null, 'Data shift tidak ditemukan', 404);
             return redirect()->back()->with('status', 'Data shift tidak ditemukan');
         }
-        $validator = Validator::make(request()->all(), [
+        $validator = $request->validate([
             'name' => 'required',
             'start_time' => 'required|date_format:H:i:s',
-            'end_time' => 'required|date_format:H:i:s|after:start_time',
+            'end_time' => 'required|date_format:H:i:s',
         ]);
-        if ($validator->fails()) {
+        if (!$validator) {
             // return ResponseFormatter::error($validator, $validator->messages(), 400);
             return redirect()->back()->withInput()->withError($validator);
         }

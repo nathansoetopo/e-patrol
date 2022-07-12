@@ -47,14 +47,14 @@
                         </div>
                       </div>
                     </form>
-                    <div style="border-radius: 30px; position: absolute; object-position: center; left: 30%;">
+                    {{-- <div style="border-radius: 30px; position: absolute; object-position: center; left: 30%;">
                       <a target="_blank" href="{{ url('admin/data-satpam/pdf') }}" style="padding-top: 2%; padding-bottom: 2%;" class="btn btn-light" type="button">Export PDF <i
                               class="fa fa-file-pdf" aria-hidden="true"></i></a>
                     </div>
                     <div style="border-radius: 30px; position: absolute; object-position: center; left: 45%;">
                       <a href="{{ url('admin/data-satpam/excel') }}" style="padding-top: 2%; padding-bottom: 2%;" class="btn btn-light" type="button">Export Excel <i
                         class="fa fa-file-excel" aria-hidden="true"></i></a>
-                    </div>
+                    </div> --}}
                     <div style="border-radius: 30px; position: absolute; object-position: center; left: 84%;">
                       <button style="padding-top: 2%; padding-bottom: 2%;" data-toggle="modal" data-target="#addData"
                         class="btn btn-light" type="button">Tambah Data <i class="fas fa-plus"></i></button>
@@ -164,11 +164,7 @@
   @include('pages.admin.modal.delete-satpam')
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
       <!--Search Script-->
-      <script>
-        $(document).ready(function(){
-        
-        fetch_user_data();
-        
+      <script> 
         function fetch_user_data(query = '')
         {
           $.ajax({
@@ -181,14 +177,12 @@
            success:function(response)
            {
             $('#tbody').html(response);
-            //console.log(response);
            }
           })
         }
         $(document).on('keyup', '#search', function(){
           var word = $(this).val();
           fetch_user_data(word);
-        });
         });
       </script>
   @endsection

@@ -11,14 +11,13 @@ class DataShiftController extends Controller
     public function showShiftAdmin()
     {
         $shifts = Shift::paginate(5);
-        return view('pages.admin.SuperAdmin-DataShift', compact('shifts'));
+        return view('pages.admin.SuperAdmin-Datashift', compact('shifts'));
     }
 
     public function showShiftHRD()
     {
         $user = request()->user();
         if (!$user->hasRole('hrd')) {
-            // return ResponseFormatter::error(null, 'User tidak punya kewenangan', 403);
             return back()->withInput()->withToastError(null, 'User tidak punya kewenangan', 403);
         }
         $shifts = $user->shifts()->paginate(5);

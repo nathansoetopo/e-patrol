@@ -2,7 +2,7 @@
     <aside id="sidebar-wrapper">
       <div class="sidebar-brand">
         <a href="">RUSYIDA MITRA PERKASA</a>
-        <img src="../images/logo.jpeg" class="block text pl-5 pr-5" style="height: 5em" />
+        <img src="{{ asset('images/logo.jpeg') }}" class="block text pl-5 pr-5" style="height: 5em" />
       </div>
       <div class="sidebar-brand sidebar-brand-sm">
         <a href="">RMS</a>

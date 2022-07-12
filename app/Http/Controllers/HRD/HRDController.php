@@ -41,7 +41,7 @@ class HRDController extends Controller
     public function dataHRDAdmin()
     {
         $hrd = User::role('hrd')->paginate(5);
-        return view('pages.admin.SuperAdmin-DataHRD', compact('hrd'));
+        return view('pages.admin.SuperAdmin-DataHrd', compact('hrd'));
     }
 
     public function showPresensiOnShift($shiftID)
