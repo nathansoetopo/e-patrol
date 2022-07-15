@@ -154,8 +154,8 @@
                 <div class="card">
                     <div class="card-header">
                         <div style="border-radius: 30px;" class="input-group-text">
-                            <input style="border: none;" id="search" type="text" class="form-control" placeholder="Search"
-                                aria-label="Search">
+                            <input style="border: none;" id="search" type="text" class="form-control"
+                                placeholder="Search" aria-label="Search">
                             <button class="btn btn-light" type="button"><i style="right: 70px;"
                                     class="fas fa-search"></i></button>
                         </div>
@@ -165,7 +165,7 @@
                         <div style="border-radius: 30px; position: absolute; object-position: center; left: 84%;">
                             <button style="padding-top: 2%; padding-bottom: 2%;" data-toggle="modal"
                                 data-target="#addData" class="btn btn-light" type="button">Tambah Titik <i
-                                class="fas fa-plus"></i>
+                                    class="fas fa-plus"></i>
                             </button>
                         </div>
                     </div>
@@ -241,7 +241,8 @@
                                             @endfor
                                             <li
                                                 class="{{ ($barcodes->currentPage() == $barcodes->lastPage()) ? 'page-item disabled' : 'page-item' }}">
-                                                <a class="page-link" href="{{ $barcodes->url($barcodes->currentPage()+1) }}"
+                                                <a class="page-link"
+                                                    href="{{ $barcodes->url($barcodes->currentPage()+1) }}"
                                                     aria-label="Next">
                                                     <span aria-hidden="true">&raquo;</span>
                                                     <span class="sr-only">Next</span>
@@ -331,6 +332,7 @@
     type="text/javascript"></script>
 <script>
     let map;
+
     function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
             center: {
@@ -419,31 +421,31 @@
             }, 300);
         }
     }
+
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
-    $(document).ready(function(){
-    
-    fetch_user_data();
-    
-    function fetch_user_data(query = '')
-    {
-      $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-       url:"{{ url('/search-lokasi') }}",
-       method:'POST',
-       data:{query:query},
-       success:function(response)
-       {
-        $('#tbody').html(response);
-       }
-      })
-    }
-    $(document).on('keyup', '#search', function(){
-      var word = $(this).val();
-      fetch_user_data(word);
+    $(document).ready(function () {
+        function fetch_user_data(query = '') {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{ url('/search-lokasi') }}",
+                method: 'POST',
+                data: {
+                    query: query
+                },
+                success: function (response) {
+                    $('#tbody').html(response);
+                }
+            })
+        }
+
+        $(document).on('keyup', '#search', function () {
+            var word = $(this).val();
+            fetch_user_data(word);
+        });
     });
-    });
-  </script>
+
+</script>
