@@ -25,39 +25,41 @@
                     <th>Attachment</th>
                     <th>Selfie</th>
                     <th>Status</th>
+                    <th>Waktu Laporan</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($satpam as $s)
-                <tr>
-                    <td>
-                        {{ $s->name }}
-                    </td>
-                    <td>
-                        {{ $laporan->name }}
-                    </td>
-                    <td>
-                        {{ $s->pivot->deskripsi }}
-                    </td>
-                    <td>
-                        {{ $s->pivot->range }}
-                    </td>
-                    {{-- <td>
+                    <tr>
+                        <td>
+                            {{ $s->name }}
+                        </td>
+                        <td>
+                            {{ $laporan->name }}
+                        </td>
+                        <td>
+                            {{ $s->pivot->deskripsi }}
+                        </td>
+                        <td>
+                            {{ $s->pivot->range }}
+                        </td>
+                        {{-- <td>
                         {{ $s->pivot->attachment }}
                     </td> --}}
-                    {{-- <td>
+                        {{-- <td>
                         <img src="{{ asset('data_users/' . $s->name . '/image/'.$s->image) }}" alt="satpam">
                     </td> --}}
-                    <td>
-                        {{ env('APP_URL').'/data/' . $s->name . '/laporan/'.$s->pivot->attachment }}
-                    </td>
-                    <td>
-                        {{ env('APP_URL').'/data/' . $s->name . '/laporan/'.$s->pivot->selfie }}
-                    </td>
-                    <td>
-                        {{ $s->status }}
-                    </td>
-                </tr>
+                        <td>
+                            {{ env('APP_URL') . '/data/' . $s->name . '/laporan/' . $s->pivot->attachment }}
+                        </td>
+                        <td>
+                            {{ env('APP_URL') . '/data/' . $s->name . '/laporan/' . $s->pivot->selfie }}
+                        </td>
+                        <td>{{ $s->pivot->created_at }}</td>
+                        <td>
+                            {{ $s->status }}
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
@@ -75,9 +77,15 @@
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
     <!--
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+        integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous">
+    </script>
     -->
 </body>
 
