@@ -29,7 +29,7 @@
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">BPJS</label>
                         <input type="number" style="border-radius: 30px;" placeholder="Masukkan BPJS Satpam"
-                            class="form-control" id="nik" name="bpjs" required>
+                            class="form-control" id="nik" name="bpjs">
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Nomor HP</label>

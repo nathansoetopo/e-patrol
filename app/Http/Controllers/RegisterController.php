@@ -58,11 +58,11 @@ class RegisterController extends Controller
             return redirect()->back()->with('status', 'User ini bukan hrd');
         }
         $validator = Validator::make($request->all(), [
-            'nik' => 'required|string|unique:users,nik,'.$user->id,
-            'bpjs' => 'nullable|string|unique:users,bpjs,'.$user->id,
+            'nik' => 'required|string|unique:users,nik,' . $user->id,
+            'bpjs' => 'nullable|string|unique:users,bpjs,' . $user->id,
             'name' => 'required|max:255|string',
-            'username' => 'required|alpha_dash|unique:users,username,'.$user->id,
-            'email' => 'required|email|unique:users,email,'.$user->id,
+            'username' => 'required|alpha_dash|unique:users,username,' . $user->id,
+            'email' => 'required|email|unique:users,email,' . $user->id,
             'phone' => 'required|min:12',
             'password' => 'min:8|required_with:password_confirmation|same:password_confirmation',
             'password_confirmation' => 'min:8',
@@ -97,7 +97,7 @@ class RegisterController extends Controller
             // return ResponseFormatter::error(null, 'User ini bukan Satpam', 403);
             return redirect()->back()->with('status', 'User ini bukan hrd');
         }
-        $user->status === 'ACTIVE' ? $user->update(['status'=>'INACTIVE']) : $user->update(['status'=>'ACTIVE']);
+        $user->status === 'ACTIVE' ? $user->update(['status' => 'INACTIVE']) : $user->update(['status' => 'ACTIVE']);
         return redirect()->back()->with('status', 'Data HRD berhasil diupdate');
     }
 
@@ -128,10 +128,10 @@ class RegisterController extends Controller
         $validator = Validator::make($request->all(), [
             'nik' => 'required|string|unique:users,nik',
             'bpjs' => 'nullable|string|unique:users,bpjs',
-            'name' => 'required|max:255|string',
-            'username' => 'required|alpha_dash|unique:users,username',
+            'name' => 'required|string',
+            'username' => 'required|unique:users,username',
             'email' => 'required|email|unique:users,email',
-            'phone' => 'required|min:12',
+            'phone' => 'required',
             'password' => 'min:8|required_with:password_confirmation|same:password_confirmation',
             'password_confirmation' => 'min:8',
         ]);
@@ -166,11 +166,11 @@ class RegisterController extends Controller
             return redirect()->back()->with('status', 'User ini bukan satpam');
         }
         $validator = Validator::make($request->all(), [
-            'nik' => 'required|string|unique:users,nik,'.$user->id,
-            'bpjs' => 'nullable|string|unique:users,bpjs,'.$user->id,
+            'nik' => 'required|string|unique:users,nik,' . $user->id,
+            'bpjs' => 'nullable|string|unique:users,bpjs,' . $user->id,
             'name' => 'required|max:255|string',
-            'username' => 'required|alpha_dash|unique:users,username,'.$user->id,
-            'email' => 'required|email|unique:users,email,'.$user->id,
+            'username' => 'required|alpha_dash|unique:users,username,' . $user->id,
+            'email' => 'required|email|unique:users,email,' . $user->id,
             'phone' => 'required|min:12',
             'password' => 'min:8|required_with:password_confirmation|same:password_confirmation',
             'password_confirmation' => 'min:8',
@@ -204,7 +204,7 @@ class RegisterController extends Controller
             // return ResponseFormatter::error(null, 'User ini bukan Satpam', 403);
             return redirect()->back()->with('status', 'User ini bukan satpam');
         }
-        $user->status === 'ACTIVE' ? $user->update(['status'=>'INACTIVE']) : $user->update(['status'=>'ACTIVE']);
+        $user->status === 'ACTIVE' ? $user->update(['status' => 'INACTIVE']) : $user->update(['status' => 'ACTIVE']);
         return redirect()->back()->with('status', 'Data satpam berhasil diupdate');
     }
 
