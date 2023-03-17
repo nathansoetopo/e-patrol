@@ -177,11 +177,11 @@ class SatpamController extends Controller
             // return ResponseFormatter::error(null, 'User belum melakukan presensi', 403);
             return redirect('/satpam')->with('status','User belum melakukan presensi');
         }
-        $dateNow = Carbon::parse(now())->format('Y:m:d');
-        if($user->barcodes()->where('barcodes.id',$barcodeID)->where('attachment','!=',null)->where('tanggal_laporan',$dateNow)->count() >= 2)
-        {
-            return redirect('/satpam')->with('status','anda sudah melakukan scanning di titik ini');
-        }
+        // $dateNow = Carbon::parse(now())->format('Y:m:d');
+        // if($user->barcodes()->where('barcodes.id',$barcodeID)->where('attachment','!=',null)->where('tanggal_laporan',$dateNow)->count() >= 2)
+        // {
+        //     return redirect('/satpam')->with('status','anda sudah melakukan scanning di titik ini');
+        // }
 
         return view('pages.satpam.Satpam-barcode-upload',compact('barcode','user'));
     }
@@ -224,7 +224,7 @@ class SatpamController extends Controller
         ]);
         if ($validate->fails()) {
             // return ResponseFormatter::error($validate, $validate->messages(), 417);
-            return back()->withInput()->withErrors($validate, $validate->messages(), 417);
+            return back()->withInput()->withErrors($validate);
         }
         if (request()->hasFile('attachment') && request()->hasFile('attachment_selfie')) {
             $name = time() . "_" . request()->attachment->getClientOriginalName();

@@ -1,6 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AjaxController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\HRD\HRDController;
@@ -11,8 +14,6 @@ use App\Http\Controllers\DataShiftController;
 use App\Http\Controllers\DataLokasiController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Satpam\SatpamController;
-use App\Http\Controllers\TestController;
-use App\Http\Controllers\AjaxController;
 
 
 Route::get('/test', function () {
@@ -150,3 +151,4 @@ Route::middleware('auth')->group(function () {
     Route::get('/test-ajax', [TestController::class, 'testAjaxView']);
     Route::post('test-ajax-search', [TestController::class, 'testSearchAjax']);
 });
+// URL::forceScheme('https');
